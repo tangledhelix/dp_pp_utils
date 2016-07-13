@@ -33,6 +33,8 @@ Just started.
 
 ```
 Punctuation has been standardized.
+
+<!-- Some alternate spellings have been retained. -->
 ```
 
 ### HTML transcriber's notes ###
