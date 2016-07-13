@@ -4,51 +4,54 @@ from os import environ, mkdir, chdir
 from jinja2 import Template
 from subprocess import call
 
-dp_base = environ['HOME'] + '/dp'
-projects_base = dp_base + '/pp'
-template_dir = dp_base + '/util/templates'
 
-project_name = input('Project name, e.g. "missfairfax": ')
-project_id = input('Project ID, e.g. "5351bd1e5eca9": ')
-title = input('Title, e.g. "Miss Fairfax of Virginia": ')
-author = input('Author, e.g. "St. George Rathborne": ')
-pub_year = input('Year published: ')
-source_images = input('URL to source images (empty if none): ')
-forum_link = input('URL to forum thread: ')
+class MakeProject():
 
-template_args = {
-    'project_name': project_name,
-    'project_id': project_id,
-    'title': title,
-    'author': author,
-    'pub_year': pub_year,
-    'source_images': source_images,
-    'forum_link': forum_link,
-}
+    def __init__(self):
+        self.dp_base = environ['HOME'] + '/dp'
+        self.projects_base = self.dp_base + '/pp'
+        self.template_dir = self.dp_base + '/util/templates'
+        self.params = {}
 
-project_dir = '{}/{}'.format(projects_base, project_name).lower()
-mkdir(project_dir, mode=0o755)
-chdir(project_dir)
+    def get_param(self, param_name, prompt_text):
+        self.params[param_name] = input(prompt_text + ': ')
 
-mkdir('images', mode=0o755)
-mkdir('pngs', mode=0o755)
+    def get_params(self):
+        self.get_param('project_name', 'Project name, e.g. "missfairfax"')
+        self.get_param('project_id', 'Project ID, e.g. "5351bd1e5eca9"')
+        self.get_param('title', 'Title, e.g. "Miss Fairfax of Virginia"')
+        self.get_param('author', 'Author, e.g. "St. George Rathborne"')
+        self.get_param('pub_year', 'Year published')
+        self.get_param('source_images', 'URL to source images (empty if none)')
+        self.get_param('forum_link', 'URL to forum thread')
+        self.project_dir = '{}/{}'.format(
+            self.projects_base, self.params['project_name']).lower()
 
-call(['git', 'init'])
+    def create_directories(self):
+        mkdir(self.project_dir, mode=0o755)
+        chdir(self.project_dir)  # does this work? let's find out
+        mkdir('images', mode=0o755)
+        mkdir('pngs', mode=0o755)
 
-with open(template_dir + '/Makefile') as file:
-    template = Template(file.read())
+    def create_git_repository(self):
+        call(['git', 'init'])
 
-with open(project_dir + '/Makefile', 'w') as file:
-    file.write(template.render(template_args))
+    def process_template(self, src_filename, dst_filename=None):
+        if not dst_filename:
+            dst_filename = src_filename
+        with open(self.template_dir + '/' + src_filename) as file:
+            template = Template(file.read())
+        with open(self.project_dir + '/' + dst_filename, 'w') as file:
+            file.write(template.render(self.params))
 
-with open(template_dir + '/README.md') as file:
-    template = Template(file.read())
 
-with open(project_dir + '/README.md', 'w') as file:
-    file.write(template.render(template_args))
+if __name__ == '__main__':
+    project = MakeProject()
+    project.get_params()
+    project.create_directories()
+    project.create_git_repository()
 
-with open(template_dir + '/index.html') as file:
-    template = Template(file.read())
-
-with open(project_dir + '/index.html', 'w') as file:
-    file.write(template.render(template_args))
+    project.process_template('Makefile')
+    project.process_template('README.md')
+    project.process_template('index.html')
+    project.process_template('pp-gitignore', '.gitignore')
