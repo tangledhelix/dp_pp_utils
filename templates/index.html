@@ -36,7 +36,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">{{ title }}</th>
+                        <th class="text-center">{{ title }} ({{ project_id }})</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <td class="text-center">
-                            <a href="https://github.com/tangledhelix/DP_{{ project_name }}/blob/master/README.md">Project notes</a>
+                            <a href="https://github.com/tangledhelix/DP_{{ project_name }}/blob/master/README.md">My PP notes</a>
                         </td>
                     </tr>
                     <tr>
@@ -68,6 +68,11 @@
                     <tr>
                         <td class="text-center">
                             <a href="{{ trello_url }}">Trello board</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <a href="http://www.pgdp.net/c/project.php?id=projectID{{ project_id }}">DP project page</a>
                         </td>
                     </tr>
                 </tbody>
