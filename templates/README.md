@@ -10,6 +10,7 @@ This is a [Distributed Proofreaders](http://www.pgdp.net/) post-processing proje
 {% endif -%}
 - [Forum thread]({{ forum_link }})
 - [Online preview](https://dp.tangledhelix.com/projects/{{ project_name }}/)
+- [Trello board]({{ trello_url }})
 
 Page references (e.g. `001`) refer to the scan numbers, not the original book's page numbers.
 

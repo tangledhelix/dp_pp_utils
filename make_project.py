@@ -24,6 +24,7 @@ class MakeProject():
         self.get_param('pub_year', 'Year published')
         self.get_param('source_images', 'URL to source images (empty if none)')
         self.get_param('forum_link', 'URL to forum thread')
+        self.get_param('trello_url', 'URL to Trello board')
         self.project_dir = '{}/{}'.format(
             self.projects_base, self.params['project_name']).lower()
 
