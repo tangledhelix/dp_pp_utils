@@ -33,4 +33,5 @@ zip:
 	cp $(HTML).bin $(ZIPTARG)/$(PROJECT).html.bin
 	mkdir -p $(ZIPTARG)/$(IMG)
 	cp -r $(IMG) $(ZIPTARG)/$(IMG)
+	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
 	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
