@@ -4,7 +4,7 @@ HOST=dp.tangledhelix.com
 DIR=sites/$(HOST)
 WEBTARGET=$(HOST):$(DIR)/projects/$(PROJECT)
 
-IMG=images/
+IMG=images
 ZIPDIR=zipdir
 ZIPTARG=$(ZIPDIR)/$(PROJECT)
 
@@ -19,10 +19,10 @@ default:
 	@echo "make zip: create zip file to submit to PPV"
 
 web:
-	chmod 0755 $(IMG)
-	chmod 0644 $(IDX) $(TXT) $(HTML) $(IMG)*
+	chmod 0755 $(IMG)/
+	chmod 0644 $(IDX) $(TXT) $(HTML) $(IMG)/*
 	scp -q $(ORIG) $(IDX) $(TXT) $(HTML) $(WEBTARGET)
-	rsync -a --delete $(IMG) $(WEBTARGET)/$(IMG)
+	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
 
 zip:
 	rm -rf $(ZIPDIR) $(PROJECT).zip
@@ -31,7 +31,7 @@ zip:
 	cp $(TXT).bin $(ZIPTARG)/$(PROJECT)-utf8.txt.bin
 	cp $(HTML) $(ZIPTARG)/$(PROJECT).html
 	cp $(HTML).bin $(ZIPTARG)/$(PROJECT).html.bin
-	mkdir -p $(ZIPTARG)/$(IMG)
-	cp -r $(IMG) $(ZIPTARG)/$(IMG)
+	mkdir -p $(ZIPTARG)/$(IMG)/
+	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
 	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
 	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
