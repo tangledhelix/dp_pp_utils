@@ -209,4 +209,16 @@ else
     cd $OLDCWD
 fi
 
+## TODO: script setup of epubmaker
+##
+## brew install groff
+## pip install lxml
+## pip install cssutils
+## pip install Pillow
+## pip install docutils
+## pip install roman
+## pip install epubmaker
+##
+## to test: epubmaker --help
+
 logit "Done!"

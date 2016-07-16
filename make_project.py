@@ -27,6 +27,7 @@ class MakeProject():
         self.get_param('trello_url', 'URL to Trello board')
         self.project_dir = '{}/{}'.format(
             self.projects_base, self.params['project_name']).lower()
+        self.kindlegen_dir = self.dp_base + '/kindlegen'
 
     def create_directories(self):
         mkdir(self.project_dir, mode=0o755)
