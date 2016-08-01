@@ -33,6 +33,7 @@ class MakeProject():
         mkdir(self.project_dir, mode=0o755)
         chdir(self.project_dir)  # does this work? let's find out
         mkdir('images', mode=0o755)
+        mkdir('illustrations', mode=0o755)
         mkdir('pngs', mode=0o755)
 
     def create_git_repository(self):
