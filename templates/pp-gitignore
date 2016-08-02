@@ -1,3 +1,5 @@
 guiguts.log
 /zipdir
 /ebooks
+*.xcf
+*.pxm
