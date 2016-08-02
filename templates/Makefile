@@ -12,6 +12,7 @@ IMG=images
 ZIPDIR=zipdir
 ZIPTARG=$(ZIPDIR)/$(PROJECT)
 BOOKSDIR=ebooks
+ILLODIR=illustrations
 
 IDX=index.html
 ORIG=projectID{{ project_id }}.txt
@@ -25,6 +26,7 @@ default:
 	@echo "make epub:   build epub files"
 	@echo "make kindle: build kindle files"
 	@echo "make ebooks: build both epub and kindle files"
+	@echo "make clean:  remove Gimp/Pixelmator files, ebooks, zip archive"
 
 web:
 	chmod 0755 $(IMG)/
@@ -43,6 +45,9 @@ zip:
 	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
 	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
 	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
+
+zipclean:
+	rm -rf $(ZIPDIR)
 
 booksdir:
 	mkdir -p $(BOOKSDIR)
@@ -64,4 +69,13 @@ kindle: booksdir
 	ls -l $(BOOKSDIR)/*.mobi
 
 ebooks: epub kindle
+
+ebooksclean:
+	rm -rf $(BOOKSDIR)
+
+illoclean:
+	rm -fv $(ILLODIR)/*.xcf
+	rm -fv $(ILLODIR)/*.pxm
+
+clean: illoclean zipclean ebooksclean
 
