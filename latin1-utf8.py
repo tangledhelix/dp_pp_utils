@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 #
 # Convert a Latin-1 file to UTF-8
+#
+# This same process happens in make_project.py, so you won't need this
+# often, but it's here if needed.
 
 import sys
 

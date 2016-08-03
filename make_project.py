@@ -30,8 +30,7 @@ class MakeProject():
         self.kindlegen_dir = self.dp_base + '/kindlegen'
 
     def create_directories(self):
-        mkdir(self.project_dir, mode=0o755)
-        chdir(self.project_dir)  # does this work? let's find out
+        chdir(self.project_dir)
         mkdir('images', mode=0o755)
         mkdir('illustrations', mode=0o755)
         mkdir('pngs', mode=0o755)
@@ -47,6 +46,20 @@ class MakeProject():
         with open(self.project_dir + '/' + dst_filename, 'w') as file:
             file.write(template.render(self.params))
 
+    def utf8_conversion(self):
+        project_id = self.params['project_id']
+        project_name = self.params['project_name'].lower()
+        project_dir = self.project_dir
+
+        input_file = '{}/projectID{}.txt'.format(project_dir, project_id)
+        output_file = '{}/{}-utf8.txt'.format(project_dir, project_name)
+
+        with open(input_file, encoding='latin-1') as file:
+            contents = file.read()
+
+        with open(output_file, 'w', encoding='utf-8') as file:
+            file.write(contents)
+
 
 if __name__ == '__main__':
     project = MakeProject()
@@ -58,3 +71,6 @@ if __name__ == '__main__':
     project.process_template('README.md')
     project.process_template('index.html')
     project.process_template('pp-gitignore', '.gitignore')
+
+    project.utf8_conversion()
+
