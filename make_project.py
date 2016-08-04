@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from os import environ, mkdir, chdir
+from os import environ, mkdir, chdir, getcwd
+from os.path import basename
 from jinja2 import Template
 from subprocess import call
 
@@ -11,13 +12,12 @@ class MakeProject():
         self.dp_base = environ['HOME'] + '/dp'
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
-        self.params = {}
+        self.params = {'project_name': basename(getcwd())}
 
     def get_param(self, param_name, prompt_text):
         self.params[param_name] = input(prompt_text + ': ')
 
     def get_params(self):
-        self.get_param('project_name', 'Project name, e.g. "missfairfax"')
         self.get_param('project_id', 'Project ID, e.g. "5351bd1e5eca9"')
         self.get_param('title', 'Title, e.g. "Miss Fairfax of Virginia"')
         self.get_param('author', 'Author, e.g. "St. George Rathborne"')
@@ -74,4 +74,3 @@ if __name__ == '__main__':
     project.process_template('pp-gitignore', '.gitignore')
 
     project.utf8_conversion()
-
