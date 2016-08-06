@@ -16,6 +16,8 @@ Page references (e.g. `001`) refer to the scan numbers, not the original book's 
 
 ### Forum notes ###
 
+### General notes ###
+
 ### Illustrations ###
 
 ### Things to revisit ###
