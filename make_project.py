@@ -58,7 +58,7 @@ class MakeProject():
             contents = file.read()
 
         with open(output_file, 'w', encoding='utf-8') as file:
-            file.write('<!-- UTF8 preservation hack: Phœnix -->\n')
+            file.write('[** UTF8 preservation hack: Phœnix]\n')
             file.write(contents)
 
 
