@@ -21,16 +21,21 @@ TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
 default:
-	@echo "make web:    upload to my DP preview site"
-	@echo "make zip:    create zip file to submit to PPV"
-	@echo "make ebooks: build epub and kindle files"
-	@echo "make clean:  remove Gimp/Pixelmator files, ebooks, zip archive"
+	@echo "make web:       upload to my DP preview site"
+	@echo "make zip:       create zip file to submit to PPV"
+	@echo "make ebooks:    build epub and kindle files"
+	@echo "make ebooksweb: upload ebook files to DP preview site"
+	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
 web:
 	chmod 0755 $(IMG)/
 	chmod 0644 $(IDX) $(TXT) $(HTML) $(IMG)/*
 	scp -q $(ORIG) $(IDX) $(TXT) $(HTML) $(WEBTARGET)
 	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
+
+ebooksweb:
+	chmod 0644 $(BOOKSDIR)/*.epub $(BOOKSDIR)/*.mobi
+	scp -q $(BOOKSDIR)/$(PROJECT).epub $(BOOKSDIR)/$(PROJECT).mobi $(WEBTARGET)
 
 zip:
 	rm -rf $(ZIPDIR) $(PROJECT).zip
