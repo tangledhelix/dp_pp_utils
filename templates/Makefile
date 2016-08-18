@@ -22,9 +22,10 @@ HTML=$(PROJECT).html
 
 default:
 	@echo "make web:       upload to my DP preview site"
-	@echo "make zip:       create zip file to submit to PPV"
 	@echo "make ebooks:    build epub and kindle files"
 	@echo "make ebooksweb: upload ebook files to DP preview site"
+	@echo "make sr:        create zip file to submit to SR"
+	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
 web:
@@ -37,17 +38,22 @@ ebooksweb:
 	chmod 0644 $(BOOKSDIR)/*.epub $(BOOKSDIR)/*.mobi
 	scp -q $(BOOKSDIR)/$(PROJECT).epub $(BOOKSDIR)/$(PROJECT).mobi $(WEBTARGET)
 
-zip:
-	rm -rf $(ZIPDIR) $(PROJECT).zip
+sr: zipclean zipdir
 	mkdir -p $(ZIPTARG)
-	cp $(TXT) $(ZIPTARG)/$(PROJECT)-utf8.txt
-	cp $(TXT).bin $(ZIPTARG)/$(PROJECT)-utf8.txt.bin
-	cp $(HTML) $(ZIPTARG)/$(PROJECT).html
-	cp $(HTML).bin $(ZIPTARG)/$(PROJECT).html.bin
+	cp $(TXT) $(ZIPTARG)
+	cp smooth-reading.txt $(ZIPTARG)/README.txt
+	cd $(ZIPDIR) && zip -r $(PROJECT)-sr.zip $(PROJECT)
+
+ppv: zipclean zipdir
+	mkdir -p $(ZIPTARG)
+	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPTARG)
 	mkdir -p $(ZIPTARG)/$(IMG)/
 	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
 	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
 	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
+
+zipdir:
+	mkdir -p $(ZIPDIR)
 
 zipclean:
 	rm -rf $(ZIPDIR)

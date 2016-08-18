@@ -71,6 +71,7 @@ if __name__ == '__main__':
     project.process_template('Makefile')
     project.process_template('README.md')
     project.process_template('index.html')
+    project.process_template('smooth-reading.txt')
     project.process_template('pp-gitignore', '.gitignore')
 
     project.utf8_conversion()
