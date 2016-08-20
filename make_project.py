@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
+import json
+import requests
 from os import environ, mkdir, chdir, getcwd
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
+
+GITHUB_CONFIG = 'github.json'
 
 
 class MakeProject():
@@ -13,6 +17,7 @@ class MakeProject():
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
         self.params = {'project_name': basename(getcwd())}
+        self.github_config = self.dp_base + '/util/' + GITHUB_CONFIG
 
     def get_param(self, param_name, prompt_text):
         self.params[param_name] = input(prompt_text + ': ')
@@ -37,6 +42,7 @@ class MakeProject():
 
     def create_git_repository(self):
         call(['git', 'init'])
+        call(['git', 'remote', 'add', 'origin', self.github_remote_url])
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
@@ -61,12 +67,44 @@ class MakeProject():
             file.write('[** UTF8 preservation hack: Phœnix]\n')
             file.write(contents)
 
+    def make_github_repo(self):
+        with open(self.github_config, 'r') as file:
+            auth_json = json.loads(file.read())
+            auth_data = (auth_json['username'], auth_json['password'])
+
+        headers = {
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json',
+        }
+
+        payload = {
+            'name': 'DP_{}'.format(self.params['project_name'].lower()),
+            'description': 'DP PP project "{}" ID {}'.format(
+                self.params['title'], self.params['project_id'],
+            ),
+            'private': False,
+            'has_issues': False,
+            'has_wiki': False,
+            'has_downloads': False,
+            'auto_init': False,
+        }
+
+        r = requests.post('https://api.github.com/user/repos',
+                          auth=auth_data, headers=headers,
+                          data=json.dumps(payload))
+        if r.status_code == 201:
+            print('Created GitHub repository')
+            json_response = json.loads(r.text)
+            self.github_remote_url = json_response['ssh_url']
+        else:
+            print('ERROR: GitHub response code {} unexpected.'.format(
+                r.status_code
+            ))
 
 if __name__ == '__main__':
     project = MakeProject()
     project.get_params()
     project.create_directories()
-    project.create_git_repository()
 
     project.process_template('Makefile')
     project.process_template('README.md')
@@ -75,3 +113,5 @@ if __name__ == '__main__':
     project.process_template('pp-gitignore', '.gitignore')
 
     project.utf8_conversion()
+    project.make_github_repo()
+    project.create_git_repository()
