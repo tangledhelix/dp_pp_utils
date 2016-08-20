@@ -15,7 +15,6 @@ BOOKSDIR=ebooks
 ILLODIR=illustrations
 
 IDX=index.html
-ORIG=projectID{{ project_id }}.txt
 
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
@@ -31,7 +30,7 @@ default:
 web:
 	chmod 0755 $(IMG)/
 	chmod 0644 $(IDX) $(TXT) $(HTML) $(IMG)/*
-	scp -q $(ORIG) $(IDX) $(TXT) $(HTML) $(WEBTARGET)
+	scp -q $(IDX) $(TXT) $(HTML) $(WEBTARGET)
 	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
 
 ebooksweb:
@@ -84,4 +83,3 @@ illoclean:
 	rm -fv $(ILLODIR)/*.pxm
 
 clean: illoclean zipclean ebooksclean
-
