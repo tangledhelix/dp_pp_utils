@@ -3,3 +3,6 @@ homebrew.log
 .*.swp
 /github.json
 /venv/
+__pycache__/
+*.pyo
+*.pyc
