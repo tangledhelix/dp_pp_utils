@@ -2,7 +2,7 @@
 
 import json
 import requests
-from os import environ, mkdir, chdir, getcwd
+import os
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
@@ -18,7 +18,7 @@ PREVIEW_PATH = 'sites/' + PREVIEW_HOST + '/projects/'
 class MakeProject():
 
     def __init__(self):
-        self.dp_base = environ['HOME'] + '/dp'
+        self.dp_base = os.environ['HOME'] + '/dp'
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
         self.params = {'project_name': basename(getcwd()).lower()}
@@ -45,10 +45,10 @@ class MakeProject():
         self.params['kindlegen_dir'] = self.dp_base + '/kindlegen'
 
     def create_directories(self):
-        chdir(self.project_dir)
-        mkdir('images', mode=0o755)
-        mkdir('illustrations', mode=0o755)
-        mkdir('pngs', mode=0o755)
+        os.chdir(self.project_dir)
+        os.mkdir('images', mode=0o755)
+        os.mkdir('illustrations', mode=0o755)
+        os.mkdir('pngs', mode=0o755)
 
     def create_git_repository(self):
         call(['git', 'init'])
