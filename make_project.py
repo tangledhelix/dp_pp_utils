@@ -152,6 +152,16 @@ class MakeProject():
         self.unzip_file(zipfile, self.project_dir)
         print(' done.')
 
+    def download_images(self):
+        print('Downloading images from DP ...', end='', flush=True)
+        zipfile = 'projectID{}images.zip'.format(self.params['project_id'])
+        url = 'http://www.pgdp.net/c/tools/download_images.php?projectid=projectID{}'
+        r = requests.get(url.format(self.params['project_id']))
+        with open(zipfile, 'wb') as file:
+            file.write(r.content)
+        self.unzip_file(zipfile, self.project_dir + '/pngs')
+        print(' done.')
+
     def unzip_file(self, filename, path):
         with ZipFile(filename, 'r') as zip_ref:
             zip_ref.extractall(path)
@@ -163,6 +173,7 @@ if __name__ == '__main__':
     project.get_params()
     project.create_directories()
     project.download_text()
+    project.download_images()
 
     project.utf8_conversion()
     project.make_github_repo()
