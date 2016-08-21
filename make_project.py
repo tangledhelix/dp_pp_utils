@@ -11,6 +11,9 @@ from trello import TrelloClient
 AUTH_CONFIG = 'auth-config.json'
 TRELLO_TEMPLATE = 'TEMPLATE: PP workflow'
 
+PREVIEW_HOST = 'dp.tangledhelix.com'
+PREVIEW_PATH = 'sites/' + PREVIEW_HOST + '/projects/'
+
 
 class MakeProject():
 
@@ -21,6 +24,8 @@ class MakeProject():
         self.params = {'project_name': basename(getcwd()).lower()}
 
         self.trello_template = TRELLO_TEMPLATE
+        self.preview_host = PREVIEW_HOST
+        self.preview_path = PREVIEW_PATH
 
         with open(self.dp_base + '/util/' + AUTH_CONFIG) as file:
             self.auth = json.loads(file.read())
@@ -130,6 +135,11 @@ class MakeProject():
         self.params['trello_url'] = new_board.url
         print('Created Trello board - ' + new_board.url)
 
+    def make_preview_dir(self):
+        call(['ssh', self.preview_host,
+              'mkdir ' + self.preview_path + self.params['project_name']])
+
+
 if __name__ == '__main__':
     project = MakeProject()
     project.get_params()
@@ -145,3 +155,4 @@ if __name__ == '__main__':
     project.process_template('index.html')
     project.process_template('smooth-reading.txt')
     project.process_template('pp-gitignore', '.gitignore')
+    project.make_preview_dir()
