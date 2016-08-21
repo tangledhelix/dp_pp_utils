@@ -7,6 +7,7 @@ from os.path import basename
 from jinja2 import Template
 from subprocess import call
 from trello import TrelloClient
+from zipfile import ZipFile
 
 AUTH_CONFIG = 'auth-config.json'
 TRELLO_TEMPLATE = 'TEMPLATE: PP workflow'
@@ -21,7 +22,7 @@ class MakeProject():
         self.dp_base = os.environ['HOME'] + '/dp'
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
-        self.params = {'project_name': basename(getcwd()).lower()}
+        self.params = {}
 
         self.trello_template = TRELLO_TEMPLATE
         self.preview_host = PREVIEW_HOST
@@ -34,6 +35,7 @@ class MakeProject():
         self.params[param_name] = input(prompt_text + ': ')
 
     def get_params(self):
+        self.get_param('project_name', 'Project name, e.g. "missfairfax"')
         self.get_param('project_id', 'Project ID, e.g. "5351bd1e5eca9"')
         self.get_param('title', 'Title, e.g. "Miss Fairfax of Virginia"')
         self.get_param('author', 'Author, e.g. "St. George Rathborne"')
@@ -45,6 +47,7 @@ class MakeProject():
         self.params['kindlegen_dir'] = self.dp_base + '/kindlegen'
 
     def create_directories(self):
+        os.mkdir(self.project_dir, mode=0o755)
         os.chdir(self.project_dir)
         os.mkdir('images', mode=0o755)
         os.mkdir('illustrations', mode=0o755)
@@ -139,11 +142,27 @@ class MakeProject():
         call(['ssh', self.preview_host,
               'mkdir ' + self.preview_path + self.params['project_name']])
 
+    def download_text(self):
+        print('Downloading text from DP ...', end='', flush=True)
+        zipfile = 'projectID{}.zip'.format(self.params['project_id'])
+        url = 'http://www.pgdp.net/projects/projectID{0}/projectID{0}.zip'
+        r = requests.get(url.format(self.params['project_id']))
+        with open(zipfile, 'wb') as file:
+            file.write(r.content)
+        self.unzip_file(zipfile, self.project_dir)
+        print(' done.')
+
+    def unzip_file(self, filename, path):
+        with ZipFile(filename, 'r') as zip_ref:
+            zip_ref.extractall(path)
+        os.remove(filename)
+
 
 if __name__ == '__main__':
     project = MakeProject()
     project.get_params()
     project.create_directories()
+    project.download_text()
 
     project.utf8_conversion()
     project.make_github_repo()
