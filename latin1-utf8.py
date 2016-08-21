@@ -20,7 +20,7 @@ if not input_file.endswith('.txt'):
 output_file = '{}-utf8.txt'.format(input_file[:-4])
 
 try:
-    with open(input_file, encoding='latin-1') as file:
+    with open(input_file, newline='\r\n', encoding='latin-1') as file:
         contents = file.read()
 except FileNotFoundError:
     print('Error: {}: file not found'.format(input_file))
@@ -28,6 +28,7 @@ except FileNotFoundError:
 
 try:
     with open(output_file, 'x', encoding='utf-8') as file:
+        file.write('[** UTF8 preservation hack: Phœnix]\r\n')
         file.write(contents)
 except FileExistsError:
     print('Error: {} already exists!'.format(output_file))
