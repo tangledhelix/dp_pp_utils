@@ -18,7 +18,8 @@ class MakeProject():
         self.dp_base = environ['HOME'] + '/dp'
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
-        self.params = {'project_name': basename(getcwd())}
+        self.params = {'project_name': basename(getcwd()).lower()}
+
         self.trello_template = TRELLO_TEMPLATE
 
         with open(self.dp_base + '/util/' + AUTH_CONFIG) as file:
@@ -35,7 +36,7 @@ class MakeProject():
         self.get_param('source_images', 'URL to source images (empty if none)')
         self.get_param('forum_link', 'URL to forum thread')
         self.project_dir = '{}/{}'.format(
-            self.projects_base, self.params['project_name']).lower()
+            self.projects_base, self.params['project_name'])
         self.params['kindlegen_dir'] = self.dp_base + '/kindlegen'
 
     def create_directories(self):
@@ -58,7 +59,7 @@ class MakeProject():
 
     def utf8_conversion(self):
         project_id = self.params['project_id']
-        project_name = self.params['project_name'].lower()
+        project_name = self.params['project_name']
         project_dir = self.project_dir
 
         input_file = '{}/projectID{}.txt'.format(project_dir, project_id)
@@ -78,7 +79,7 @@ class MakeProject():
         }
 
         payload = {
-            'name': 'DP_{}'.format(self.params['project_name'].lower()),
+            'name': 'DP_{}'.format(self.params['project_name']),
             'description': 'DP PP project "{}" ID {}'.format(
                 self.params['title'], self.params['project_id'],
             ),
