@@ -1,0 +1,12 @@
+{
+    "github": {
+        "username": "my_username",
+        "password": "my_password"
+    },
+    "trello": {
+        "api_key": "my_api_key",
+        "api_secret": "my_api_secret",
+        "token": "my_token",
+        "token_secret": "my_token_secret"
+    }
+}

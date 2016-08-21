@@ -1,7 +1,7 @@
 homebrew.log
 .DS_Store
 .*.swp
-/github.json
+/auth-config.json
 /venv/
 __pycache__/
 *.pyo

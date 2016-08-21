@@ -6,8 +6,10 @@ from os import environ, mkdir, chdir, getcwd
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
+from trello import TrelloClient
 
-GITHUB_CONFIG = 'github.json'
+AUTH_CONFIG = 'auth-config.json'
+TRELLO_TEMPLATE = 'TEMPLATE: PP workflow'
 
 
 class MakeProject():
@@ -17,7 +19,10 @@ class MakeProject():
         self.projects_base = self.dp_base + '/pp'
         self.template_dir = self.dp_base + '/util/templates'
         self.params = {'project_name': basename(getcwd())}
-        self.github_config = self.dp_base + '/util/' + GITHUB_CONFIG
+        self.trello_template = TRELLO_TEMPLATE
+
+        with open(self.dp_base + '/util/' + AUTH_CONFIG) as file:
+            self.auth = json.loads(file.read())
 
     def get_param(self, param_name, prompt_text):
         self.params[param_name] = input(prompt_text + ': ')
@@ -29,7 +34,6 @@ class MakeProject():
         self.get_param('pub_year', 'Year published')
         self.get_param('source_images', 'URL to source images (empty if none)')
         self.get_param('forum_link', 'URL to forum thread')
-        self.get_param('trello_url', 'URL to Trello board')
         self.project_dir = '{}/{}'.format(
             self.projects_base, self.params['project_name']).lower()
         self.params['kindlegen_dir'] = self.dp_base + '/kindlegen'
@@ -68,10 +72,6 @@ class MakeProject():
             file.write(contents)
 
     def make_github_repo(self):
-        with open(self.github_config, 'r') as file:
-            auth_json = json.loads(file.read())
-            auth_data = (auth_json['username'], auth_json['password'])
-
         headers = {
             'Accept': 'application/vnd.github.v3+json',
             'Content-Type': 'application/json',
@@ -89,6 +89,11 @@ class MakeProject():
             'auto_init': False,
         }
 
+        auth_data = (
+            self.auth['github']['username'],
+            self.auth['github']['password'],
+        )
+
         r = requests.post('https://api.github.com/user/repos',
                           auth=auth_data, headers=headers,
                           data=json.dumps(payload))
@@ -101,17 +106,41 @@ class MakeProject():
                 r.status_code
             ))
 
+    def make_trello_board(self):
+        client = TrelloClient(
+            api_key=self.auth['trello']['api_key'],
+            api_secret=self.auth['trello']['api_secret'],
+            token=self.auth['trello']['token'],
+            token_secret=self.auth['trello']['token_secret'],
+        )
+
+        boards = client.list_boards()
+        template = None
+
+        for board in boards:
+            if board.name == self.trello_template:
+                template = board
+
+        new_board = client.add_board(
+            'New test board',
+            source_board=template,
+            permission_level='public'
+        )
+        self.params['trello_url'] = new_board.url
+        print('Created Trello board - ' + new_board.url)
+
 if __name__ == '__main__':
     project = MakeProject()
     project.get_params()
     project.create_directories()
+
+    project.utf8_conversion()
+    project.make_github_repo()
+    project.make_trello_board()
+    project.create_git_repository()
 
     project.process_template('Makefile')
     project.process_template('README.md')
     project.process_template('index.html')
     project.process_template('smooth-reading.txt')
     project.process_template('pp-gitignore', '.gitignore')
-
-    project.utf8_conversion()
-    project.make_github_repo()
-    project.create_git_repository()

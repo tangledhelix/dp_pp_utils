@@ -13,6 +13,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-And create a `github.json` file with your Github username and password.
-You can use `github.json.sample` as a guide for the format, but it's a
-straightforward JSON file.
+And create a `auth-config.json` file with your Github username and password and
+your Trello API data. Use `auth-config.json.sample` as a guide for the format;
+it's a straightforward JSON file.
