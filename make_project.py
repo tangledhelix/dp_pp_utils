@@ -178,6 +178,7 @@ if __name__ == '__main__':
     project.utf8_conversion()
     project.make_github_repo()
     project.make_trello_board()
+    project.make_preview_dir()
     project.create_git_repository()
 
     project.process_template('Makefile')
@@ -185,4 +186,3 @@ if __name__ == '__main__':
     project.process_template('index.html')
     project.process_template('smooth-reading.txt')
     project.process_template('pp-gitignore', '.gitignore')
-    project.make_preview_dir()
