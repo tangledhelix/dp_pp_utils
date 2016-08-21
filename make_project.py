@@ -131,7 +131,7 @@ class MakeProject():
                 template = board
 
         new_board = client.add_board(
-            'New test board',
+            'DP: ' + self.params['title'],
             source_board=template,
             permission_level='public'
         )
