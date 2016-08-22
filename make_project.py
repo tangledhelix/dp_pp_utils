@@ -55,7 +55,10 @@ class MakeProject():
 
     def create_git_repository(self):
         call(['git', 'init'])
+        call(['git', 'add', '.'])
+        call(['git', 'commit', '-m', 'Initial import from DP'])
         call(['git', 'remote', 'add', 'origin', self.github_remote_url])
+        call(['git', 'push', '-u', 'origin', 'master'])
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
@@ -179,10 +182,11 @@ if __name__ == '__main__':
     project.make_github_repo()
     project.make_trello_board()
     project.make_preview_dir()
-    project.create_git_repository()
 
     project.process_template('Makefile')
     project.process_template('README.md')
     project.process_template('index.html')
     project.process_template('smooth-reading.txt')
     project.process_template('pp-gitignore', '.gitignore')
+
+    project.create_git_repository()
