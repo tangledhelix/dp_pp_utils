@@ -119,11 +119,11 @@ class MakeProject():
         input_file = '{}/projectID{}.txt'.format(project_dir, project_id)
         output_file = '{}/{}-utf8.txt'.format(project_dir, project_name)
 
-        with open(input_file, encoding='latin-1', newline='\r\n') as file:
+        with open(input_file, encoding='latin-1') as file:
             contents = file.read()
 
         with open(output_file, 'w', encoding='utf-8') as file:
-            file.write('[** UTF8 preservation hack: Phœnix]\r\n')
+            file.write('[** UTF8 preservation hack: Phœnix]\n')
             file.write(contents)
 
     def make_github_repo(self):
