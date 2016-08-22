@@ -2,12 +2,9 @@
 
 This is a [Distributed Proofreaders](http://www.pgdp.net/) post-processing project.
 
-"{{ title }}" by {{ author }} ({{ pub_year }})
+"{{ title }}" by {{ author }}
 
 - [DP project page](http://www.pgdp.net/c/project.php?id=projectID{{ project_id }})
-{% if source_images -%}
-- [Hi-res source images]({{ source_images }})
-{% endif -%}
 - [Forum thread]({{ forum_link }})
 - [Online preview](https://dp.tangledhelix.com/projects/{{ project_name }}/)
 - [Trello board]({{ trello_url }})

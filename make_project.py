@@ -3,6 +3,8 @@
 import json
 import requests
 import os
+import sys
+import re
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
@@ -37,14 +39,55 @@ class MakeProject():
     def get_params(self):
         self.get_param('project_name', 'Project name, e.g. "missfairfax"')
         self.get_param('project_id', 'Project ID, e.g. "5351bd1e5eca9"')
-        self.get_param('title', 'Title, e.g. "Miss Fairfax of Virginia"')
-        self.get_param('author', 'Author, e.g. "St. George Rathborne"')
-        self.get_param('pub_year', 'Year published')
-        self.get_param('source_images', 'URL to source images (empty if none)')
-        self.get_param('forum_link', 'URL to forum thread')
         self.project_dir = '{}/{}'.format(
             self.projects_base, self.params['project_name'])
         self.params['kindlegen_dir'] = self.dp_base + '/kindlegen'
+
+    def pgdp_login(self):
+        payload = {
+            'destination': '/c/',
+            'userNM': self.auth['pgdp']['username'],
+            'userPW': self.auth['pgdp']['password'],
+        }
+
+        r = requests.post('http://www.pgdp.net/c/accounts/login.php',
+                          data=payload)
+        if r.status_code != 200:
+            print("Error: unable to log into DP site")
+            sys.exit(1)
+
+        self.dp_cookie = r.headers['Set-Cookie'].split(';')[0]
+
+    def scrape_project_info(self):
+        r = requests.post(
+            'http://www.pgdp.net/c/project.php?id=projectID{}'.format(
+                self.params['project_id']
+            ),
+            headers={'Cookie': self.dp_cookie}
+        )
+        if r.status_code != 200:
+            print('Error: unable to retrieve DP project info')
+            sys.exit(1)
+
+        html_doc = re.sub(r'\n', '', r.text)
+
+        self.params['title'] = re.sub(
+            r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
+            r'\1',
+            html_doc
+        )
+
+        self.params['author'] = re.sub(
+            r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
+            r'\1',
+            html_doc
+        )
+
+        self.params['forum_link'] = re.sub(
+            r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
+            r'\1',
+            html_doc
+        )
 
     def create_directories(self):
         os.mkdir(self.project_dir, mode=0o755)
@@ -149,7 +192,8 @@ class MakeProject():
         print('Downloading text from DP ...', end='', flush=True)
         zipfile = 'projectID{}.zip'.format(self.params['project_id'])
         url = 'http://www.pgdp.net/projects/projectID{0}/projectID{0}.zip'
-        r = requests.get(url.format(self.params['project_id']))
+        r = requests.get(url.format(self.params['project_id']),
+                         headers={'Cookie': self.dp_cookie})
         with open(zipfile, 'wb') as file:
             file.write(r.content)
         self.unzip_file(zipfile, self.project_dir)
@@ -159,7 +203,8 @@ class MakeProject():
         print('Downloading images from DP ...', end='', flush=True)
         zipfile = 'projectID{}images.zip'.format(self.params['project_id'])
         url = 'http://www.pgdp.net/c/tools/download_images.php?projectid=projectID{}'
-        r = requests.get(url.format(self.params['project_id']))
+        r = requests.get(url.format(self.params['project_id']),
+                         headers={'Cookie': self.dp_cookie})
         with open(zipfile, 'wb') as file:
             file.write(r.content)
         self.unzip_file(zipfile, self.project_dir + '/pngs')
@@ -174,6 +219,8 @@ class MakeProject():
 if __name__ == '__main__':
     project = MakeProject()
     project.get_params()
+    project.pgdp_login()
+    project.scrape_project_info()
     project.create_directories()
     project.download_text()
     project.download_images()

@@ -13,6 +13,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-And create a `auth-config.json` file with your Github username and password and
-your Trello API data. Use `auth-config.json.sample` as a guide for the format;
-it's a straightforward JSON file.
+And create a `auth-config.json` file with your Github username and password,
+your Trello API data, and DP site password. Use `auth-config.json.sample` as a
+guide for the format; it's a straightforward JSON file.
+
+It will set up a project in `~/dp/pp/{project}`, a Github repo, a Trello
+page, download the text and images from the DP site, and unzip them.
