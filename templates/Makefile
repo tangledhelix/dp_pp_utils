@@ -29,7 +29,8 @@ default:
 
 web:
 	chmod 0755 $(IMG)/
-	chmod 0644 $(IDX) $(TXT) $(HTML) $(IMG)/*
+	chmod 0644 $(IDX) $(TXT) $(HTML)
+	find $(IMG) -type f -exec chmod 0644 {} ';'
 	scp -q $(IDX) $(TXT) $(HTML) $(WEBTARGET)
 	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
 
