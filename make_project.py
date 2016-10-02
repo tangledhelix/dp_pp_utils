@@ -137,7 +137,7 @@ class MakeProject():
             'description': 'DP PP project "{}" ID {}'.format(
                 self.params['title'], self.params['project_id'],
             ),
-            'private': False,
+            'private': True,
             'has_issues': False,
             'has_wiki': False,
             'has_downloads': False,

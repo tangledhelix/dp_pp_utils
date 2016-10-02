@@ -13,6 +13,7 @@ ZIPDIR=zipdir
 ZIPTARG=$(ZIPDIR)/$(PROJECT)
 BOOKSDIR=ebooks
 ILLODIR=illustrations
+README=README
 
 IDX=index.html
 
@@ -31,7 +32,8 @@ web:
 	chmod 0755 $(IMG)/
 	chmod 0644 $(IDX) $(TXT) $(HTML)
 	find $(IMG) -type f -exec chmod 0644 {} ';'
-	scp -q $(IDX) $(TXT) $(HTML) $(WEBTARGET)
+	grip --export --title="Project Notes: $(TITLE)" $(README).md
+	scp -q $(IDX) $(TXT) $(HTML) $(README).html $(WEBTARGET)
 	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
 
 ebooksweb:
