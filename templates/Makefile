@@ -21,6 +21,7 @@ TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
 default:
+	@echo "make readme:    rebuild README.html file"
 	@echo "make web:       upload to my DP preview site"
 	@echo "make ebooks:    build epub and kindle files"
 	@echo "make ebooksweb: upload ebook files to DP preview site"
@@ -28,11 +29,13 @@ default:
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
-web:
+readme:
+	grip --export --title="Project Notes: $(TITLE)" $(README).md
+
+web: readme
 	chmod 0755 $(IMG)/
 	chmod 0644 $(IDX) $(TXT) $(HTML)
 	find $(IMG) -type f -exec chmod 0644 {} ';'
-	grip --export --title="Project Notes: $(TITLE)" $(README).md
 	scp -q $(IDX) $(TXT) $(HTML) $(README).html $(WEBTARGET)
 	rsync -a --delete $(IMG)/ $(WEBTARGET)/$(IMG)/
 
