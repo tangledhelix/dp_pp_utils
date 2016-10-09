@@ -44,13 +44,11 @@ ebooksweb:
 	scp -q $(BOOKSDIR)/$(PROJECT).epub $(BOOKSDIR)/$(PROJECT).mobi $(WEBTARGET)
 
 sr: zipclean zipdir
-	mkdir -p $(ZIPTARG)
 	cp $(TXT) $(ZIPTARG)
 	cp smooth-reading.txt $(ZIPTARG)/README.txt
 	cd $(ZIPDIR) && zip -r $(PROJECT)-sr.zip $(PROJECT)
 
 ppv: zipclean zipdir
-	mkdir -p $(ZIPTARG)
 	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPTARG)
 	mkdir -p $(ZIPTARG)/$(IMG)/
 	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
@@ -58,7 +56,7 @@ ppv: zipclean zipdir
 	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
 
 zipdir:
-	mkdir -p $(ZIPDIR)
+	mkdir -p $(ZIPTARG)
 
 zipclean:
 	rm -rf $(ZIPDIR)
@@ -89,3 +87,4 @@ illoclean:
 	rm -fv $(ILLODIR)/*.pxm
 
 clean: illoclean zipclean ebooksclean
+
