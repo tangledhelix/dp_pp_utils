@@ -10,8 +10,10 @@
 # perlbrew switch perl-5.24.0
 # perlbrew install-cpanm
 #
-# cpanm Bundle::LWP
-# cpanm --force Tk
+#apt: cpanminus
+#
+# cpanm Bundle::LWP             ubuntu:libwww-perl
+# cpanm --force Tk              ubuntu:perl-tk
 # cpanm Tk::CursorControl
 # cpanm Tk::ToolBar
 # cpanm Module::Build::Compat
@@ -23,6 +25,10 @@
 #
 # TODO: if brew isn't installed, install it. Ask first. Make sure it won't
 # destroy an existing /usr/local either.
+
+# docker run:
+# docker run --rm -it --name firefox -e DISPLAY=$ip:0 -v /tmp/.X11-unix:/tmp/.X11-unix
+#   -v /Users/dan/dp:/dp jess/firefox
 
 LOG="$(pwd)/homebrew.log"
 GGHOME="$HOME/dp/guiguts"
