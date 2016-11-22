@@ -67,7 +67,7 @@ ebooksclean:
 	rm -rf $(BOOKSDIR)
 
 booksdir:
-	mkdir -p $(BOOKSDIR)
+	mkdir -p $(BOOKSDIR)/out
 
 ebooks: ebooksclean booksdir
 	epubmaker --make=epub --output-dir=$(BOOKSDIR) \
@@ -78,10 +78,11 @@ ebooks: ebooksclean booksdir
 		--output-file=$(PROJECT).mobi \
 		--title="$(TITLE)" \
 		--author="$(AUTHOR)" $(HTML)
-	mv "$(BOOKSDIR)/$(TITLE)-epub.epub" "$(BOOKSDIR)/$(PROJECT)-noimages.epub"
-	mv "$(BOOKSDIR)/$(TITLE)-images-epub.epub" "$(BOOKSDIR)/$(PROJECT).epub"
-	mv "$(BOOKSDIR)/$(TITLE)-kindle.mobi" "$(BOOKSDIR)/$(PROJECT)-noimages.mobi"
-	mv "$(BOOKSDIR)/$(TITLE)-images-kindle.mobi" "$(BOOKSDIR)/$(PROJECT).mobi"
+	mv $(BOOKSDIR)/*-images-epub.epub $(BOOKSDIR)/out/$(PROJECT).epub
+	mv $(BOOKSDIR)/*-epub.epub $(BOOKSDIR)/out/$(PROJECT)-noimages.epub
+	mv $(BOOKSDIR)/*-images-kindle.mobi $(BOOKSDIR)/out/$(PROJECT).mobi
+	mv $(BOOKSDIR)/*-kindle.mobi $(BOOKSDIR)/out/$(PROJECT)-noimages.mobi
+	mv $(BOOKSDIR)/out/* $(BOOKSDIR)
 	ls -l $(BOOKSDIR)/*.epub $(BOOKSDIR)/*.mobi
 
 illoclean:
