@@ -29,7 +29,9 @@ default:
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
-readme:
+readme: $(README).html
+
+$(README).html: $(README).md
 	grip --export --title="Project Notes: $(TITLE)" $(README).md
 
 web: readme
