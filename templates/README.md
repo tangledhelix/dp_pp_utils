@@ -27,7 +27,6 @@ Page references (e.g. `001`) refer to the scan numbers, not the original book's 
 
 ### Transcriber's notes ###
 
-Punctuation has been standardized.
-
-<!-- Some alternate spellings have been retained. -->
+Some inconsistencies in spelling, hyphenation, and punctuation have been
+retained.
 
