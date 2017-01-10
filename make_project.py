@@ -17,6 +17,8 @@ TRELLO_TEMPLATE = 'TEMPLATE: PP workflow'
 PREVIEW_HOST = 'dp.tangledhelix.com'
 PREVIEW_PATH = 'sites/' + PREVIEW_HOST + '/projects/'
 
+PGDP_URL = 'https://www.pgdp.net'
+
 
 class MakeProject():
 
@@ -50,8 +52,7 @@ class MakeProject():
             'userPW': self.auth['pgdp']['password'],
         }
 
-        r = requests.post('http://www.pgdp.net/c/accounts/login.php',
-                          data=payload)
+        r = requests.post(PGDP_URL + '/c/accounts/login.php', data=payload)
         if r.status_code != 200:
             print("Error: unable to log into DP site")
             sys.exit(1)
@@ -60,7 +61,8 @@ class MakeProject():
 
     def scrape_project_info(self):
         r = requests.post(
-            'http://www.pgdp.net/c/project.php?id=projectID{}'.format(
+            '{0}/c/project.php?id=projectID{1}'.format(
+                PGDP_URL,
                 self.params['project_id']
             ),
             headers={'Cookie': self.dp_cookie}
@@ -191,8 +193,8 @@ class MakeProject():
     def download_text(self):
         print('Downloading text from DP ...', end='', flush=True)
         zipfile = 'projectID{}.zip'.format(self.params['project_id'])
-        url = 'http://www.pgdp.net/projects/projectID{0}/projectID{0}.zip'
-        r = requests.get(url.format(self.params['project_id']),
+        url = '{0}/projects/projectID{1}/projectID{1}.zip'
+        r = requests.get(url.format(PGDP_URL, self.params['project_id']),
                          headers={'Cookie': self.dp_cookie})
         with open(zipfile, 'wb') as file:
             file.write(r.content)
@@ -202,8 +204,8 @@ class MakeProject():
     def download_images(self):
         print('Downloading images from DP ...', end='', flush=True)
         zipfile = 'projectID{}images.zip'.format(self.params['project_id'])
-        url = 'http://www.pgdp.net/c/tools/download_images.php?projectid=projectID{}'
-        r = requests.get(url.format(self.params['project_id']),
+        url = '{0}/c/tools/download_images.php?projectid=projectID{1}'
+        r = requests.get(url.format(PGDP_URL, self.params['project_id']),
                          headers={'Cookie': self.dp_cookie})
         with open(zipfile, 'wb') as file:
             file.write(r.content)
