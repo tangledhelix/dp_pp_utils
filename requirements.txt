@@ -3,7 +3,7 @@ GitPython==2.0.8
 Jinja2==2.8
 MarkupSafe==0.23
 oauthlib==1.1.2
--e git+https://github.com/tangledhelix/py-trello@f6fe04fbaa0813875d8f2bac959b61d66e5f6268#egg=py_trello
+py-trello==0.8.0
 python-dateutil==2.5.3
 pytz==2016.7
 requests==2.11.1
