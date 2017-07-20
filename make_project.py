@@ -102,7 +102,7 @@ class MakeProject():
         call(['git', 'init'])
         call(['git', 'add', '.'])
         call(['git', 'commit', '-m', 'Initial import from DP'])
-        call(['git', 'remote', 'add', 'origin', self.github_remote_url])
+        call(['git', 'remote', 'add', 'origin', self.git_remote_url])
         call(['git', 'push', '-u', 'origin', 'master'])
 
     def process_template(self, src_filename, dst_filename=None):
@@ -157,9 +157,44 @@ class MakeProject():
         if r.status_code == 201:
             print('Created GitHub repository')
             json_response = json.loads(r.text)
-            self.github_remote_url = json_response['ssh_url']
+            self.git_remote_url = json_response['ssh_url']
         else:
             print('ERROR: GitHub response code {} unexpected.'.format(
+                r.status_code
+            ))
+
+    def make_gitlab_repo(self):
+        headers = {
+            'Content-Type': 'application/json',
+            'PRIVATE-TOKEN': self.auth['gitlab'],
+        }
+
+        payload = {
+            'name': 'DP_{}'.format(self.params['project_name']),
+            'description': 'DP PP project "{}" ID {}'.format(
+                self.params['title'], self.params['project_id'],
+            ),
+            'visibility': 'private',
+            'issues_enabled': False,
+            'merge_requests_enabled': False,
+            'jobs_enabled': False,
+            'wiki_enabled': False,
+            'snippets_enabled': False,
+            'container_registry_enabled': False,
+            'shared_runners_enabled': False,
+            'lfs_enabled': False,
+            'request_access_enabled': False,
+        }
+
+        r = requests.post('https://gitlab.com/api/v4/projects',
+                          headers=headers,
+                          data=json.dumps(payload))
+        if r.status_code == 201:
+            print('Created Gitlab repository')
+            json_response = json.loads(r.text)
+            self.git_remote_url = json_response['ssh_url_to_repo']
+        else:
+            print('ERROR: Gitlab response code {} unexpected.'.format(
                 r.status_code
             ))
 
@@ -228,7 +263,12 @@ if __name__ == '__main__':
     project.download_images()
 
     project.utf8_conversion()
-    project.make_github_repo()
+
+    if self.auth.git_site == "github":
+        project.make_github_repo()
+    elif self.auth.git_site == "gitlab":
+        project.make_gitlab_repo()
+
     project.make_trello_board()
     project.make_preview_dir()
 
