@@ -193,6 +193,12 @@ class MakeProject():
                 r.status_code
             ))
 
+    def make_online_repo(self):
+        if self.auth["git_site"] == "github":
+            project.make_github_repo()
+        elif self.auth["git_site"] == "gitlab":
+            project.make_gitlab_repo()
+
     def make_trello_board(self):
         client = TrelloClient(
             api_key=self.auth['trello']['api_key'],
@@ -255,11 +261,7 @@ if __name__ == '__main__':
 
     project.utf8_conversion()
 
-    if self.auth.git_site == "github":
-        project.make_github_repo()
-    elif self.auth.git_site == "gitlab":
-        project.make_gitlab_repo()
-
+    project.make_online_repo()
     project.make_trello_board()
 
     project.process_template('Makefile')
