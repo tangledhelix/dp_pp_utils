@@ -69,6 +69,8 @@ class MakeProject():
         html_doc = re.sub(r"\n", "", r.text)
 
         self.params["title"] = re.sub(
+            # This version broke on cavalry. Changing " to <, see if it works
+            # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
             r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
             r"\1",
             html_doc
@@ -192,6 +194,7 @@ class MakeProject():
             print("ERROR: Gitlab response code {} unexpected.".format(
                 r.status_code
             ))
+            print(r.text)
 
     def make_online_repo(self):
         if self.auth["git_site"] == "github":
