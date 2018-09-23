@@ -8,9 +8,9 @@ is very tailored to my specific workflow, and I change that on a whim.
 To use, first you need Python 3.
 
 ```
-pyvenv venv
+python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 And create an `auth-config.json` file with your GitHub (or Gitlab) credentials,
