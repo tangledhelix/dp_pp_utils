@@ -69,9 +69,15 @@ class MakeProject():
         html_doc = re.sub(r"\n", "", r.text)
 
         self.params["title"] = re.sub(
+            #
             # This version broke on cavalry. Changing " to <, see if it works
             # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
-            r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
+            #
+            # This version broke on irish historical society, the site updated
+            # to use th instead of tr... updating to match site.
+            #r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
+            #
+            r'.*<th\s+class=["\']label["\']>Title</th>\s*<td[^>]+>([^<]+)</td>.*',
             r"\1",
             html_doc
         )
