@@ -78,7 +78,7 @@ class MakeProject():
             # This version broke on cavalry. Changing " to <, see if it works
             # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
             #
-            # This version broke on irish historical society, the site updated
+            # This version broke on irishjournal, the site updated
             # to use th instead of tr... updating to match site.
             #r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
             #
@@ -88,13 +88,24 @@ class MakeProject():
         )
 
         self.params["author"] = re.sub(
-            r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
+            # This version broke on irishjournal, the site updated
+            # to use th instead of tr... updating to match site.
+            #r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
+            #
+            r'.*<th\s+class=["\']label["\']>Author</th>\s*<td[^>]+>([^<]+)</td>.*',
             r"\1",
             html_doc
         )
 
+        #<tr><th class='label'>Forum</th><td colspan='4'><a href='https://www.pgdp.net/phpBB3/viewtopic.php?t=63502'>Discuss this project</a> (19 replies)</td></tr>
+
         self.params["forum_link"] = re.sub(
-            r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
+            # This version broke on irishjournal, the site updated
+            # to use th instead of tr... updating to match site.
+            #r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
+            #<a href='([^']+)'>
+            #
+            r".*<th\s+class=.label.>Forum</th>\s*<td[^>]+>\s*<a href='([^']+)'.*",
             r"\1",
             html_doc
         )
