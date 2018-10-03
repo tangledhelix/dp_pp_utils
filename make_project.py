@@ -31,7 +31,12 @@ class MakeProject():
             self.auth = json.loads(file.read())
 
     def get_param(self, param_name, prompt_text):
-        self.params[param_name] = input(prompt_text + ": ")
+        param_answer = input(prompt_text + ": ")
+
+        if param_name == "project_id":
+            param_answer = param_answer.replace("projectID", "")
+
+        self.params[param_name] = param_answer
 
     def get_params(self):
         self.get_param("project_name", 'Project name, e.g. "missfairfax"')
