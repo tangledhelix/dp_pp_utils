@@ -7,6 +7,8 @@ This is a [Distributed Proofreaders](http://www.pgdp.net/) post-processing proje
 - [DP project page](http://www.pgdp.net/c/project.php?id=projectID{{ project_id }})
 - [Forum thread]({{ forum_link }})
 - [Trello board]({{ trello_url }})
+- [Good words](good_words.txt)
+- [Bad words](bad_words.txt)
 
 Page references (e.g. `001`) refer to the scan numbers, not the original book's page numbers.
 
