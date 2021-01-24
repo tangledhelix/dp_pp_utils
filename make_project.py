@@ -158,7 +158,7 @@ class MakeProject():
             "description": 'DP PP project "{}" ID {}'.format(
                 self.params["title"], self.params["project_id"],
             ),
-            "private": True,
+            "private": False,
             "has_issues": False,
             "has_wiki": False,
             "has_downloads": False,
@@ -242,7 +242,7 @@ class MakeProject():
         new_board = client.add_board(
             "DP: " + self.params["title"],
             source_board=template,
-            permission_level="private"
+            permission_level="public"
         )
         self.params["trello_url"] = new_board.url
         print("Created Trello board - " + new_board.url)
