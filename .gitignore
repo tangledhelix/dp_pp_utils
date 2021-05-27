@@ -6,3 +6,4 @@ homebrew.log
 __pycache__/
 *.pyo
 *.pyc
+/ebooks/

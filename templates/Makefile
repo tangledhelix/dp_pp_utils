@@ -1,4 +1,3 @@
-export PATH := {{ kindlegen_dir }}:$(PATH)
 
 PROJECT={{ project_name }}
 TITLE={{ title }}
@@ -9,6 +8,7 @@ ZIPDIR=zipdir
 ZIPTARG=$(ZIPDIR)/$(PROJECT)
 BOOKSDIR=ebooks
 ILLODIR=illustrations
+UTILDIR=$(HOME)/dp/util
 
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
@@ -17,6 +17,7 @@ default:
 	@echo "make ebooks:    build epub and kindle files"
 	@echo "make sr:        create zip file to submit to SR"
 	@echo "make ppv:       create zip file to submit to PPV"
+	@echo "make ebookzip:  create zip file to upload to ebookmaker"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
 sr: zipclean zipdir
@@ -37,27 +38,22 @@ zipdir:
 zipclean:
 	rm -rf $(ZIPDIR)
 
+pyvenv:
+	cd $(UTILDIR) && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
+
+ebooksdir:
+	mkdir -p $(BOOKSDIR)
+
+ebooks: ebooksdir pyvenv
+	. $(UTILDIR)/venv/bin/activate && $(UTILDIR)/venv/bin/ebookmaker --make=epub --max-depth=3 --output-dir="$(BOOKSDIR)" --title="$(TITLE)" --author="$(AUTHOR)" --input-mediatype="text/plain;charset=utf8" --ebook="10001" ./$(PROJECT).html
+	/Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
+	mv $(PROJECT).mobi $(BOOKSDIR)
+
+ebookzip:
+	zip $(PROJECT).zip $(PROJECT).html images/*.{png,jpg}
+
 ebooksclean:
-	rm -rf $(BOOKSDIR)
-
-booksdir:
-	mkdir -p $(BOOKSDIR)/out
-
-ebooks: ebooksclean booksdir
-	epubmaker --make=epub --output-dir=$(BOOKSDIR) \
-		--output-file=$(PROJECT).epub \
-		--title="$(TITLE)" \
-		--author="$(AUTHOR)" $(HTML)
-	epubmaker --make=kindle --output-dir=$(BOOKSDIR) \
-		--output-file=$(PROJECT).mobi \
-		--title="$(TITLE)" \
-		--author="$(AUTHOR)" $(HTML)
-	mv $(BOOKSDIR)/*-images-epub.epub $(BOOKSDIR)/out/$(PROJECT).epub
-	mv $(BOOKSDIR)/*-epub.epub $(BOOKSDIR)/out/$(PROJECT)-noimages.epub
-	mv $(BOOKSDIR)/*-images-kindle.mobi $(BOOKSDIR)/out/$(PROJECT).mobi
-	mv $(BOOKSDIR)/*-kindle.mobi $(BOOKSDIR)/out/$(PROJECT)-noimages.mobi
-	mv $(BOOKSDIR)/out/* $(BOOKSDIR)
-	ls -l $(BOOKSDIR)/*.epub $(BOOKSDIR)/*.mobi
+	rm -f $(BOOKSDIR)
 
 illoclean:
 	rm -fv $(ILLODIR)/*.xcf
