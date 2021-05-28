@@ -46,7 +46,8 @@ ebooksdir:
 
 ebooks: ebooksdir pyvenv
 	. $(UTILDIR)/venv/bin/activate && $(UTILDIR)/venv/bin/ebookmaker --make=epub --max-depth=3 --output-dir="$(BOOKSDIR)" --title="$(TITLE)" --author="$(AUTHOR)" --input-mediatype="text/plain;charset=utf8" --ebook="10001" ./$(PROJECT).html
-	/Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
+
+# /Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
 	mv $(PROJECT).mobi $(BOOKSDIR)
 
 ebookzip:
