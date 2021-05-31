@@ -3,4 +3,6 @@ guiguts.log
 /ebooks
 *.xcf
 *.pxm
+*.pxd
+*.zip
 /README.html
