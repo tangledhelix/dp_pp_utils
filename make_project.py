@@ -16,6 +16,9 @@ TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
 
 PGDP_URL = "https://www.pgdp.net"
 
+GITHUB_REMOTE = "origin"
+GITHUB_BRANCH = "main"
+
 
 class MakeProject():
 
@@ -121,8 +124,8 @@ class MakeProject():
         call(["git", "init"])
         call(["git", "add", "."])
         call(["git", "commit", "-m", "Initial import from DP"])
-        call(["git", "remote", "add", "origin", self.git_remote_url])
-        call(["git", "push", "-u", "origin", "master"])
+        call(["git", "remote", "add", GITHUB_REMOTE, self.git_remote_url])
+        call(["git", "push", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
