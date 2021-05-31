@@ -5,6 +5,7 @@ import requests
 import os
 import sys
 import re
+import shutil
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
@@ -150,6 +151,16 @@ class MakeProject():
             file.write("[** UTF8 preservation hack: Phœnix]\n")
             file.write(contents)
 
+    def copy_text_file(self):
+        project_id = self.params["project_id"]
+        project_name = self.params["project_name"]
+        project_dir = self.project_dir
+
+        input_file = "{}/projectID{}.txt".format(project_dir, project_id)
+        output_file = "{}/{}-utf8.txt".format(project_dir, project_name)
+
+        shutil.copyfile(input_file, output_file)
+
     def make_github_repo(self):
         headers = {
             "Accept": "application/vnd.github.v3+json",
@@ -287,7 +298,11 @@ if __name__ == "__main__":
     project.download_text()
     project.download_images()
 
-    project.utf8_conversion()
+    # No longer needed - UTF8 is now the default
+    #project.utf8_conversion()
+
+    # Make a copy of the text to work on
+    project.copy_text_file()
 
     project.make_online_repo()
     project.make_trello_board()
