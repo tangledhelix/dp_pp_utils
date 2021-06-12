@@ -61,7 +61,7 @@ ebookzip:
 	zip $(PROJECT).zip $(PROJECT).html images/*.{png,jpg}
 
 ebooksclean:
-	rm -f $(BOOKSDIR)
+	rm -rf $(BOOKSDIR)
 
 illoclean:
 	rm -fv $(ILLODIR)/*.xcf
