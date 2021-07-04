@@ -47,7 +47,7 @@ class MakeProject():
         self.get_param("project_id", 'Project ID, e.g. "projectID5351bd1e5eca9"')
         self.project_dir = "{}/{}".format(
             self.projects_base, self.params["project_name"])
-        self.params["kindlegen_dir"] = self.dp_base + "/kindlegen"
+        #self.params["kindlegen_dir"] = self.dp_base + "/kindlegen"
 
     def pgdp_login(self):
         payload = {

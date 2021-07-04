@@ -10,7 +10,7 @@ TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
 default:
-	@echo "make ebooks:    build epub and kindle files"
+	@echo "make ebooks:    build epub files"
 	@echo "make sr:        create zip file to submit to SR"
 	@echo "make zip:       create zip file for pphtml"
 	@echo "make ppv:       create zip file to submit to PPV"
