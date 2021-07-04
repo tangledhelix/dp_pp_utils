@@ -20,6 +20,9 @@ PGDP_URL = "https://www.pgdp.net"
 GITHUB_REMOTE = "origin"
 GITHUB_BRANCH = "main"
 
+# Set true to assume we'll use ppgen; false otherwise
+PPGEN = True
+
 
 class MakeProject():
 
@@ -157,7 +160,10 @@ class MakeProject():
         project_dir = self.project_dir
 
         input_file = "{}/projectID{}.txt".format(project_dir, project_id)
-        output_file = "{}/{}-utf8.txt".format(project_dir, project_name)
+        if PPGEN:
+            output_file = "{}/{}-src.txt".format(project_dir, project_name)
+        else:
+            output_file = "{}/{}-utf8.txt".format(project_dir, project_name)
 
         shutil.copyfile(input_file, output_file)
 
