@@ -196,7 +196,10 @@ class MakeProject():
         if r.status_code == 201:
             print("Created GitHub repository")
             json_response = json.loads(r.text)
-            self.git_remote_url = json_response["ssh_url"]
+            self.git_remote_url = json_response["clone_url"].replace(
+                "github.com",
+                self.auth["github"]["username"] + "@github.com"
+            )
         else:
             print("ERROR: GitHub response code {} unexpected.".format(
                 r.status_code
