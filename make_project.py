@@ -6,6 +6,7 @@ import os
 import sys
 import re
 import shutil
+
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
@@ -27,18 +28,18 @@ PPGEN = True
 class MakeProject():
 
     def __init__(self):
-        self.dp_base = os.environ["HOME"] + "/dp"
-        self.projects_base = self.dp_base + "/pp"
-        self.template_dir = self.dp_base + "/util/templates"
+        self.dp_base = f"{os.environ['HOME']}/dp"
+        self.projects_base = f"{self.dp_base}/pp"
+        self.template_dir = f"{self.dp_base}/util/templates"
         self.params = {}
 
         self.trello_template = TRELLO_TEMPLATE
 
-        with open(self.dp_base + "/util/" + AUTH_CONFIG) as file:
+        with open(f"{self.dp_base}/util/{AUTH_CONFIG}") as file:
             self.auth = json.loads(file.read())
 
     def get_param(self, param_name, prompt_text):
-        param_answer = input(prompt_text + ": ")
+        param_answer = input(f"{prompt_text}: ")
 
         if param_name == "project_id":
             param_answer = param_answer.replace("projectID", "")
@@ -48,8 +49,7 @@ class MakeProject():
     def get_params(self):
         self.get_param("project_name", 'Project name, e.g. "missfairfax"')
         self.get_param("project_id", 'Project ID, e.g. "projectID5351bd1e5eca9"')
-        self.project_dir = "{}/{}".format(
-            self.projects_base, self.params["project_name"])
+        self.project_dir = f"{self.projects_base}/{self.params['project_name']}"
         #self.params["kindlegen_dir"] = self.dp_base + "/kindlegen"
 
     def pgdp_login(self):
@@ -59,7 +59,7 @@ class MakeProject():
             "userPW": self.auth["pgdp"]["password"],
         }
 
-        r = requests.post(PGDP_URL + "/c/accounts/login.php", data=payload)
+        r = requests.post(f"{PGDP_URL}/c/accounts/login.php", data=payload)
         if r.status_code != 200:
             print("Error: unable to log into DP site")
             sys.exit(1)
@@ -68,10 +68,7 @@ class MakeProject():
 
     def scrape_project_info(self):
         r = requests.post(
-            "{0}/c/project.php?id=projectID{1}".format(
-                PGDP_URL,
-                self.params["project_id"]
-            ),
+            f"{PGDP_URL}/c/project.php?id=projectID{self.params['project_id']}",
             headers={"Cookie": self.dp_cookie}
         )
         if r.status_code != 200:
@@ -134,36 +131,21 @@ class MakeProject():
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
             dst_filename = src_filename
-        with open(self.template_dir + "/" + src_filename) as file:
+        with open(f"{self.template_dir}/{src_filename}") as file:
             template = Template(file.read())
-        with open(self.project_dir + "/" + dst_filename, "w") as file:
+        with open(f"{self.project_dir}/{dst_filename}", "w") as file:
             file.write(template.render(self.params))
-
-    def utf8_conversion(self):
-        project_id = self.params["project_id"]
-        project_name = self.params["project_name"]
-        project_dir = self.project_dir
-
-        input_file = "{}/projectID{}.txt".format(project_dir, project_id)
-        output_file = "{}/{}-utf8.txt".format(project_dir, project_name)
-
-        with open(input_file, encoding="latin-1") as file:
-            contents = file.read()
-
-        with open(output_file, "w", encoding="utf-8") as file:
-            file.write("[** UTF8 preservation hack: Phœnix]\n")
-            file.write(contents)
 
     def copy_text_file(self):
         project_id = self.params["project_id"]
         project_name = self.params["project_name"]
         project_dir = self.project_dir
 
-        input_file = "{}/projectID{}.txt".format(project_dir, project_id)
+        input_file = f"{project_dir}/projectID{project_id}.txt"
         if PPGEN:
-            output_file = "{}/{}-src.txt".format(project_dir, project_name)
+            output_file = f"{project_dir}/{project_name}-src.txt"
         else:
-            output_file = "{}/{}-utf8.txt".format(project_dir, project_name)
+            output_file = f"{project_dir}/{project_name}-utf8.txt"
 
         shutil.copyfile(input_file, output_file)
 
@@ -174,10 +156,8 @@ class MakeProject():
         }
 
         payload = {
-            "name": "DP_{}".format(self.params["project_name"]),
-            "description": 'DP PP project "{}" ID {}'.format(
-                self.params["title"], self.params["project_id"],
-            ),
+            "name": f"DP_{self.params['project_name']}",
+            "description": 'DP PP project "{self.params["title"]}" ID {self.params["project_id"]}',
             "private": False,
             "has_issues": False,
             "has_wiki": False,
@@ -201,9 +181,7 @@ class MakeProject():
                 self.auth["github"]["username"] + "@github.com"
             )
         else:
-            print("ERROR: GitHub response code {} unexpected.".format(
-                r.status_code
-            ))
+            print(f"ERROR: GitHub response code {r.status_code} unexpected.")
 
     def make_gitlab_repo(self):
         headers = {
@@ -212,10 +190,8 @@ class MakeProject():
         }
 
         payload = {
-            "name": "DP_{}".format(self.params["project_name"]),
-            "description": 'DP PP project "{}" ID {}'.format(
-                self.params["title"], self.params["project_id"],
-            ),
+            "name": f"DP_{self.params['project_name']}",
+            "description": f'DP PP project "{self.params["title"]}" ID {self.params["project_id"]}',
             "visibility": "private",
             "issues_enabled": False,
             "merge_requests_enabled": False,
@@ -236,9 +212,7 @@ class MakeProject():
             json_response = json.loads(r.text)
             self.git_remote_url = json_response["ssh_url_to_repo"]
         else:
-            print("ERROR: Gitlab response code {} unexpected.".format(
-                r.status_code
-            ))
+            print(f"ERROR: Gitlab response code {r.status_code} unexpected.")
             print(r.text)
 
     def make_online_repo(self):
@@ -255,27 +229,41 @@ class MakeProject():
             token_secret=self.auth["trello"]["token_secret"],
         )
 
-        boards = client.list_boards()
         template = None
-
-        for board in boards:
+        for board in client.list_boards():
             if board.name == self.trello_template:
                 template = board
+                break
 
         new_board = client.add_board(
-            "DP: " + self.params["title"],
+            f"DP: {self.params['title']}",
             source_board=template,
             permission_level="public"
         )
+
+        for _list in new_board.list_lists():
+            if _list.name == "Notes":
+                for _card in _list.list_cards():
+                    if _card.name == "Project info":
+                        info_card = _card
+                        break
+                break
+        new_description = info_card.desc.replace(
+            "{{PROJECT_NAME}}", self.params["project_name"]
+        ).replace(
+            "{{PROJECT_ID}}", self.params["project_id"]
+        )
+        
+        info_card.set_description(new_description)
+
         self.params["trello_url"] = new_board.url
-        print("Created Trello board - " + new_board.url)
+        print(f"Created Trello board - {new_board.url}")
 
     def download_text(self):
         print("Downloading text from DP ...", end="", flush=True)
-        zipfile = "projectID{}.zip".format(self.params["project_id"])
-        url = "{0}/projects/projectID{1}/projectID{1}.zip"
-        r = requests.get(url.format(PGDP_URL, self.params["project_id"]),
-                         headers={"Cookie": self.dp_cookie})
+        zipfile = f"projectID{self.params['project_id']}.zip"
+        url = f"{PGDP_URL}/projects/projectID{self.params['project_id']}/projectID{self.params['project_id']}.zip"
+        r = requests.get(url, headers={"Cookie": self.dp_cookie})
         with open(zipfile, "wb") as file:
             file.write(r.content)
         self.unzip_file(zipfile, self.project_dir)
@@ -283,13 +271,12 @@ class MakeProject():
 
     def download_images(self):
         print("Downloading images from DP ...", end="", flush=True)
-        zipfile = "projectID{}images.zip".format(self.params["project_id"])
-        url = "{0}/c/tools/download_images.php?projectid=projectID{1}"
-        r = requests.get(url.format(PGDP_URL, self.params["project_id"]),
-                         headers={"Cookie": self.dp_cookie})
+        zipfile = f"projectID{self.params['project_id']}images.zip"
+        url = f"{PGDP_URL}/c/tools/download_images.php?projectid=projectID{self.params['project_id']}"
+        r = requests.get(url, headers={"Cookie": self.dp_cookie})
         with open(zipfile, "wb") as file:
             file.write(r.content)
-        self.unzip_file(zipfile, self.project_dir + "/pngs")
+        self.unzip_file(zipfile, f"{self.project_dir}/pngs")
         print(" done.")
 
     def unzip_file(self, filename, path):
@@ -320,9 +307,6 @@ if __name__ == "__main__":
     project.create_directories()
     project.download_text()
     project.download_images()
-
-    # No longer needed - UTF8 is now the default
-    #project.utf8_conversion()
 
     # Make a copy of the text to work on
     project.copy_text_file()

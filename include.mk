@@ -5,11 +5,14 @@ ZIPTARG=$(ZIPDIR)/$(PROJECT)
 BOOKSDIR=ebooks
 ILLODIR=illustrations
 UTILDIR=$(HOME)/dp/util
+PPGEN=$(HOME)/dp/ppgen/ppgen.py
 
+PPGEN_SRC=$(PROJECT)-src.txt
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
 default:
+	@echo "make ppgen:     output text & html files from ppgen source"
 	@echo "make sr:        create zip file to submit to SR"
 	@echo "make zip:       create zip file for pphtml"
 	@echo "make ppv:       create zip file to submit to PPV"
@@ -67,3 +70,6 @@ illoclean:
 	rm -fv $(ILLODIR)/*.pxm
 
 clean: illoclean zipclean ebooksclean
+
+ppgen:
+	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -i $(PPGEN_SRC)
