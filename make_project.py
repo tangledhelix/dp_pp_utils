@@ -157,7 +157,7 @@ class MakeProject():
 
         payload = {
             "name": f"DP_{self.params['project_name']}",
-            "description": 'DP PP project "{self.params["title"]}" ID {self.params["project_id"]}',
+            "description": f"DP PP project \"{self.params['title']}\" ID {self.params['project_id']}",
             "private": False,
             "has_issues": False,
             "has_wiki": False,
@@ -191,7 +191,7 @@ class MakeProject():
 
         payload = {
             "name": f"DP_{self.params['project_name']}",
-            "description": f'DP PP project "{self.params["title"]}" ID {self.params["project_id"]}',
+            "description": f"DP PP project \"{self.params['title']}\" ID {self.params['project_id']}",
             "visibility": "private",
             "issues_enabled": False,
             "merge_requests_enabled": False,
@@ -217,9 +217,9 @@ class MakeProject():
 
     def make_online_repo(self):
         if self.auth["git_site"] == "github":
-            project.make_github_repo()
+            self.make_github_repo()
         elif self.auth["git_site"] == "gitlab":
-            project.make_gitlab_repo()
+            self.make_gitlab_repo()
 
     def make_trello_board(self):
         client = TrelloClient(
@@ -242,7 +242,7 @@ class MakeProject():
         )
 
         for _list in new_board.list_lists():
-            if _list.name == "Notes":
+            if _list.name.startswith("Notes"):
                 for _card in _list.list_cards():
                     if _card.name == "Project info":
                         info_card = _card
