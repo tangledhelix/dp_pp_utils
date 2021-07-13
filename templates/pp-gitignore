@@ -6,3 +6,6 @@ guiguts.log
 *.pxd
 *.zip
 /README.html
+*.bin
+*.html
+*-utf8.txt
