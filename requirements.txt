@@ -27,7 +27,7 @@ MarkupSafe==0.23
 mccabe==0.6.1
 more-itertools==8.7.0
 oauthlib==1.1.2
-Pillow==9.0.0
+Pillow==9.0.1
 portend==2.7.1
 py-trello==0.8.0
 pycodestyle==2.7.0
