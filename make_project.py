@@ -14,17 +14,19 @@ from trello import TrelloClient
 from zipfile import ZipFile
 
 AUTH_CONFIG = "auth-config.json"
-TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
-# TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
 
 PGDP_URL = "https://www.pgdp.net"
 
 GITHUB_REMOTE = "origin"
 GITHUB_BRANCH = "main"
 
-# Set true to assume we'll use ppgen; false otherwise
+# Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
 PPGEN = True
 
+if PPGEN:
+    TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
+else:
+    TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
 
 class MakeProject():
 
@@ -123,11 +125,11 @@ class MakeProject():
         os.mkdir("pngs", mode=0o755)
 
     def create_git_repository(self):
-        call(["git", "init"])
+        call(["git", "init", "-q"])
         call(["git", "add", "."])
-        call(["git", "commit", "-m", "Initial import from DP"])
+        call(["git", "commit", "-q", "-m", "Initial import from DP"])
         call(["git", "remote", "add", GITHUB_REMOTE, self.git_remote_url])
-        call(["git", "push", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
+        call(["git", "push", "-q", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
@@ -289,7 +291,7 @@ class MakeProject():
 if __name__ == "__main__":
 
     # By default, create remote resources like Trello & GitHub.
-    CREATE_REMOTE = True
+    CREATE_REMOTE = False
 
     # Process arguments, if any
     if len(sys.argv) >= 2:
