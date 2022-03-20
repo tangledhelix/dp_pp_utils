@@ -14,7 +14,8 @@ from trello import TrelloClient
 from zipfile import ZipFile
 
 AUTH_CONFIG = "auth-config.json"
-TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
+TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
+# TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
 
 PGDP_URL = "https://www.pgdp.net"
 
