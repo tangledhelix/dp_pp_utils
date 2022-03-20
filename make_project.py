@@ -67,6 +67,7 @@ class MakeProject():
             print("Error: unable to log into DP site")
             sys.exit(1)
 
+        print(f"Logged into PGDP site as {self.auth['pgdp']['username']}.")
         self.dp_cookie = r.headers["Set-Cookie"].split(";")[0]
 
     def scrape_project_info(self):
@@ -93,6 +94,7 @@ class MakeProject():
             r"\1",
             html_doc
         )
+        print(f"Title: {self.params['title']}")
 
         self.params["author"] = re.sub(
             # This version broke on irishjournal, the site updated
@@ -103,6 +105,7 @@ class MakeProject():
             r"\1",
             html_doc
         )
+        print(f"Author: {self.params['author']}")
 
         #<tr><th class='label'>Forum</th><td colspan='4'><a href='https://www.pgdp.net/phpBB3/viewtopic.php?t=63502'>Discuss this project</a> (19 replies)</td></tr>
 
@@ -116,6 +119,7 @@ class MakeProject():
             r"\1",
             html_doc
         )
+        print(f"Forum: {self.params['forum_link']}")
 
     def create_directories(self):
         os.mkdir(self.project_dir, mode=0o755)
@@ -123,13 +127,16 @@ class MakeProject():
         os.mkdir("images", mode=0o755)
         os.mkdir("illustrations", mode=0o755)
         os.mkdir("pngs", mode=0o755)
+        print("Created directory structure")
 
     def create_git_repository(self):
         call(["git", "init", "-q"])
         call(["git", "add", "."])
         call(["git", "commit", "-q", "-m", "Initial import from DP"])
+        print(f"Git repository created")
         call(["git", "remote", "add", GITHUB_REMOTE, self.git_remote_url])
         call(["git", "push", "-q", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
+        print(f"Git repository pushed")
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
@@ -138,6 +145,7 @@ class MakeProject():
             template = Template(file.read())
         with open(f"{self.project_dir}/{dst_filename}", "w") as file:
             file.write(template.render(self.params))
+        print(f"Created: {dst_filename}")
 
     def copy_text_file(self):
         project_id = self.params["project_id"]
@@ -291,7 +299,7 @@ class MakeProject():
 if __name__ == "__main__":
 
     # By default, create remote resources like Trello & GitHub.
-    CREATE_REMOTE = False
+    CREATE_REMOTE = True
 
     # Process arguments, if any
     if len(sys.argv) >= 2:
