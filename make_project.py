@@ -13,15 +13,18 @@ from subprocess import call
 from trello import TrelloClient
 from zipfile import ZipFile
 
+# By default, create remote resources like Trello & GitHub.
+CREATE_REMOTE = True
+
+# Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
+PPGEN = True
+
 AUTH_CONFIG = "auth-config.json"
 
 PGDP_URL = "https://www.pgdp.net"
 
 GITHUB_REMOTE = "origin"
 GITHUB_BRANCH = "main"
-
-# Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
-PPGEN = True
 
 if PPGEN:
     TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
@@ -150,15 +153,33 @@ class MakeProject():
     def copy_text_file(self):
         project_id = self.params["project_id"]
         project_name = self.params["project_name"]
+        project_title = self.params["title"]
+        project_author = self.params["author"]
         project_dir = self.project_dir
 
         input_file = f"{project_dir}/projectID{project_id}.txt"
+
         if PPGEN:
             output_file = f"{project_dir}/{project_name}-src.txt"
-        else:
-            output_file = f"{project_dir}/{project_name}-utf8.txt"
 
-        shutil.copyfile(input_file, output_file)
+            # Include some header information before copying the raw file over.
+            with open(output_file, 'w') as outfile:
+                outfile.write(f"// This is a ppgen source file.\n")
+                outfile.write("\n")
+                outfile.write(f"// Title      : {project_title}\n")
+                outfile.write(f"// Author     : {project_author}\n")
+                outfile.write(f"// Project ID : {project_id}\n")
+                outfile.write("\n")
+                outfile.write(f".dt {project_title}, by {project_author}—A Project Gutenberg eBook\n")
+                outfile.write("\n")
+                
+                with open(input_file) as infile:
+                    for line in infile:
+                        outfile.write(line)
+        else:
+            # For guiguts, we just make a copy with no header
+            output_file = f"{project_dir}/{project_name}-utf8.txt"
+            shutil.copyfile(input_file, output_file)
 
     def make_github_repo(self):
         headers = {
@@ -297,9 +318,6 @@ class MakeProject():
 
 
 if __name__ == "__main__":
-
-    # By default, create remote resources like Trello & GitHub.
-    CREATE_REMOTE = True
 
     # Process arguments, if any
     if len(sys.argv) >= 2:
