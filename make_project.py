@@ -346,7 +346,10 @@ if __name__ == "__main__":
 
     project.process_template("Makefile")
     project.process_template("README.md")
-    project.process_template("pp-gitignore", ".gitignore")
+    if PPGEN:
+        project.process_template("gitignore-ppgen", ".gitignore")
+    else:
+        project.process_template("gitignore-guiguts", ".gitignore")
 
     if CREATE_REMOTE:
         # This is only done if remote, because it will try to push.
