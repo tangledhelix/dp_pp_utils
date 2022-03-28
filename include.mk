@@ -72,4 +72,4 @@ illoclean:
 clean: illoclean zipclean ebooksclean
 
 ppgen:
-	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -i $(PPGEN_SRC)
+	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
