@@ -17,7 +17,7 @@ from zipfile import ZipFile
 CREATE_REMOTE = True
 
 # Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
-PPGEN = False
+PPGEN = True
 
 AUTH_CONFIG = "auth-config.json"
 
