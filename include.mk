@@ -69,7 +69,7 @@ illoclean:
 	rm -fv $(ILLODIR)/*.xcf
 	rm -fv $(ILLODIR)/*.pxm
 
-clean: illoclean zipclean ebooksclean
+clean: zipclean ebooksclean
 
 ppgen:
 	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
