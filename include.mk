@@ -63,7 +63,7 @@ ebooks: ebooksdir pyvenv
 	. $(UTILDIR)/venv/bin/activate && \
 	$(UTILDIR)/venv/bin/ebookmaker --make=epub --max-depth=3 \
 		--output-dir="$(BOOKSDIR)" --title="$(TITLE)" --author="$(AUTHOR)" \
-		--input-mediatype="text/plain;charset=utf8" --ebook="10001" ./$(PROJECT).html
+		--input-mediatype="text/plain;charset=utf8" --ebook="`randpin5`" ./$(PROJECT).html
 
 # /Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
 #mv $(PROJECT).mobi $(BOOKSDIR)
@@ -82,3 +82,4 @@ clean: zipclean ebooksclean
 
 ppgen:
 	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
+
