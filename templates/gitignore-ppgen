@@ -3,7 +3,6 @@ guiguts.log
 /ebooks
 *.xcf
 *.pxm
-*.pxd
 *.zip
 *.bin
 *.html
