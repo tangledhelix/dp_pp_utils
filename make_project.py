@@ -138,7 +138,7 @@ class MakeProject():
         call(["git", "commit", "-q", "-m", "Initial import from DP"])
         print(f"Git repository created")
         call(["git", "remote", "add", GITHUB_REMOTE, self.git_remote_url])
-        call(["git", "push", "-q", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
+        call(["git", "push", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
         print(f"Git repository pushed")
 
     def process_template(self, src_filename, dst_filename=None):
