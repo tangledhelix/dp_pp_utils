@@ -25,13 +25,15 @@ sr: zipclean zipdir
 	cp smooth-reading.txt $(ZIPTARG)/README.txt
 	cd $(ZIPDIR) && zip -r $(PROJECT)-sr.zip $(PROJECT)
 
+# Per PPV, the zip should have files at the root, not contain
+# a directory which then contains the files. -April 2022
 ppv: zipclean zipdir
 	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPTARG)
 	mkdir -p $(ZIPTARG)/$(IMG)/
 	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
 	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
 	rm -rf $(ZIPTARG)/$(IMG)/*.pxd
-	cd $(ZIPDIR) && zip -r $(PROJECT).zip $(PROJECT)
+	cd $(ZIPTARG) && zip -r ../$(PROJECT).zip .
 
 zip: zipclean zipdir
 	cp $(HTML) $(ZIPTARG)
