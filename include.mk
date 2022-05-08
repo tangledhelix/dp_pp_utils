@@ -13,6 +13,7 @@ HTML=$(PROJECT).html
 
 default:
 	@echo "make ppgen:     output text & html files from ppgen source"
+	@echo "make ppgend:    run ppgen in debug/verbose mode"
 	@echo "make zip:       create zip file for pptools / ppwb"
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make pg:        create zip file to upload to PG"
@@ -22,7 +23,7 @@ default:
 
 # Per PPV, the zip should have files at the root, not contain
 # a directory which then contains the files. -April 2022
-ppv:
+ppv: ppgen
 	rm -rf $(ZIPCACHEDIR)
 	mkdir -p $(ZIPCACHEDIR)
 	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPCACHEDIR)
@@ -36,7 +37,7 @@ ppv:
 # - a single zip file containing all files
 # - do not include any .bin or Thumbs.db files
 # - verify there are no restricted permissions on the files or directories
-pg:
+pg: ppgen
 	rm -rf $(ZIPCACHEDIR)
 	mkdir -p $(ZIPCACHEDIR)
 	cp $(TXT) $(HTML) $(ZIPCACHEDIR)
@@ -46,7 +47,7 @@ pg:
 	rm -rf $(ZIPCACHEDIR)/$(IMG)/*.pxd
 	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-upload.zip .
 
-zip:
+zip: ppgen
 	rm -rf $(ZIPCACHEDIR)
 	mkdir -p $(ZIPCACHEDIR)
 	cp $(HTML) $(ZIPCACHEDIR)
@@ -71,7 +72,7 @@ pyvenv:
 ebooksdir:
 	mkdir -p $(BOOKSDIR)
 
-ebooks: ebooksdir pyvenv
+ebooks: ppgen ebooksdir pyvenv
 	. $(UTILDIR)/venv/bin/activate && \
 	$(UTILDIR)/venv/bin/ebookmaker --make=epub --max-depth=3 \
 		--output-dir="$(BOOKSDIR)" --title="$(TITLE)" --author="$(AUTHOR)" \
@@ -80,7 +81,7 @@ ebooks: ebooksdir pyvenv
 # /Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
 #mv $(PROJECT).mobi $(BOOKSDIR)
 
-ebookzip:
+ebookzip: ebooks
 	zip $(PROJECT).zip $(PROJECT).html images/*.{png,jpg}
 
 ebooksclean:
@@ -92,6 +93,14 @@ illoclean:
 
 clean: zipclean ebooksclean
 
+# Basic build command
+# -i <file> : specify input file
 ppgen:
-	. $(UTILDIR)/venv/bin/activate && python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC)
 
+# More verbose build command
+# -std : output to stdout (for debugging)
+# -d <level> : debug level  ('a' is all)
+# -l : display Latin-1, diacritic, and Greek conversion logs
+ppgend:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
