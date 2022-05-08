@@ -11,14 +11,19 @@ PPGEN_SRC=$(PROJECT)-src.txt
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
+PGLAF_URL=https://ebookmaker.pglaf.org
+
 default:
 	@echo "make ppgen:     output text & html files from ppgen source"
 	@echo "make ppgend:    run ppgen in debug/verbose mode"
 	@echo "make zip:       create zip file for pptools / ppwb"
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make pg:        create zip file to upload to PG"
-	@echo "make ebooks:    create epub files"
+	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebookzip:  create zip file to upload to ebookmaker"
+	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
+	@echo "       you must specify the cache ID and ebook ID"
+	@echo "       ex: make cache=20220507205607 id=22349 ebooksget"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
 # Per PPV, the zip should have files at the root, not contain
@@ -78,11 +83,20 @@ ebooks: ppgen ebooksdir pyvenv
 		--output-dir="$(BOOKSDIR)" --title="$(TITLE)" --author="$(AUTHOR)" \
 		--input-mediatype="text/plain;charset=utf8" --ebook="`randpin5`" ./$(PROJECT).html
 
-# /Applications/Kindle\ Previewer\ 3.app/Contents/lib/fc/bin/kindlegen ../$(PROJECT).html -o $(PROJECT).mobi
-#mv $(PROJECT).mobi $(BOOKSDIR)
-
 ebookzip: ebooks
 	zip $(PROJECT).zip $(PROJECT).html images/*.{png,jpg}
+
+ebooksget: ebooksdir
+ifndef id
+	@echo 'Missing param: "id" not defined'
+else ifndef cache
+	@echo 'Missing param: "cache" not defined'
+else
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-epub.epub
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-kindle.mobi
+	@ls -l $(BOOKSDIR)/$(id)-images*
+endif
+
 
 ebooksclean:
 	rm -rf $(BOOKSDIR)
