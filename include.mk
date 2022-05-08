@@ -26,6 +26,18 @@ default:
 	@echo "       ex: make cache=20220507205607 id=22349 ebooksget"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
+# Basic build command
+# -i <file> : specify input file
+ppgen:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC)
+
+# More verbose build command
+# -std : output to stdout (for debugging)
+# -d <level> : debug level  ('a' is all)
+# -l : display Latin-1, diacritic, and Greek conversion logs
+ppgend:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
+
 # Per PPV, the zip should have files at the root, not contain
 # a directory which then contains the files. -April 2022
 ppv: ppgen
@@ -107,14 +119,3 @@ illoclean:
 
 clean: zipclean ebooksclean
 
-# Basic build command
-# -i <file> : specify input file
-ppgen:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC)
-
-# More verbose build command
-# -std : output to stdout (for debugging)
-# -d <level> : debug level  ('a' is all)
-# -l : display Latin-1, diacritic, and Greek conversion logs
-ppgend:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
