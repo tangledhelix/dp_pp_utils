@@ -30,5 +30,3 @@ Page references (e.g. `001`) refer to the scan numbers, not the original book's 
 
 ### Transcriber's notes ###
 
-Some inconsistencies in spelling, hyphenation, and punctuation have been
-retained.
