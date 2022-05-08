@@ -1,7 +1,7 @@
 
 IMG=images
 ZIPDIR=zipdir
-ZIPTARG=$(ZIPDIR)/$(PROJECT)
+ZIPCACHEDIR=$(ZIPDIR)/$(PROJECT)
 BOOKSDIR=ebooks
 ILLODIR=illustrations
 UTILDIR=$(HOME)/dp/util
@@ -13,38 +13,48 @@ HTML=$(PROJECT).html
 
 default:
 	@echo "make ppgen:     output text & html files from ppgen source"
-	@echo "make sr:        create zip file to submit to SR"
-	@echo "make zip:       create zip file for pphtml"
+	@echo "make zip:       create zip file for pptools / ppwb"
 	@echo "make ppv:       create zip file to submit to PPV"
+	@echo "make pg:        create zip file to upload to PG"
 	@echo "make ebooks:    create epub files"
 	@echo "make ebookzip:  create zip file to upload to ebookmaker"
 	@echo "make clean:     remove Gimp/Pixelmator files, ebooks, zip archive"
 
-sr: zipclean zipdir
-	cp $(TXT) $(ZIPTARG)
-	cp smooth-reading.txt $(ZIPTARG)/README.txt
-	cd $(ZIPDIR) && zip -r $(PROJECT)-sr.zip $(PROJECT)
-
 # Per PPV, the zip should have files at the root, not contain
 # a directory which then contains the files. -April 2022
-ppv: zipclean zipdir
-	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPTARG)
-	mkdir -p $(ZIPTARG)/$(IMG)/
-	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
-	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
-	rm -rf $(ZIPTARG)/$(IMG)/*.pxd
-	cd $(ZIPTARG) && zip -r ../$(PROJECT).zip .
+ppv:
+	rm -rf $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)
+	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)/$(IMG)/
+	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
+	rm -f $(ZIPCACHEDIR)/$(IMG)/.DS_Store
+	rm -rf $(ZIPCACHEDIR)/$(IMG)/*.pxd
+	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-ppv.zip .
 
-zip: zipclean zipdir
-	cp $(HTML) $(ZIPTARG)
-	mkdir -p $(ZIPTARG)/$(IMG)/
-	cp -r $(IMG)/ $(ZIPTARG)/$(IMG)/
-	rm -f $(ZIPTARG)/$(IMG)/.DS_Store
-	rm -rf $(ZIPTARG)/$(IMG)/*.pxd
-	cd $(ZIPTARG) && zip -r ../$(PROJECT).zip .
+# What to include in a zip file for PG direct upload:
+# - a single zip file containing all files
+# - do not include any .bin or Thumbs.db files
+# - verify there are no restricted permissions on the files or directories
+pg:
+	rm -rf $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)
+	cp $(TXT) $(HTML) $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)/$(IMG)/
+	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
+	rm -f $(ZIPCACHEDIR)/$(IMG)/.DS_Store
+	rm -rf $(ZIPCACHEDIR)/$(IMG)/*.pxd
+	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-upload.zip .
 
-zipdir:
-	mkdir -p $(ZIPTARG)
+zip:
+	rm -rf $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)
+	cp $(HTML) $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)/$(IMG)/
+	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
+	rm -f $(ZIPCACHEDIR)/$(IMG)/.DS_Store
+	rm -rf $(ZIPCACHEDIR)/$(IMG)/*.pxd
+	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT).zip .
 
 zipclean:
 	rm -rf $(ZIPDIR)
