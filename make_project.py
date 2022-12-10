@@ -274,7 +274,7 @@ class MakeProject():
         )
 
         for _list in new_board.list_lists():
-            if _list.name.startswith("Notes"):
+            if _list.name.startswith("Project notes"):
                 for _card in _list.list_cards():
                     if _card.name == "Project info":
                         info_card = _card
