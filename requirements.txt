@@ -12,7 +12,7 @@ docutils==0.17
 ebookmaker==0.10.5
 flake8==3.9.2
 gitdb==0.6.4
-GitPython==2.0.8
+GitPython==3.1.30
 idna==2.7
 isort==5.9.1
 jaraco.classes==3.2.1
