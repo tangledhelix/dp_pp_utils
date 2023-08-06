@@ -145,7 +145,7 @@ class MakeProject():
         if not dst_filename:
             dst_filename = src_filename
         with open(f"{self.template_dir}/{src_filename}") as file:
-            template = Template(file.read())
+            template = Template(file.read(), autoescape=True)
         with open(f"{self.project_dir}/{dst_filename}", "w") as file:
             file.write(template.render(self.params))
         print(f"Created: {dst_filename}")
@@ -172,7 +172,7 @@ class MakeProject():
                 outfile.write("\n")
                 outfile.write(f".dt {project_title}, by {project_author}—A Project Gutenberg eBook\n")
                 outfile.write("\n")
-                
+
                 with open(input_file) as infile:
                     for line in infile:
                         outfile.write(line)
@@ -285,7 +285,7 @@ class MakeProject():
         ).replace(
             "{{PROJECT_ID}}", self.params["project_id"]
         )
-        
+
         info_card.set_description(new_description)
 
         self.params["trello_url"] = new_board.url
