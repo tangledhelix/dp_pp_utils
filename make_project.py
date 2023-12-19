@@ -347,9 +347,9 @@ if __name__ == "__main__":
     project.process_template("Makefile")
     project.process_template("README.md")
     if PPGEN:
-        os.mkdir(".vscode")
-        project.process_template("settings.json", ".vscode/settings.json")
-        project.process_template("tasks.json",    ".vscode/tasks.json")
+        # os.mkdir(".vscode")
+        # project.process_template("settings.json", ".vscode/settings.json")
+        # project.process_template("tasks.json",    ".vscode/tasks.json")
         project.process_template("gitignore-ppgen", ".gitignore")
     else:
         project.process_template("gitignore-guiguts", ".gitignore")
