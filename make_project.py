@@ -27,7 +27,7 @@ GITHUB_REMOTE = "origin"
 GITHUB_BRANCH = "main"
 
 if PPGEN:
-    TRELLO_TEMPLATE = "TEMPLATE: PPgen workflow"
+    TRELLO_TEMPLATE = "TEMPLATE: PPgen+Guiguts workflow"
 else:
     TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
 
