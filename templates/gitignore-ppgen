@@ -3,4 +3,6 @@ guiguts.log
 /ebooks
 *.zip
 *.html
+*.html.bin
 *-utf8.txt
+*-utf8.txt.bin
