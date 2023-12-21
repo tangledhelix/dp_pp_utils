@@ -164,18 +164,18 @@ class MakeProject():
 
             # Include some header information before copying the raw file over.
             with open(output_file, 'w') as outfile:
-                outfile.write(f"// This is a ppgen source file.\n")
-                outfile.write("\n")
-                outfile.write(f"// Title      : {project_title}\n")
-                outfile.write(f"// Author     : {project_author}\n")
-                outfile.write(f"// Project ID : {project_id}\n")
-                outfile.write("\n")
-                outfile.write(f".dt {project_title}, by {project_author}—A Project Gutenberg eBook\n")
-                outfile.write("\n")
+                outfile.write(f"// This is a ppgen source file.\r\n")
+                outfile.write("\r\n")
+                outfile.write(f"// Title      : {project_title}\r\n")
+                outfile.write(f"// Author     : {project_author}\r\n")
+                outfile.write(f"// Project ID : {project_id}\r\n")
+                outfile.write("\r\n")
+                outfile.write(f".dt {project_title}, by {project_author}—A Project Gutenberg eBook\r\n")
+                outfile.write("\r\n")
 
                 with open(input_file) as infile:
                     for line in infile:
-                        outfile.write(line)
+                        outfile.write(f"{line.rstrip()}\r\n")
         else:
             # For guiguts, we just make a copy with no header
             output_file = f"{project_dir}/{project_name}-utf8.txt"
