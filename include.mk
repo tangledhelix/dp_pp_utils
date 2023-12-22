@@ -18,6 +18,7 @@ default:
 	@echo "make ppgend:    run ppgen in debug/verbose mode"
 	@echo "make zip:       create zipfile (PPtools, PPwb, DU, ebookmaker)"
 	@echo "make ppv:       create zip file to submit to PPV"
+	@echo "make sr:        create zip file to submit to SR (incl. ebooks/)"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
 	@echo "       you must specify the cache ID and ebook ID"
@@ -47,6 +48,19 @@ ppv: ppgen
 	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
 	rm -rf $(ZIPCACHEDIR)/$(IMG)/{.DS_Store,*.pxd,*.xcf}
 	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-ppv.zip .
+
+# Smooth Readers can also include ebooks. Anything in the ebooks/
+# directory will get sucked into this.
+sr: ppgen
+	rm -f $(ZIPDIR)/$(PROJECT)-sr.zip
+	rm -rf $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)/$(IMG)/
+	cp $(TXT) $(HTML) $(ZIPCACHEDIR)
+	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
+	rm -rf $(ZIPCACHEDIR)/$(IMG)/{.DS_Store,*.pxd,*.xcf}
+	cp -r $(BOOKSDIR)/ $(ZIPCACHEDIR)/
+	rm -f $(ZIPCACHEDIR)/$(BOOKSDIR)/.DS_Store
+	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-sr.zip .
 
 # Zip file suitable for:
 # - PP workbench
