@@ -170,7 +170,7 @@ class MakeProject():
                 outfile.write(f"// Author     : {project_author}\n")
                 outfile.write(f"// Project ID : {project_id}\n")
                 outfile.write("\n")
-                outfile.write(f".dt {project_title}, by {project_author}—A Project Gutenberg eBook\n")
+                outfile.write(f".dt {project_title} | Project Gutenberg\n")
                 outfile.write("\n")
 
                 with open(input_file) as infile:
