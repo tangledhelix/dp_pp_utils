@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Calculate HTML from PPgen src filename, build it, open it.
+
+FN="$1"
+if [[ -z "$FN" ]]; then
+    echo "Error: missing filename"
+    exit 1
+fi
+
+D=$(dirname $FN)
+F=$(basename $FN -src.txt)
+
+cd $D
+echo "==> Working directory: $D"
+
+echo "==> Building: $F.html"
+make ppgen
+
+echo "==> Opening: $D/$F.html"
+open $D/$F.html
+
