@@ -119,4 +119,7 @@ ebooksclean:
 	rm -rf $(BOOKSDIR)
 
 clean: zipclean ebooksclean
-
+	rm -f guiguts.log
+	rm -f $(PROJECT)*.zip
+	rm -f $(HTML) $(HTML).bin
+	rm -f $(TXT) $(TXT).bin

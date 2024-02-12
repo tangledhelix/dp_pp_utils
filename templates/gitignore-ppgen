@@ -1,8 +1,8 @@
 guiguts.log
 /zipdir
 /ebooks
-*.zip
-*.html
-*.html.bin
-*-utf8.txt
-*-utf8.txt.bin
+{{ project_name }}*.zip
+{{ project_name }}.html
+{{ project_name }}.html.bin
+{{ project_name }}-utf8.txt
+{{ project_name }}-utf8.txt.bin
