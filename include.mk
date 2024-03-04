@@ -19,6 +19,8 @@ default:
 	@echo "make zip:       create zipfile (PPtools, PPwb, DU, ebookmaker)"
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make sr:        create zip file to submit to SR (incl. ebooks/)"
+	@echo "make vt:        build text version & open for viewing"
+	@echo "make vh:        build HTML version & open for viewing"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
 	@echo "       you must specify the cache ID and ebook ID"
@@ -36,6 +38,16 @@ ppgen:
 # -l : display Latin-1, diacritic, and Greek conversion logs
 ppgend:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
+
+# Build & view text
+vt:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o t
+	open -a TextEdit $(TXT)
+
+# Build & view HTML
+vh:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h
+	open -a Safari $(HTML)
 
 # Per PPV, the zip should have files at the root, not contain
 # a directory which then contains the files. -April 2022
