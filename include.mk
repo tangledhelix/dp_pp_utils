@@ -10,6 +10,7 @@ PPGEN=$(HOME)/dp/ppgen/ppgen.py
 PPGEN_SRC=$(PROJECT)-src.txt
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
+LAT1TXT=$(PROJECT)-lat1.txt
 
 PGLAF_URL=https://ebookmaker.pglaf.org
 
@@ -135,3 +136,4 @@ clean: zipclean ebooksclean
 	rm -f $(PROJECT)*.zip
 	rm -f $(HTML) $(HTML).bin
 	rm -f $(TXT) $(TXT).bin
+	rm -f $(LAT1TXT) $(LAT1TXT).bin

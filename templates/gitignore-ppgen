@@ -6,3 +6,5 @@ guiguts.log
 {{ project_name }}.html.bin
 {{ project_name }}-utf8.txt
 {{ project_name }}-utf8.txt.bin
+{{ project_name }}-lat1.txt
+{{ project_name }}-lat1.txt.bin
