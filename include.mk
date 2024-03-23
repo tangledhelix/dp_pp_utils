@@ -42,7 +42,7 @@ ppgend:
 
 # Build & view text
 vt:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o t
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
 	open -a TextEdit $(TXT)
 
 # Build & view HTML
