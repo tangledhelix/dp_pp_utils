@@ -14,6 +14,9 @@ LAT1TXT=$(PROJECT)-lat1.txt
 
 PGLAF_URL=https://ebookmaker.pglaf.org
 
+# Which browser you want to use
+BROWSER="Safari"
+
 default:
 	@echo "make ppgen:     output text & html files from ppgen source"
 	@echo "make ppgend:    run ppgen in debug/verbose mode"
@@ -22,6 +25,7 @@ default:
 	@echo "make sr:        create zip file to submit to SR (incl. ebooks/)"
 	@echo "make vt:        build text version & open for viewing"
 	@echo "make vh:        build HTML version & open for viewing"
+	@echo "make view:      build text and HTML versions, open for viewing"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
 	@echo "       you must specify the cache ID and ebook ID"
@@ -43,12 +47,15 @@ ppgend:
 # Build & view text
 vt:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
-	open -a TextEdit $(TXT)
+	open -a $(BROWSER) $(TXT)
 
 # Build & view HTML
 vh:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h
-	open -a Safari $(HTML)
+	open -a $(BROWSER) $(HTML)
+
+# Build both text & HTML, then view
+view: vt vh
 
 # Per PPV, the zip should have files at the root, not contain
 # a directory which then contains the files. -April 2022
