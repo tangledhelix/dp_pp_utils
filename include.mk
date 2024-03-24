@@ -14,8 +14,10 @@ LAT1TXT=$(PROJECT)-lat1.txt
 
 PGLAF_URL=https://ebookmaker.pglaf.org
 
-# Which browser you want to use
-BROWSER="Safari"
+# App name (for "open" command) for text viewer
+TEXTVIEWPROG=Visual Studio Code
+# App name (for "open" command) for HTML viewer
+HTMLVIEWPROG=Safari
 
 default:
 	@echo "make ppgen:     output text & html files from ppgen source"
@@ -47,12 +49,12 @@ ppgend:
 # Build & view text
 vt:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
-	open -a $(BROWSER) $(TXT)
+	open -a "$(TEXTVIEWPROG)" $(TXT)
 
 # Build & view HTML
 vh:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h
-	open -a $(BROWSER) $(HTML)
+	open -a "$(HTMLVIEWPROG)" $(HTML)
 
 # Build both text & HTML, then view
 view: vt vh
