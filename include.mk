@@ -20,24 +20,32 @@ TEXTVIEWPROG=Visual Studio Code
 HTMLVIEWPROG=Safari
 
 default:
-	@echo "make ppgen:     output text & html files from ppgen source"
+	@echo "make ppgen:     output UTF8 text & HTML files from ppgen source"
 	@echo "make ppgend:    run ppgen in debug/verbose mode"
 	@echo "make zip:       create zipfile (PPtools, PPwb, DU, ebookmaker)"
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make sr:        create zip file to submit to SR (incl. ebooks/)"
-	@echo "make vt:        build text version & open for viewing"
+	@echo "make vt:        build UTF8 text version & open for viewing"
 	@echo "make vh:        build HTML version & open for viewing"
-	@echo "make view:      build text and HTML versions, open for viewing"
+	@echo "make view:      build UTF8 text and HTML versions, open for viewing"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
 	@echo "       you must specify the cache ID and ebook ID"
 	@echo "       ex: make cache=20220507205607 id=22349 ebooksget"
 	@echo "make clean:     remove built ebooks, zip archives"
 
-# Basic build command
+# Basic build commands
 # -i <file> : specify input file
-ppgen:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC)
+# -o <type> : output type : 'h' for html, 'u' for utf8, 'uh' for both
+# -img : extra output related to image handling
+
+ppgenu:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
+
+ppgenh:
+	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h -img
+
+ppgen: ppgenu ppgenh
 
 # More verbose build command
 # -std : output to stdout (for debugging)
@@ -47,13 +55,11 @@ ppgend:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
 
 # Build & view text
-vt:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
+vt: ppgenu
 	open -a "$(TEXTVIEWPROG)" $(TXT)
 
 # Build & view HTML
-vh:
-	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h
+vh: ppgenh
 	open -a "$(HTMLVIEWPROG)" $(HTML)
 
 # Build both text & HTML, then view
