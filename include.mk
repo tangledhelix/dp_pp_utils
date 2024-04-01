@@ -39,13 +39,13 @@ default:
 # -o <type> : output type : 'h' for html, 'u' for utf8, 'uh' for both
 # -img : extra output related to image handling
 
-ppgenu:
+$(TXT): $(PPGEN_SRC)
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
 
-ppgenh:
+$(HTML): $(PPGEN_SRC)
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h -img
 
-ppgen: ppgenu ppgenh
+ppgen: $(TXT) $(HTML)
 
 # More verbose build command
 # -std : output to stdout (for debugging)
@@ -55,11 +55,11 @@ ppgend:
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -l -d a -std -i $(PPGEN_SRC)
 
 # Build & view text
-vt: ppgenu
+vt: $(TXT)
 	open -a "$(TEXTVIEWPROG)" $(TXT)
 
 # Build & view HTML
-vh: ppgenh
+vh: $(HTML)
 	open -a "$(HTMLVIEWPROG)" $(HTML)
 
 # Build both text & HTML, then view
