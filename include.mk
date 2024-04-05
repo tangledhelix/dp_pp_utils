@@ -138,9 +138,13 @@ ifndef id
 else ifndef cache
 	@echo 'Missing param: "cache" not defined'
 else
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/output.txt
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-epub.epub
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-epub.epub
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-epub3.epub
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-kindle.mobi
-	@ls -l $(BOOKSDIR)/$(id)-images*
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-kf8-kindle.mobi
+	@ls -ltr $(BOOKSDIR)
 endif
 
 ebooksclean:
