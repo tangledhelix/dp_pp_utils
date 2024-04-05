@@ -100,7 +100,7 @@ sr: ppgen
 	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
 	rm -rf $(ZIPCACHEDIR)/$(IMG)/{.DS_Store,*.pxd,*.xcf}
 	cp -r $(BOOKSDIR)/ $(ZIPCACHEDIR)/
-	rm -f $(ZIPCACHEDIR)/$(BOOKSDIR)/.DS_Store
+	rm -f $(ZIPCACHEDIR)/{.DS_Store,output.txt}
 	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-sr.zip .
 
 # Zip file suitable for:
