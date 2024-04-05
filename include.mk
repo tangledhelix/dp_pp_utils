@@ -13,7 +13,11 @@ HTML=$(PROJECT).html
 LAT1TXT=$(PROJECT)-lat1.txt
 
 PGLAF_URL=https://ebookmaker.pglaf.org
-DEFAULT_BOOK_ID=10001
+
+# Default book ID, taken from the form at PGLAF's ebookmaker
+# Can be overridden at runtime with 'id' parameter
+DEFAULT_BOOK_ID = 10001
+book_id ?= $(DEFAULT_BOOK_ID)
 
 # App name (for "open" command) for text viewer
 TEXTVIEWPROG=Visual Studio Code
@@ -23,19 +27,25 @@ HTMLVIEWPROG=Safari
 default:
 	@echo "make ppgen:     output UTF8 text & HTML files from ppgen source"
 	@echo "make ppgend:    run ppgen in debug/verbose mode"
+	@echo ""
 	@echo "make zip:       create zipfile (PPtools, PPwb, DU, ebookmaker)"
 	@echo "make ppv:       create zip file to submit to PPV"
 	@echo "make sr:        create zip file to submit to SR (incl. ebooks/)"
+	@echo ""
 	@echo "make vt:        build UTF8 text version & open for viewing"
 	@echo "make vh:        build HTML version & open for viewing"
 	@echo "make view:      build UTF8 text and HTML versions, open for viewing"
-	@echo "make ebooks:    create epub files (no .mobi)"
-	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
-	@echo "       you must specify the cache ID"
-	@echo "       	ex: make ebooksget cache=20220507205607"
-	@echo "       you may specify an ebook ID (otherwise defaults to $(DEFAULT_BOOK_ID))"
-	@echo "       	ex: make ebooksget cache=20220507205607 id=22349"
+	@echo ""
 	@echo "make clean:     remove built ebooks, zip archives"
+	@echo "make ebooks:    create epub files (no .mobi)"
+	@echo ""
+	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
+	@echo ""
+	@echo "    -- you MUST specify the cache ID"
+	@echo "       	  ex: make ebooksget cache=20220507205607"
+	@echo ""
+	@echo "    -- you MAY specify an ebook ID (default: $(DEFAULT_BOOK_ID))"
+	@echo "       	  ex: make ebooksget cache=20220507205607 book_id=1234"
 
 # Basic build commands
 # -i <file> : specify input file
@@ -136,18 +146,15 @@ ebooks: ppgen ebooksdir pyvenv
 		--input-mediatype="text/plain;charset=utf8" --ebook="`randpin5`" ./$(PROJECT).html
 
 ebooksget: ebooksdir
-ifndef id
-	@echo '"id" not explicitly defined, using default'
-	id=$(DEFAULT_BOOK_ID)
-else ifndef cache
+ifndef cache
 	@echo 'Missing param: "cache" not defined'
 else
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/output.txt
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-epub.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-epub.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-epub3.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-images-kindle.mobi
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(id)-kf8-kindle.mobi
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-epub.epub
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub.epub
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub3.epub
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-kindle.mobi
+	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-kf8-kindle.mobi
 	@ls -ltr $(BOOKSDIR)
 endif
 
