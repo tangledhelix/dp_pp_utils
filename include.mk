@@ -13,6 +13,7 @@ HTML=$(PROJECT).html
 LAT1TXT=$(PROJECT)-lat1.txt
 
 PGLAF_URL=https://ebookmaker.pglaf.org
+DEFAULT_BOOK_ID=10001
 
 # App name (for "open" command) for text viewer
 TEXTVIEWPROG=Visual Studio Code
@@ -30,8 +31,10 @@ default:
 	@echo "make view:      build UTF8 text and HTML versions, open for viewing"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
-	@echo "       you must specify the cache ID and ebook ID"
-	@echo "       ex: make cache=20220507205607 id=22349 ebooksget"
+	@echo "       you must specify the cache ID"
+	@echo "       	ex: make ebooksget cache=20220507205607"
+	@echo "       you may specify an ebook ID (otherwise defaults to $(DEFAULT_BOOK_ID))"
+	@echo "       	ex: make ebooksget cache=20220507205607 id=22349"
 	@echo "make clean:     remove built ebooks, zip archives"
 
 # Basic build commands
@@ -134,7 +137,8 @@ ebooks: ppgen ebooksdir pyvenv
 
 ebooksget: ebooksdir
 ifndef id
-	@echo 'Missing param: "id" not defined'
+	@echo '"id" not explicitly defined, using default'
+	id=$(DEFAULT_BOOK_ID)
 else ifndef cache
 	@echo 'Missing param: "cache" not defined'
 else
