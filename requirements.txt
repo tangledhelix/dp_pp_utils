@@ -1,5 +1,5 @@
 beautifulsoup4
 bs4
 Jinja2
-py-trello
+pytrello2
 requests

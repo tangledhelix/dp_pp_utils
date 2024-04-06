@@ -10,8 +10,11 @@ import shutil
 from os.path import basename
 from jinja2 import Template
 from subprocess import call
-from trello import TrelloClient
+from pytrello2 import TrelloClient
 from zipfile import ZipFile
+
+# For Trello API reference (need to pair this with pytrello2...)
+# https://developer.atlassian.com/cloud/trello/rest/
 
 # By default, create remote resources like Trello & GitHub.
 CREATE_REMOTE = True
@@ -208,10 +211,7 @@ class MakeProject():
         if r.status_code == 201:
             print("Created GitHub repository")
             json_response = json.loads(r.text)
-            self.git_remote_url = json_response["clone_url"].replace(
-                "github.com",
-                self.auth["github"]["username"] + "@github.com"
-            )
+            self.git_remote_url = json_response["ssh_url"]
         else:
             print(f"ERROR: GitHub response code {r.status_code} unexpected.")
 
@@ -255,27 +255,27 @@ class MakeProject():
 
     def make_trello_board(self):
         client = TrelloClient(
-            api_key=self.auth["trello"]["api_key"],
-            api_secret=self.auth["trello"]["api_secret"],
-            token=self.auth["trello"]["token"],
-            token_secret=self.auth["trello"]["token_secret"],
+            self.auth["trello"]["token"],
+            self.auth["trello"]["api_key"]
         )
 
         template = None
-        for board in client.list_boards():
+        for board in client.board.get_all_boards():
             if board.name == self.trello_template:
                 template = board
                 break
 
-        new_board = client.add_board(
-            f"DP: {self.params['title']}",
-            source_board=template,
-            permission_level="public"
+        new_board = client.board.create_board(
+            f"DP: {self.params['title']}", **{
+                "idBoardSource": template.id,
+                "prefs_permissionlevel": "public",
+                "prefs_background": "lime"
+            }
         )
 
-        for _list in new_board.list_lists():
+        for _list in client.board.get_lists_on_board(new_board.id):
             if _list.name.startswith("Project notes"):
-                for _card in _list.list_cards():
+                for _card in client.list.get_cards_on_list(_list.id):
                     if _card.name == "Project info":
                         info_card = _card
                         break
@@ -286,10 +286,12 @@ class MakeProject():
             "{{PROJECT_ID}}", self.params["project_id"]
         )
 
-        info_card.set_description(new_description)
+        client.card.update_card(info_card.id, **{
+            "desc": new_description
+        })
 
-        self.params["trello_url"] = new_board.url
-        print(f"Created Trello board - {new_board.url}")
+        self.params["trello_url"] = new_board.shortUrl
+        print(f"Created Trello board - {new_board.shortUrl}")
 
     def download_text(self):
         print("Downloading text from DP ...", end="", flush=True)
