@@ -12,15 +12,19 @@ This is a [Distributed Proofreaders](http://www.pgdp.net/) post-processing proje
 
 Page references (e.g. `001`) refer to the scan numbers, not the original book's page numbers.
 
+### Things to revisit ###
+
+- [ ] Example item
+
 ### Project manager notes ###
+
+{{ project_comments }}
 
 ### Forum notes ###
 
 ### General notes ###
 
 ### Illustrations ###
-
-### Things to revisit ###
 
 ### Proofer's notes ###
 

@@ -19,6 +19,9 @@ from zipfile import ZipFile
 # By default, create remote resources like Trello & GitHub.
 CREATE_REMOTE = True
 
+# By default, download main project contents like the PNGs
+DOWNLOAD_BOOK_CONTENT = True
+
 # Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
 PPGEN = True
 
@@ -76,6 +79,28 @@ class MakeProject():
         print(f"Logged into PGDP site as {self.auth['pgdp']['username']}.")
         self.dp_cookie = r.headers["Set-Cookie"].split(";")[0]
 
+    def get_project_info(self):
+        r = requests.get(
+            f"{PGDP_URL}/api/v1/projects/projectID{self.params['project_id']}",
+            headers={"X-Api-Key": self.auth["pgdp"]["api_key"]}
+        )
+        if r.status_code != 200:
+            print("Error: unable to use PGDP REST API")
+            sys.exit(1)
+
+        j = r.json()
+
+        self.params["title"] = j["title"]
+        print(f"Title: {self.params['title']}")
+
+        self.params["author"] = j["author"]
+        print(f"Author: {self.params['author']}")
+
+        self.params["project_comments"] = j["comments"].replace("\r", "")
+
+        # TODO: request that the forum link be added to the API so
+        # scrape_project_info() can be removed
+
     def scrape_project_info(self):
         r = requests.post(
             f"{PGDP_URL}/c/project.php?id=projectID{self.params['project_id']}",
@@ -87,31 +112,31 @@ class MakeProject():
 
         html_doc = re.sub(r"\n", "", r.text)
 
-        self.params["title"] = re.sub(
-            #
-            # This version broke on cavalry. Changing " to <, see if it works
-            # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
-            #
-            # This version broke on irishjournal, the site updated
-            # to use th instead of tr... updating to match site.
-            #r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
-            #
-            r'.*<th\s+class=["\']label["\']>Title</th>\s*<td[^>]+>([^<]+)</td>.*',
-            r"\1",
-            html_doc
-        )
-        print(f"Title: {self.params['title']}")
+        # self.params["title"] = re.sub(
+        #     #
+        #     # This version broke on cavalry. Changing " to <, see if it works
+        #     # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
+        #     #
+        #     # This version broke on irishjournal, the site updated
+        #     # to use th instead of tr... updating to match site.
+        #     #r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
+        #     #
+        #     r'.*<th\s+class=["\']label["\']>Title</th>\s*<td[^>]+>([^<]+)</td>.*',
+        #     r"\1",
+        #     html_doc
+        # )
+        # print(f"Title: {self.params['title']}")
 
-        self.params["author"] = re.sub(
-            # This version broke on irishjournal, the site updated
-            # to use th instead of tr... updating to match site.
-            #r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
-            #
-            r'.*<th\s+class=["\']label["\']>Author</th>\s*<td[^>]+>([^<]+)</td>.*',
-            r"\1",
-            html_doc
-        )
-        print(f"Author: {self.params['author']}")
+        # self.params["author"] = re.sub(
+        #     # This version broke on irishjournal, the site updated
+        #     # to use th instead of tr... updating to match site.
+        #     #r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
+        #     #
+        #     r'.*<th\s+class=["\']label["\']>Author</th>\s*<td[^>]+>([^<]+)</td>.*',
+        #     r"\1",
+        #     html_doc
+        # )
+        # print(f"Author: {self.params['author']}")
 
         #<tr><th class='label'>Forum</th><td colspan='4'><a href='https://www.pgdp.net/phpBB3/viewtopic.php?t=63502'>Discuss this project</a> (19 replies)</td></tr>
 
@@ -148,7 +173,7 @@ class MakeProject():
         if not dst_filename:
             dst_filename = src_filename
         with open(f"{self.template_dir}/{src_filename}") as file:
-            template = Template(file.read(), autoescape=True)
+            template = Template(file.read(), autoescape=False)
         with open(f"{self.project_dir}/{dst_filename}", "w") as file:
             file.write(template.render(self.params))
         print(f"Created: {dst_filename}")
@@ -334,13 +359,16 @@ if __name__ == "__main__":
     project = MakeProject()
     project.get_params()
     project.pgdp_login()
+    project.get_project_info()
     project.scrape_project_info()
     project.create_directories()
-    project.download_text()
-    project.download_images()
 
-    # Make a copy of the text to work on
-    project.copy_text_file()
+    if DOWNLOAD_BOOK_CONTENT:
+        project.download_text()
+        project.download_images()
+
+        # Make a copy of the text to work on
+        project.copy_text_file()
 
     if CREATE_REMOTE:
         project.make_online_repo()
