@@ -55,8 +55,12 @@ default:
 $(TXT): $(PPGEN_SRC)
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o u
 
+t: $(TXT)
+
 $(HTML): $(PPGEN_SRC)
 	$(UTILDIR)/venv/bin/python3 $(PPGEN) -i $(PPGEN_SRC) -o h -img
+
+h: $(HTML)
 
 ppgen: $(TXT) $(HTML)
 
