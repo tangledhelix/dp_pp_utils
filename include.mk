@@ -157,8 +157,6 @@ else
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-epub.epub
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub.epub
 	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub3.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-kindle.mobi
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-kf8-kindle.mobi
 	@ls -ltr $(BOOKSDIR)
 endif
 
