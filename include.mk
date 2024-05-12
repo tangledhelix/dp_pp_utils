@@ -153,10 +153,10 @@ ebooksget: ebooksdir
 ifndef cache
 	@echo 'Missing param: "cache" not defined'
 else
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/output.txt
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-epub.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub.epub
-	curl -s --output-dir $(BOOKSDIR) -O $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub3.epub
+	curl -s -o $(BOOKSDIR)/output.txt                   $(PGLAF_URL)/cache/$(cache)/output.txt
+	curl -s -o $(BOOKSDIR)/$(PROJECT)-epub.epub         $(PGLAF_URL)/cache/$(cache)/$(book_id)-epub.epub
+	curl -s -o $(BOOKSDIR)/$(PROJECT)-images-epub.epub  $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub.epub
+	curl -s -o $(BOOKSDIR)/$(PROJECT)-images-epub3.epub $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub3.epub
 	@ls -ltr $(BOOKSDIR)
 endif
 
