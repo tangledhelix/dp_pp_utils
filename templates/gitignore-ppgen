@@ -1,6 +1,7 @@
 guiguts.log
-/zipdir
-/ebooks
+/zipdir/
+/ebooks/
+/.vscode/
 {{ project_name }}*.zip
 {{ project_name }}.html
 {{ project_name }}.html.bin
