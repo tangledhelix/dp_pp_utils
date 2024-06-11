@@ -36,7 +36,6 @@ default:
 	@echo "make vh:        build HTML version & open for viewing"
 	@echo "make view:      build UTF8 text and HTML versions, open for viewing"
 	@echo ""
-	@echo "make clean:     remove built ebooks, zip archives"
 	@echo "make ebooks:    create epub files (no .mobi)"
 	@echo ""
 	@echo "make ebooksget: fetch ebooks from PGLAF epubmaker"
@@ -128,8 +127,8 @@ zip: ppgen
 	rm -rf $(ZIPCACHEDIR)/$(IMG)/{.DS_Store,*.pxd,*.xcf}
 	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT).zip .
 
-zipclean:
-	rm -rf $(ZIPDIR)
+#zipclean:
+#	rm -rf $(ZIPDIR)
 
 pyvenv:
 	@if [ ! -d "$(UTILDIR)/venv" ]; \
@@ -160,12 +159,12 @@ else
 	@ls -ltr $(BOOKSDIR)
 endif
 
-ebooksclean:
-	rm -rf $(BOOKSDIR)
+#ebooksclean:
+#	rm -rf $(BOOKSDIR)
 
-clean: zipclean ebooksclean
-	rm -f guiguts.log
-	rm -f $(PROJECT)*.zip
-	rm -f $(HTML) $(HTML).bin
-	rm -f $(TXT) $(TXT).bin
-	rm -f $(LAT1TXT) $(LAT1TXT).bin
+#clean: zipclean ebooksclean
+#	rm -f guiguts.log
+#	rm -f $(PROJECT)*.zip
+#	rm -f $(HTML) $(HTML).bin
+#	rm -f $(TXT) $(TXT).bin
+#	rm -f $(LAT1TXT) $(LAT1TXT).bin
