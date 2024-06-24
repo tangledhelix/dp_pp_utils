@@ -112,34 +112,6 @@ class MakeProject():
 
         html_doc = re.sub(r"\n", "", r.text)
 
-        # self.params["title"] = re.sub(
-        #     #
-        #     # This version broke on cavalry. Changing " to <, see if it works
-        #     # r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^"]+)</td>.*',
-        #     #
-        #     # This version broke on irishjournal, the site updated
-        #     # to use th instead of tr... updating to match site.
-        #     #r'.*<td[^>]+><b>Title</b></td><td[^>]+>([^<]+)</td>.*',
-        #     #
-        #     r'.*<th\s+class=["\']label["\']>Title</th>\s*<td[^>]+>([^<]+)</td>.*',
-        #     r"\1",
-        #     html_doc
-        # )
-        # print(f"Title: {self.params['title']}")
-
-        # self.params["author"] = re.sub(
-        #     # This version broke on irishjournal, the site updated
-        #     # to use th instead of tr... updating to match site.
-        #     #r'.*<td[^>]+><b>Author</b></td><td[^>]+>([^<]+)</td>.*',
-        #     #
-        #     r'.*<th\s+class=["\']label["\']>Author</th>\s*<td[^>]+>([^<]+)</td>.*',
-        #     r"\1",
-        #     html_doc
-        # )
-        # print(f"Author: {self.params['author']}")
-
-        #<tr><th class='label'>Forum</th><td colspan='4'><a href='https://www.pgdp.net/phpBB3/viewtopic.php?t=63502'>Discuss this project</a> (19 replies)</td></tr>
-
         self.params["forum_link"] = re.sub(
             # This version broke on irishjournal, the site updated
             # to use th instead of tr... updating to match site.
@@ -377,9 +349,6 @@ if __name__ == "__main__":
     project.process_template("Makefile")
     project.process_template("README.md")
     if PPGEN:
-        # os.mkdir(".vscode")
-        # project.process_template("settings.json", ".vscode/settings.json")
-        # project.process_template("tasks.json",    ".vscode/tasks.json")
         project.process_template("gitignore-ppgen", ".gitignore")
     else:
         project.process_template("gitignore-guiguts", ".gitignore")
