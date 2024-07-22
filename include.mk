@@ -156,6 +156,8 @@ else
 	curl -s -o $(BOOKSDIR)/$(PROJECT)-epub.epub         $(PGLAF_URL)/cache/$(cache)/$(book_id)-epub.epub
 	curl -s -o $(BOOKSDIR)/$(PROJECT)-images-epub.epub  $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub.epub
 	curl -s -o $(BOOKSDIR)/$(PROJECT)-images-epub3.epub $(PGLAF_URL)/cache/$(cache)/$(book_id)-images-epub3.epub
+	cp         $(BOOKSDIR)/$(PROJECT)-images-epub3.epub $(BOOKSDIR)/$(PROJECT)-images-epub3-RENAMED.kepub.epub
+	@echo "*** Created $(PROJECT)-images-epub3.epub"
 	@ls -ltr $(BOOKSDIR)
 endif
 
