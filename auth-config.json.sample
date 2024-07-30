@@ -1,15 +1,7 @@
 {
-    "git_site": "gitlab",
     "github": {
         "username": "my_username",
         "password": "my_password"
-    },
-    "gitlab": "my_access_token",
-    "trello": {
-        "api_key": "my_api_key",
-        "api_secret": "my_api_secret",
-        "token": "my_token",
-        "token_secret": "my_token_secret"
     },
     "pgdp": {
         "username": "my_username",

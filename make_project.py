@@ -7,23 +7,15 @@ import sys
 import re
 import shutil
 
-from os.path import basename
 from jinja2 import Template
 from subprocess import call
-from pytrello2 import TrelloClient
 from zipfile import ZipFile
-
-# For Trello API reference (need to pair this with pytrello2...)
-# https://developer.atlassian.com/cloud/trello/rest/
 
 # By default, create remote resources like Trello & GitHub.
 CREATE_REMOTE = True
 
 # By default, download main project contents like the PNGs
 DOWNLOAD_BOOK_CONTENT = True
-
-# Set true to assume we'll use ppgen; false otherwise (i.e. guiguts)
-PPGEN = True
 
 AUTH_CONFIG = "auth-config.json"
 
@@ -32,10 +24,6 @@ PGDP_URL = "https://www.pgdp.net"
 GITHUB_REMOTE = "origin"
 GITHUB_BRANCH = "main"
 
-if PPGEN:
-    TRELLO_TEMPLATE = "TEMPLATE: PPgen+Guiguts workflow"
-else:
-    TRELLO_TEMPLATE = "TEMPLATE: PP workflow"
 
 class MakeProject():
 
@@ -44,8 +32,6 @@ class MakeProject():
         self.projects_base = f"{self.dp_base}/pp"
         self.template_dir = f"{self.dp_base}/util/templates"
         self.params = {}
-
-        self.trello_template = TRELLO_TEMPLATE
 
         with open(f"{self.dp_base}/util/{AUTH_CONFIG}") as file:
             self.auth = json.loads(file.read())
@@ -62,7 +48,6 @@ class MakeProject():
         self.get_param("project_name", 'Project name, e.g. "missfairfax"')
         self.get_param("project_id", 'Project ID, e.g. "projectID5351bd1e5eca9"')
         self.project_dir = f"{self.projects_base}/{self.params['project_name']}"
-        #self.params["kindlegen_dir"] = self.dp_base + "/kindlegen"
 
     def pgdp_login(self):
         payload = {
@@ -153,33 +138,11 @@ class MakeProject():
     def copy_text_file(self):
         project_id = self.params["project_id"]
         project_name = self.params["project_name"]
-        project_title = self.params["title"]
-        project_author = self.params["author"]
         project_dir = self.project_dir
 
         input_file = f"{project_dir}/projectID{project_id}.txt"
-
-        if PPGEN:
-            output_file = f"{project_dir}/{project_name}-src.txt"
-
-            # Include some header information before copying the raw file over.
-            with open(output_file, 'w') as outfile:
-                outfile.write(f"// This is a ppgen source file.\n")
-                outfile.write("\n")
-                outfile.write(f"// Title      : {project_title}\n")
-                outfile.write(f"// Author     : {project_author}\n")
-                outfile.write(f"// Project ID : {project_id}\n")
-                outfile.write("\n")
-                outfile.write(f".dt {project_title} | Project Gutenberg\n")
-                outfile.write("\n")
-
-                with open(input_file) as infile:
-                    for line in infile:
-                        outfile.write(line)
-        else:
-            # For guiguts, we just make a copy with no header
-            output_file = f"{project_dir}/{project_name}-utf8.txt"
-            shutil.copyfile(input_file, output_file)
+        output_file = f"{project_dir}/{project_name}-utf8.txt"
+        shutil.copyfile(input_file, output_file)
 
     def make_github_repo(self):
         headers = {
@@ -211,84 +174,6 @@ class MakeProject():
             self.git_remote_url = json_response["ssh_url"]
         else:
             print(f"ERROR: GitHub response code {r.status_code} unexpected.")
-
-    def make_gitlab_repo(self):
-        headers = {
-            "Content-Type": "application/json",
-            "PRIVATE-TOKEN": self.auth["gitlab"],
-        }
-
-        payload = {
-            "name": f"DP_{self.params['project_name']}",
-            "description": f"DP PP project \"{self.params['title']}\" ID {self.params['project_id']}",
-            "visibility": "private",
-            "issues_enabled": False,
-            "merge_requests_enabled": False,
-            "jobs_enabled": False,
-            "wiki_enabled": False,
-            "snippets_enabled": False,
-            "container_registry_enabled": False,
-            "shared_runners_enabled": False,
-            "lfs_enabled": False,
-            "request_access_enabled": False,
-        }
-
-        r = requests.post("https://gitlab.com/api/v4/projects",
-                          headers=headers,
-                          data=json.dumps(payload))
-        if r.status_code == 201:
-            print("Created Gitlab repository")
-            json_response = json.loads(r.text)
-            self.git_remote_url = json_response["ssh_url_to_repo"]
-        else:
-            print(f"ERROR: Gitlab response code {r.status_code} unexpected.")
-            print(r.text)
-
-    def make_online_repo(self):
-        if self.auth["git_site"] == "github":
-            self.make_github_repo()
-        elif self.auth["git_site"] == "gitlab":
-            self.make_gitlab_repo()
-
-    def make_trello_board(self):
-        client = TrelloClient(
-            self.auth["trello"]["token"],
-            self.auth["trello"]["api_key"]
-        )
-
-        template = None
-        for board in client.board.get_all_boards():
-            if board.name == self.trello_template:
-                template = board
-                break
-
-        new_board = client.board.create_board(
-            f"DP: {self.params['title']}", **{
-                "idBoardSource": template.id,
-                "prefs_permissionlevel": "public",
-                "prefs_background": "lime"
-            }
-        )
-
-        for _list in client.board.get_lists_on_board(new_board.id):
-            if _list.name.startswith("Project notes"):
-                for _card in client.list.get_cards_on_list(_list.id):
-                    if _card.name == "Project info":
-                        info_card = _card
-                        break
-                break
-        new_description = info_card.desc.replace(
-            "{{PROJECT_NAME}}", self.params["project_name"]
-        ).replace(
-            "{{PROJECT_ID}}", self.params["project_id"]
-        )
-
-        client.card.update_card(info_card.id, **{
-            "desc": new_description
-        })
-
-        self.params["trello_url"] = new_board.shortUrl
-        print(f"Created Trello board - {new_board.shortUrl}")
 
     def download_text(self):
         print("Downloading text from DP ...", end="", flush=True)
@@ -343,15 +228,11 @@ if __name__ == "__main__":
         project.copy_text_file()
 
     if CREATE_REMOTE:
-        project.make_online_repo()
-        project.make_trello_board()
+        project.make_github_repo()
 
-    project.process_template("Makefile")
     project.process_template("README.md")
-    if PPGEN:
-        project.process_template("gitignore-ppgen", ".gitignore")
-    else:
-        project.process_template("gitignore-guiguts", ".gitignore")
+    project.process_template("Makefile")
+    project.process_template("gitignore", ".gitignore")
 
     if CREATE_REMOTE:
         # This is only done if remote, because it will try to push.

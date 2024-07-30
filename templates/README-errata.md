@@ -7,9 +7,9 @@ This is an [errata report][1] for a [Project Gutenberg][2] EBook.
 
 "{{ title }}" by {{ author }}
 
-- [Project Gutenberg listing][3]
+* [Project Gutenberg listing][3]
 {% if project_id -%}
-- [DP project page][4]
+* [DP project page][4]
 {%- endif %}
 
 [3]: https://www.gutenberg.org/ebooks/{{ pg_ebook_number }}

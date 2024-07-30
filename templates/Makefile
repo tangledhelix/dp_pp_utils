@@ -1,7 +1,6 @@
 
-PROJECT={{ project_name }}
-TITLE={{ title }}
-AUTHOR={{ author }}
+PROJECT={{project_name}}
+TITLE={{title}}
+AUTHOR={{author}}
 
-include $(HOME)/dp/util/include.mk
-
+include $(HOME)/dp/util/include-guiguts.mk

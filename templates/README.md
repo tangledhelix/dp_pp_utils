@@ -4,17 +4,17 @@ This is a [Distributed Proofreaders](http://www.pgdp.net/) post-processing proje
 
 "{{ title }}" by {{ author }}
 
-- [DP project page](http://www.pgdp.net/c/project.php?id=projectID{{ project_id }})
-- [Forum thread]({{ forum_link }})
-- [Trello board]({{ trello_url }})
-- [Good words](good_words.txt)
-- [Bad words](bad_words.txt)
+* [DP project page](http://www.pgdp.net/c/project.php?id=projectID{{ project_id }})
+* [Forum thread]({{ forum_link }})
+* [Good words](good_words.txt)
+* [Bad words](bad_words.txt)
+* [Project Gutenberg listing]() (not posted yet)
 
 Page references (e.g. `001`) refer to the scan numbers, not the original book's page numbers.
 
 ### Things to revisit ###
 
-- [ ] Example item
+* [ ] Example item
 
 ### Project manager notes ###
 
