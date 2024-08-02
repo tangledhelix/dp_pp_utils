@@ -13,8 +13,8 @@ cd ~/dp/util
 . venv/bin/activate
 ./make_project.py
 ```
-* [ ] Read [project comments](https://www.pgdp.net/c/project.php?id=projectID{{project_id}}#project-comments)
-* [ ] Subscribe to [forum topic]({{forum_link}}) and read all posts
+* [ ] Read the [project comments](https://www.pgdp.net/c/project.php?id=projectID{{project_id}}#project-comments)
+* [ ] Subscribe to the [forum topic]({{forum_link}}) and read all posts
 * [ ] Open `{{project_name}}-utf8.txt` in Guiguts
 * [ ] `File → Project → Configure Page Labels`. Check for roman numerals and unnumbered pages. Go to end of book to check page numbers line up.
 
@@ -32,6 +32,9 @@ Check for:
 * Proper markup of `<i>italic</i>` and `<b>bold</b>`.
   * Watch for punctuation wrongly contained in markup, such as `<i>(ibid.</i>` or `<b>Subtopic.</b>`.
 * Proper markup of Greek and other transliterations
+* Languages other than the main book language can be noted for later
+  * In HTML they can be labeled with `<span lang="fr">..</span>`
+  * If they're in italic print, that's handled later during italic handling
 * Block material all marked in some fashion:
   * Poetry, misc. tabular in `/* */`
   * Block quotes in `/# #/`
@@ -61,7 +64,7 @@ Check for:
 * [ ] Remove any remaining `[Blank Page]` lines
 
 ### Errata
-* [ ] If original book had errata, apply it and add to TN
+* [ ] If original book had errata, apply it and note in TN
 
 ### Fix Block Markups and Proofer Notes
 * [ ] Use the `Search` menu to step through all `/* */` blocks.
@@ -91,7 +94,7 @@ Check for:
 * [ ] If book has illustrations, edit or create *List of Illustrations* (**Note:** this is not a requirement). Make sure it is 1:1 with `[Illustration]` captions. Protect with `/X...X/`.
 
 ### Edit Transliterations
-- [ ] Use `Tools → Character Tools` to search for transliterations. Check the content of each transliteration. For Greek, use the "Greek Transliteration Tool".
+- [ ] Use `Tools → Character Tools` to search for transliterations. Check the content of each transliteration. For Greek, there's a "Greek Transliteration Tool", but entering Unicode Greek is preferable.
 
 ### Remove Visible Page Breaks
 - [ ] Run `Tools → Fixup Page Separators` to remove visible page separators
@@ -114,10 +117,11 @@ Check for:
 * [ ] Click `Ital/Bold/SC`. Scan list for incorrect or inconsistent use of italics, bold face, and small caps.
 * [ ] Click `Ligatures`. Scan list for [incorrect or inconsistent use](https://www.pgdp.net/wiki/Æ_and_œ_ligatures) of `ae` and `oe` ligatures.
 ```text
-æ Æ <shift>-opt-'    /ai/ to rhyme with “eye”.
-œ Œ <shift>-opt-q    /ɔɪ/ to rhyme with “oi” in “foil”
+æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
+œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
+<shift> for capital letter
 ```
-* [ ] Look for missed ligature / diacritical transliterations: `\[[^*]`
+* [ ] Look for missed ligature / diacritical transliterations. Regex: `\[[^*]`
 
 ### Apply Scanno Checks
 * [ ] Use `Tools → Stealth Scannos` with `Auto Advance`.
@@ -127,17 +131,27 @@ Check for:
 * [ ] `Tools → Run Jeebies`. Examine its report of possible `he/be` errors.
 
 ### Misc checks
-* [ ] Search `(Dr|M(me|lle|essrs|rs?)|St|Fr|Rev)\s` and add missing period if needed
-* [ ] Check A.M. P.M. and such for spacing to match book - search `[AP]\.\s*M\.`
-  * Note these to do `&nbsp;` in HTML if required to avoid wrap
-* [ ] Does book use small-caps A.D. B.C. etc?
-  * Search `[A-Z]\.\s*[A-Z]\.`, add `<sc>`
+* [ ] Check for chapter/section spacing. Regex: `\n\n\n`
+* [ ] Check spaces around hyphens. Regex: `(\s+-|-\s+)`
+* [ ] Check spaces before punctuation. Regex: `\s+[.!?;:,]`
+* [ ] Check spaces around quotes. Regex: `(\s+['"][^\s]|[^\s]['"]\s+)`
+* [ ] Check spaces around brackets. Regex: `\s+[({[\]})]|[({[\]})]\s+`
+* [ ] Search regex `(Dr|M(me|lle|essrs|rs?)|St|Fr|Rev)\s` and add missing period if needed
+* [ ] Check `A.M.`, `P.M.` and similar for spacing to match book - regex: `[AP]\.\s*M\.`
+  * Note these to do `&nbsp;` in HTML, to avoid line wrap mid-abbreviation
+* [ ] Does book use small-caps A.D. B.C.?
+  * Search `[A-Z]\.\s*[A-Z]\.`, add `<sc>` and note for `&nbsp;` if needed
+* [ ] Check for multiple consecutive spaces which are not in a no-wrap block
+* [ ] Look at `<tb>` and look for improper uses
+* [ ] Check all ellipses. Regex: `\.\.\.`
+* [ ] Check for 3 dashes (not either 2 or 4). Regex: `[^-]---[^-]`
+* [ ] Look for spaces around em- or long-dash. Regex: `\s+--(--)?\s+`
+* [ ] Check adjacent letters and numbers. Regex: `([0-9][A-Za-z]|[A-Za-z][0-9])`
 * [ ] Superscripts (search `^` without regex). Can use `^` or `^{th}` form
-  * If using `^{th}` form add TN to text version about the notation
+  * Add TN to text version about this superscript notation
 
 ### Apply Bookloupe
 * [ ] If you have Bookloupe installed, use `Tools → Bookloupe`.
-  * TODO: OLD LIST: rethink for non-ppgen?
   * Forward slash
   * HTML tag
   * Long line
@@ -193,38 +207,40 @@ Use the `Search` menu:
 
 ### Unicode dashes
 
-* [ ] Long dash: `([^-])----([^-]|\n)` → `$1——$2`
-* [ ] Em dash: `([^-])--([^-]|\n)` → `$1—$2`
-* [ ] [En dash](https://www.pgdp.net/wiki/En-dash) (for numbers): `([^-])-([^-]|\n)` → `$1–$2`
+* TODO: does `$` regex work or should it change back to `\n` ?
+* TODO: and if so should it be `\n` or `(\n|\r\n)` ?
+* [ ] Long dash: S/R `([^-])----([^-]|$)` → `$1——$2`
+  * There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
+* [ ] Em dash: S/R `([^-])--([^-]|$)` → `$1—$2`
+  * There exists another dash (HORIZONTAL BAR, U+2015) which one PM/PP prefers to EM DASH (using two bars for one EM DASH), based on appearance in text version. I opted not to use this in favor of using the EM DASH character in both text and HTML.
+* [ ] [En dash](https://www.pgdp.net/wiki/En-dash): S/R `([^-])-([^-]|$)` → `$1–$2`
   * Range of numbers `12–15`
   * Mathematical minus sign `15 – 12 = 3`
   * Negative numbers `–14º`
-* Leave others as a hyphen
-* There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
-* There exists another dash (HORIZONTAL BAR, U+2015) which one PM/PP prefers to EM DASH (using two bars for one EM DASH), based on appearance in text version. I opted not to use this in favor of using the EM DASH character in both text and HTML.
+* Any dashes not covered above are simple hyphens.
 
 ### Last pre-split check
 * [ ] Look at the revisit list for anything to handle before text/html split
 * [ ] Check for unexpected `*` to make sure no stray proofer notes or split-word/fn markers were missed
 
 ### Save Edited Markup
-* [ ] Save any unsaved changes in {{project_name}}-utf8.txt.
-* [ ] Use `File → Save a Copy As` to make {{project_name}}.html
+* [ ] Save any unsaved changes
+* [ ] Use `File → Save a Copy As` to make `{{project_name}}.html`
   * This will be the starting file for the HTML version. You can also use it  as fallback in case you mess up and need to start the following steps over.
 
 ## Prepare the Plain Text Version
 We now proceed to create a Plain Text Version of the book.
 
-* [ ] Re-open {{project_name}}-utf8.txt (if not still open).
+* [ ] Re-open `{{project_name}}-utf8.txt` (if not still open).
 
-### Convert <tb>, Italic, Bold, and Smallcap
+### Convert `<tb>`, Italic, Bold, and Smallcap
 * [ ] Use `Txt → Txt Conversion Palette`:
   * [ ] Convert [inline formatting](https://www.pgdp.net/wiki/DP_Official_Documentation:Formatting/Formatting_Guidelines#Formatting_at_the_Character_Level:).
   * [ ] Convert [thought breaks](https://www.pgdp.net/wiki/DP_Official_Documentation:Formatting/Formatting_Guidelines#Thought_Breaks_.28Extra_Spacing.2FDecoration_Between_Paragraphs.29).
   * [ ] Convert [smallcaps](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Guide_to_smallcaps).
 
 ### Fix ASCII Tables
-* [ ] Use `Search → Find Next /**/ Block*` to step through all tabular material.
+* [ ] Use `Search → Find Next /**/ Block` to step through all tabular material.
   * Compare to page image; reformat to best convey author intent.
   * For complex tables, use `Txt → ASCII Table Effects` to reformat.
 
@@ -239,9 +255,7 @@ We now proceed to create a Plain Text Version of the book.
 * [ ] Save the document.
 
 ### Final checks
-* [ ] Search for `<` and `>` to locate any tags not yet removed.
-
-- TODO: address drop-caps? or is it needed in this version
+* [ ] Search for `<` and `>` to locate any tag markup not yet removed.
 
 ### Check revisit list
 - [ ] Check "things to revisit" list for anything lingering in the text version
@@ -262,6 +276,8 @@ This file uses _underscores_ to indicate italic text.
 
 If bold is used, add also `and =equals= to indicate bold text`
 
+If there were small-caps, `Small capitals changed to all capitals`
+
 An example entry might look like this. Use the book's page numbers, not PNG number
 
 ```text
@@ -273,11 +289,10 @@ p. 123: changed “foo” to “fool” (the fool and his money)
 
 ### Validation
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) pptext check
-  
-- TODO: add pptools here when they support html5
+* TODO: add pptools here it supports HTML5
 
 ## Prepare the HTML Version
-Finally, we create an HTML Version of the book.
+Finally, we create an HTML version of the book.
 
 ### Generate the HTML
 * [ ] Open `{{project_name}}.html` that was saved previously.
@@ -297,18 +312,16 @@ Finally, we create an HTML Version of the book.
   * Where you see a problem, make a correction in Guiguts, save the file, and click the "reload" button in the web browser.
 * [ ] Hyperlink page references in text, TOC, and index (discussed [here](https://www.pgdp.net/wiki/PPTools/Guiguts/HTML#Hyperlinking_Page_Numbers) and [here](https://www.pgdp.net/wiki/Indexes)).
 * [ ] Remove the [Generated TOC](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC) if it is not needed.
-* [ ] If A.M. P.M. style abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
+* [ ] If `A.M.` `P.M.` or similar abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
 * [ ] If superscripts were used, convert to `<sup>`
-* TODO: does the HTML converter do this automatically?
-* TODO: did we drop some of the `^` before text/html split already, was it lost?
+* TODO: does the HTML converter do this automatically for `^` or `^{n}`?
 * [ ] Semantic fixup for italics
   * Search `<i>((.|\n)+?)</i>`
   * Replace (emphasis) `<em>$1</em>`
   * Replace (citation) `<cite>$1</cite>`
   * Replace ([languages](http://www.w3schools.com/tags/ref_language_codes.asp)) `<i lang="fr">$1</i>`
   * Leave other cases as `<i>..</i>`
-* [ ] Add `abbr` and `lang` tags as appropriate.
-* TODO: what does that mean exactly? Is this ppgen terminology?
+* [ ] Add `abbr` tags if appropriate.
 * [ ] If there is a cover image for e-readers supplied with the project, or you are creating one yourself, you can find information on what is needed in your HTML in the [Proofreaders' Guide to EPUB](https://www.pgdp.net/wiki/The_Proofreader%27s_Guide_to_EPUB#Cover_Page) or the [PP guide to cover pages](https://www.pgdp.net/wiki/PP_guide_to_cover_pages).
 
 ### Process Hi-resolution Images
@@ -318,12 +331,12 @@ If the project manager provided high-resolution scans of the images in the text,
 * [ ] Straighten it (almost all scanned images are off-perpendicular; some are trapezoidal owing to the page not being flat on the scan window). Perspective tool.
 * [ ] Crop it to remove all redundant white space and borders (provide margins and borders with CSS styling of the `<img>` markup).
 * [ ] Correct the contrast
-* [ ] Use the dodge/burn layer technique to clean up, at least for line drawings
+* [ ] Use the [dodge/burn layer technique](https://www.pgdp.net/wiki/Guide_to_Image_Processing#Linear_Light_in_The_GIMP) to clean up, at least for line drawings
 * [ ] Sharpen.
 * [ ] Correct any major scratches, freckles, dirt, etc.
 * [ ] Save in the subfolder images using appropriate type:
-  * Line drawings in .png at 8 bits per pixel (not the default 24-bit RGB format).
-  * Photographs as .jpg with an appropriate compression level such as (Photoshop) level 6.
+  * Line drawings in `.png` at 8 bits per pixel (not the default 24-bit RGB format).
+  * Photographs as `.jpg` with an appropriate compression level such as (Photoshop) level 6.
 * [ ] Under `HTML → HTML Generator`, use the `Auto Illus Search` button. This will help add the images to the book.
 * [ ] Page through entire HTML book making sure that each image is being loaded correctly. Test each thumbnail if used.
 
@@ -334,8 +347,7 @@ If the project manager provided high-resolution scans of the images in the text,
   * inline: up to 256K, 5000x5000 pixels
   * linked: up to 1MB, 5000x5000 pixels
   * covers: see cover documentation, 1600x2560, ratio ~1:1.6 not over 5000x5000px
-* TODO: can add `&nbsp;` to avoid break e.g. `Mr.&nbsp;----`
-* TODO: where were blocks processed for HTML?
+* TODO: where were /* */ style blocks processed / checked for HTML?
 
 * TODO: notes on images:
 ```text
@@ -350,8 +362,6 @@ don't need alt tag if there's a caption tag.
 https://www.pgdp.net/wiki/Guide_to_Image_Processing
 https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Post-Processing_FAQ#Preparing_illustrations_for_the_HTML_version
 ```
-
-* TODO: illos belong between paragraphs and don't forget captions
 
 * TODO: table of illustrations if there is one
 * TODO: modifying an image substantially (incl. removing library sticker/stamp), add a note in TN about it; also place in public domain in TN. (PG requirement)
@@ -369,7 +379,7 @@ Perform these validation steps before submitting your book. Validation is also h
 ```
 * [ ] Confirm that the `<title>` tag matches the format specified by the [Post-Processing FAQ](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Post-Processing_FAQ#HTML_title).
   * `<title>Alice's Adventures in Wonderland | Project Gutenberg</title>`
-  * Sentence case isn't required here (on upload form it is)
+  * Sentence case isn't required here (but it is on the upload form)
 * [ ] Use `HTML → HTML Tidy`. Fix any reported problems.
 * [ ] Use [W3C Markup Validation Service](http://validator.w3.org/#validate-by-upload). Fix any reported problems.
 * [ ] Remove unused CSS. `HTML → PPhtml` can help with this. Alternatively, check manually or use a tool such as the Firefox addons Firebug (with CSS Usage extension) or Dust-Me Selectors.
@@ -387,39 +397,36 @@ Perform these validation steps before submitting your book. Validation is also h
 * TODO: check paragraph vertical spacing and adjust that in CSS if needed
 * TODO: have a no-indent class too! needed sometimes
 * TODO: address drop-caps & illo drop-caps
+  * TODO: how do drop caps work in verse??
 
 ### Check "things to revisit"
 * [ ] Check revisit list for anything left for the HTML version
 
 ### Add TN
-* [ ] Add transcriber's notes, example follows. Use 4+2 blank lines as in new chapter
+* [ ] Add transcriber's notes, example follows.
 
 * TODO: HTML-ize this example and indicate how to link back to origin sites.
+* TODO: should this go in pre-split and let the HTML converter handle most of it?
 * TODO: Add something about cover image TN, if that was a new image.
 
 ```html
 Transcriber's Notes
 
-
 Some inconsistencies in spelling, hyphenation, and punctuation have been
 retained.
-
-This file uses _underscores_ to indicate italic text.
 ```
 
-If bold is used, add also `and =equals= to indicate bold text`
-
-An example entry might look like this. Use the book's page numbers, not PNG number
+An example entry might look like this. Use the book's page numbers, not PNG number.
 
 ```html
 p. 123: changed “foo” to “fool” (the fool and his money)
 ```
 
-* TODO: did multiple blank lines get handled earlier? (Probably generated HTML dropped it?)
+* TODO: did multiple blank lines get handled earlier?
 
 ### Review HTML
-* [ ] Review in multiple browsers (Safari, Chrome, Firefox...)
-* [ ] Pay particular attention to complex items like tables, poetry...
+* [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
+* [ ] Pay particular attention to complex items like tables, poetry
 
 ### Validation
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) checks
@@ -429,8 +436,8 @@ p. 123: changed “foo” to “fool” (the fool and his money)
   * [ ] [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_upload+with_options)
   * [ ] [ebookmaker](https://ebookmaker.pglaf.org/)
 
-* TODO: add pptools here when they support html5
-  * CSS transform for pptools (for ppcomp-style compare?)
+* TODO: add pptools here when it supports HTML5
+  * CSS transform for pptools
 ```css
 /* projects with bold <b> markup */
 b:before { content: "="; }
@@ -452,38 +459,48 @@ b:after { content: "="; }
 * Nook is particularly bad at table rendering
 * Kindle sometimes can show SVG, sometimes not??
 * Apple Books isn't reliably able to show PNGs in table cells??
+* Renaming epub3 to end in `.kepub.epub` improves rendering a lot
+* Also a utility `kepubify` (link below) that converts; it's unclear what this conversion does that's any better than just renaming the file. Changing the filename is enough to invoke a different / better rendering engine on Kobo devices.
 
 ### Build and upload Ebooks
 * [ ] `make zip`
-* [ ] Upload using [ebookmaker](https://ebookmaker.pglaf.org/)
-* [ ] `make ebooksget cache={cache_number}`
+* [ ] Upload to [ebookmaker](https://ebookmaker.pglaf.org/) to generate Ebook files
+* [ ] `make ebooksget cache={cache_number}` to download ebook files
 * [ ] Convert epub3 with [kepubify](https://pgaskin.net/kepubify/try/)
-* [ ] `cp {{project_name}}-images-epub3.epub {{project_name}}-images.kepub.epub`
+* [ ] Make a copy of epub3 to kepub (a simple renaming)
+  * `cp {{project_name}}-images-epub3.epub {{project_name}}-images.kepub.epub`
 * [ ] Upload epub3 with [Send to Kindle](https://www.amazon.com/gp/sendtokindle)
 * [ ] Add epub3 to Apple Books
 * [ ] Add epub, epub3, renamed-kepub, converted-kepub to Dropbox for Kobo
 
 ### Ebook review
+<details>
+<summary>
 Don't necessarily have to do *all* of these, but these are what I have.
+</summary>
 
 * [ ] Review Ebook ToC in at least one e-reader, for structure & content
   * Can try using `title=` attr if a header title has footnote marker etc.
-* Mac
+* [ ] Mac
   * [ ] Adobe Digital Editions (epub3)
   * [ ] Apple Books
   * [ ] Kindle Previewer (epub3)
   * [ ] Calibre (epub3)
-* Phones, tablets, e-ink devices
-  * [ ] Kobo Libra Colour (epub3)
-  * [ ] Kobo Libra Colour (renamed-kepub)
-  * [ ] Kobo Libra Colour (converted-kepub)
-  * [ ] Kindle Paperwhite
+* [ ] Phone
   * [ ] Apple Books (iPhone)
   * [ ] Kindle (iPhone)
+* [ ] Tablet
   * [ ] Kindle (Android)
   * [ ] Google Play Books - Android (Dropbox)
   * [ ] Apple Books - iPad mini
   * [ ] Kindle - iPad mini
+* [ ] E-ink
+  * [ ] Kobo Libra Colour (epub3)
+  * [ ] Kobo Libra Colour (renamed-kepub)
+  * [ ] Kobo Libra Colour (converted-kepub)
+  * [ ] Kindle Paperwhite
+
+</details>
 
 ### Device / cloud cleanup
 * [ ] Remove from Dropbox
@@ -526,22 +543,19 @@ Submit for a decent length of time, up to the maximum. Check what's in `ebooks/`
 * [ ] Carefully check submission details against title page from book
   * If anything won't fit in the form add it to the Notes field
   * If you make any changes mention them in Notes field
-  * Use sentence case for title
-    * Proper nouns such as names should be capitalized
-    * Examples:
-      * The story of the little red hen
-      * What the wind did
-      * The writing of fiction
-        * Travels in Africa, Egypt, and Syria from the year 1792 to 1798
-        * The Squire's young folk : A Christmas story
+  * Use sentence case for title. Proper nouns such as names should be capitalized.
+    * The story of the little red hen
+    * What the wind did
+    * The writing of fiction
+    * Travels in Africa, Egypt, and Syria from the year 1792 to 1798
+    * The Squire's young folk : A Christmas story
 * [ ] Credits line
-  * Paste in from DP project page
-  * TODO: make that a link
+  * Paste in from DP [project page](https://www.pgdp.net/c/project.php?id=projectID{{project_id}})
   * Add myself to credits line
   * DO NOT alter any other names, DO NOT turn a DP username into real name!
   * Assume `Produced by` will be added as a prefix to whatever you enter
   * Should be only ASCII, no Unicode
-  * Example: Joe Schmo, Jane Doe, and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive/American Libraries.)
+  * Example: `Joe Schmo, Jane Doe, and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive/American Libraries.)`
 * [ ] Anything else important, add to Notes field
   * Any CSS3 should be noted, e.g. drop-cap or other stuff.
   * If project contains Hebrew, let WWer know that
@@ -557,7 +571,7 @@ Submit for a decent length of time, up to the maximum. Check what's in `ebooks/`
 * TODO: Element and attribute names must all be in lowercase in HTML5
 
 ## Project wrap-up
-* [ ] When posted, then update PG URL in README.md, and personal website list
+* [ ] When posted, then update PG URL in README.md, and [personal website list](https://tangledhelix.com/about)
 
 ## Related Pages
 * [Beginner PP advice](https://www.pgdp.net/wiki/Beginner_PP_advice)

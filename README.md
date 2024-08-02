@@ -17,5 +17,8 @@ And create an `auth-config.json` file with your GitHub credentials and DP site
 password. Use `auth-config.json.sample` as a guide for the format; it's a
 straightforward JSON file.
 
-It will set up a project in `~/dp/pp/{project}`, create a GitHub project,
-download the text and images from the DP site, and unzip them.
+`make_project.py` will set up a project in `~/dp/pp/{project}`, create a GitHub
+project, download the text and images from the DP site, and unzip them.
+
+`make_errata_project.py` will create a simple errata project for creating an
+errata report for Project Gutenberg.

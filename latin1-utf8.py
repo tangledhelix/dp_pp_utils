@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 #
+# This script is historical - DP has converted to a UTF-8 workflow,
+# so converting from Latin-1 to UTF-8 is no longer necessary.
+#
+# -------------------------------------------------------------------
+#
 # Convert a Latin-1 file to UTF-8
 #
 # This same process happens in make_project.py, so you won't need this

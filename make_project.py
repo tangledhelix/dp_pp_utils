@@ -11,12 +11,6 @@ from jinja2 import Template
 from subprocess import call
 from zipfile import ZipFile
 
-# By default, create remote resources like Trello & GitHub.
-CREATE_REMOTE = True
-
-# By default, download main project contents like the PNGs
-DOWNLOAD_BOOK_CONTENT = True
-
 AUTH_CONFIG = "auth-config.json"
 
 PGDP_URL = "https://www.pgdp.net"
@@ -202,38 +196,23 @@ class MakeProject():
 
 
 if __name__ == "__main__":
-
-    # Process arguments, if any
-    if len(sys.argv) >= 2:
-        if sys.argv[1] == "-h" or sys.argv[1] == "--help":
-            print(f"Usage: {sys.argv[0]} [<option(s)>]")
-            print("    -h, --help: print this help")
-            print("    -l, --local: only create local resources (for debug)")
-            sys.exit(1)
-        elif sys.argv[1] == "-l" or sys.argv[1] == "--local":
-            CREATE_REMOTE = False
-
     project = MakeProject()
+
     project.get_params()
     project.pgdp_login()
     project.get_project_info()
     project.scrape_project_info()
+
     project.create_directories()
+    project.download_text()
+    project.download_images()
+    project.copy_text_file()
 
-    if DOWNLOAD_BOOK_CONTENT:
-        project.download_text()
-        project.download_images()
+    project.make_github_repo()
 
-        # Make a copy of the text to work on
-        project.copy_text_file()
-
-    if CREATE_REMOTE:
-        project.make_github_repo()
-
-    project.process_template("README.md")
-    project.process_template("Makefile")
-    project.process_template("gitignore", ".gitignore")
-
-    if CREATE_REMOTE:
-        # This is only done if remote, because it will try to push.
-        project.create_git_repository()
+    project.process_template("README.md.j2", "README.md")
+    project.process_template("checklist.md.j2", "checklist.md")
+    project.process_template("Makefile.j2", "Makefile")
+    project.process_template("gitignore.j2", ".gitignore")
+    
+    project.create_git_repository()

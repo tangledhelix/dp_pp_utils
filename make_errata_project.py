@@ -132,6 +132,6 @@ if __name__ == "__main__":
 
     project.create_directories()
     project.make_github_repo()
-    project.process_template("README-errata.md", "README.md")
+    project.process_template("README-errata.md.j2", "README.md")
     project.create_git_repository()
 
