@@ -580,4 +580,4 @@ Submit for a decent length of time, up to the maximum. Check what's in `ebooks/`
 * [Guiguts Tutorial](https://www.pgdp.net/wiki/Guiguts_Tutorial)
 * [Guiguts Manual](https://www.pgdp.net/wiki/PPTools/Guiguts)
 * [Getting your PP Project Ready for PPV](https://www.pgdp.net/wiki/Getting_your_PP_Project_Ready_for_PPV)
-* [Poetry Casey Study](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Poetry)
+* [Poetry Case Study](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Poetry)
