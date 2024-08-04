@@ -6,8 +6,8 @@
 Our first set of activities will combine all proofed and formatted pages, fixing any errors and inconsistencies.
 
 ### Initial Setup
-- Choose a short, simple project name, e.g. `pascal` for “*The Provincial Letters of Blaise Pascal*”
-- Run the [setup script](https://github.com/tangledhelix/dp_pp_utils) to fetch the project resources and create the [Github](https://github.com/tangledhelix?tab=repositories&q=DP_&type=&language=&sort=) project
+* Choose a short, simple project name, e.g. `pascal` for “*The Provincial Letters of Blaise Pascal*”
+* Run the [setup script](https://github.com/tangledhelix/dp_pp_utils) to fetch the project resources and create the [Github](https://github.com/tangledhelix?tab=repositories&q=DP_&type=&language=&sort=) project
 ```shell
 cd ~/dp/util
 . venv/bin/activate
@@ -94,13 +94,13 @@ Check for:
 * [ ] If book has illustrations, edit or create *List of Illustrations* (**Note:** this is not a requirement). Make sure it is 1:1 with `[Illustration]` captions. Protect with `/X...X/`.
 
 ### Edit Transliterations
-- [ ] Use `Tools → Character Tools` to search for transliterations. Check the content of each transliteration. For Greek, there's a "Greek Transliteration Tool", but entering Unicode Greek is preferable.
+* [ ] Use `Tools → Character Tools` to search for transliterations. Check the content of each transliteration. For Greek, there's a "Greek Transliteration Tool", but entering Unicode Greek is preferable.
 
 ### Remove Visible Page Breaks
-- [ ] Run `Tools → Fixup Page Separators` to remove visible page separators
+* [ ] Run `Tools → Fixup Page Separators` to remove visible page separators
 
 ### Apply Word-Frequency Checks
-- [ ] Open `Tools → Word Frequency`. Double click on a word to search for it.
+* [ ] Open `Tools → Word Frequency`. Double click on a word to search for it.
 * [ ] Set the `Frq` switch; click `All Words`. List is now sorted by word frequency; scroll to the end and skim up the list of words that only appear 1 time looking for oddities and obvious misspellings.
 * [ ] Click `Character Cnts`.
   * Note characters that appear only once, check usage.
@@ -166,10 +166,10 @@ Check for:
 * Work through the list, correcting as appropriate.
 
 ### Apply Spellcheck
-- [ ] Use `Tools → Spell Query`. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
+* [ ] Use `Tools → Spell Query`. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
 
 ### Fix Sidenotes
-- [ ] Read the [discussion](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes). Step through sidenotes with: Search & Replace of `[S`, not regex, not whole word, ignore case. Click `Search` to find each Sidenote.
+* [ ] Read the [discussion](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes). Step through sidenotes with: Search & Replace of `[S`, not regex, not whole word, ignore case. Click `Search` to find each Sidenote.
   * Compare to page image. Move note above paragraph if feasible.
   * Otherwise, position it above the sentence to which it applies, with blank lines to prevent rewrapping if you decide that is best.
 
@@ -187,7 +187,7 @@ Check for:
   * Run checks, find para and error, move footnotes as needed
 
 ### Fix Poetry Line Numbers
-- [ ] If the book has poetry that uses line numbers, read [this page](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Poetry_Line_Numbers) and align the line numbers consistently.
+* [ ] If the book has poetry that uses line numbers, read [this page](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Poetry_Line_Numbers) and align the line numbers consistently.
 
 ### Check balanced markup
 Use the `Search` menu:
@@ -258,7 +258,7 @@ We now proceed to create a Plain Text Version of the book.
 * [ ] Search for `<` and `>` to locate any tag markup not yet removed.
 
 ### Check revisit list
-- [ ] Check "things to revisit" list for anything lingering in the text version
+* [ ] Check "things to revisit" list for anything lingering in the text version
 
 ### Add TN
 * [ ] Add transcriber's notes, example follows. Use 4+2 blank lines as in new chapter
@@ -285,7 +285,7 @@ p. 123: changed “foo” to “fool” (the fool and his money)
 ```
 
 ### Final review
-- [ ] Skim over text file to find any obvious issues
+* [ ] Skim over text file to find any obvious issues
 
 ### Validation
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) pptext check
