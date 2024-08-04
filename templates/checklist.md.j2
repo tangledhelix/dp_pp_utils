@@ -187,7 +187,7 @@ Check for:
 ### Check balanced markup
 Use the `Search` menu:
 
-* [ ] `Find Orphaned Markup` (which searches for the regular expression `\<(\w+)>\n?[^<]+<(?!/\1>)`, that is any markup starting in `<..>` that doesn't end in an identical closing markup.
+* [ ] `Search → Find Orphaned Markup` (which searches for the regular expression `\<(\w+)>\n?[^<]+<(?!/\1>)`, that is any markup starting in `<..>` that doesn't end in an identical closing markup.
   * Note: this regular expression sees `<tb>` as unbalanced, and shows the text from the `<tb>` to the next markup as an error. (If you can devise a better regex please do!)
   * Possible alternate that explicitly lists all current markup `\<(i|b|sc|g||f|u)>\n?[^<]+<(?!/\1>)`
   * Because it includes a newline, the search may take several seconds to return the first result.
