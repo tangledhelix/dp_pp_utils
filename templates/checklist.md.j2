@@ -202,8 +202,6 @@ Use the `Search` menu:
 
 ### Unicode dashes
 
-* TODO: does `$` regex work or should it change back to `\n` ?
-* TODO: and if so should it be `\n` or `(\n|\r\n)` ?
 * [ ] Long dash: S/R `([^-])----([^-]|$)` → `$1——$2`
   * There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
 * [ ] Em dash: S/R `([^-])--([^-]|$)` → `$1—$2`
