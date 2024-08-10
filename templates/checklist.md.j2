@@ -258,7 +258,7 @@ We now proceed to create a Plain Text Version of the book.
 * [ ] Rewrap this section of text when finished.
 
 ```text
-Transcriber's Notes
+Transcriber’s Note
 
 
 Some inconsistencies in spelling, hyphenation, and punctuation have been
@@ -282,7 +282,7 @@ p. 123: changed “foo” to “fool” (the fool and his money)
 
 ### Validation
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) pptext check
-* TODO: add pptools here it supports HTML5
+* [ ] Run text checks at [pptools](https://pptools.tangledhelix.com)
 
 ## Prepare the HTML Version
 Finally, we create an HTML version of the book.
@@ -307,7 +307,6 @@ Finally, we create an HTML version of the book.
 * [ ] Remove the [Generated TOC](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC) if it is not needed.
 * [ ] If `A.M.` `P.M.` or similar abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
 * [ ] If superscripts were used, convert to `<sup>`
-* TODO: does the HTML converter do this automatically for `^` or `^{n}`?
 * [ ] Semantic fixup for italics
   * Search `<i>((.|\n)+?)</i>`
   * Replace (emphasis) `<em>$1</em>`
@@ -351,7 +350,7 @@ For each image:
 
 ```html
 <div class="transnote">
-<h2>Transcriber's Notes</h2>
+<h2>Transcriber’s Note</h2>
 
 <p>
 Some inconsistencies in spelling, hyphenation, and punctuation have been
@@ -394,39 +393,25 @@ Perform these validation steps before submitting your book. Validation is also h
 * [ ] Use [W3C CSS Validation Service](http://jigsaw.w3.org/css-validator/#validate_by_upload). Fix any reported problems.
   * Validate as CSS 2.1
   * CSS3 is acceptable if current status is `REC` on [this page](https://www.w3.org/Style/CSS/current-work)
-    * e.g. use of `color: transparent` for illustrated drop-caps
-    * or use of `display: flex` for centering a div (poetry)
+    * e.g. CSS3 drop-caps
+    * or use of `display: flex;` for centering a div (poetry)
     * if uploading CSS3, leave a note for WWer about it.
 * [ ] Use `HTML → HTML Link Checker`. Fix any reported problems.
 * [ ] Use `HTML → PPVimage` to check for image-related errors. Fix any reported problems.
-* [ ] Examine the generated EPUB and Kindle books for correctness. Use [Project Gutenberg Online Ebookmaker](https://ebookmaker.pglaf.org/).
-
-* TODO: check that all the links work. PPWB has a tool? Also check manually.
-* TODO: figure out indentation CSS for paragraphs (see wiki)
-* TODO: check paragraph vertical spacing and adjust that in CSS if needed
-* TODO: have a no-indent class too! needed sometimes
-* TODO: address drop-caps & illo drop-caps
-  * TODO: how do drop caps work in verse??
-
-### Review HTML
-* [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
-* [ ] Pay particular attention to complex items like tables, poetry
-
-### Validation
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) checks
   * [ ] [pphtml](https://www.pgdp.net/ppwb/pphtml.php)
   * [ ] [ppcomp](https://www.pgdp.net/ppwb/ppcomp.php) to compare text/html files
-  * [ ] [W3C Validator](https://validator.w3.org/#validate_by_upload+with_options)
-  * [ ] [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_upload+with_options)
-  * [ ] [ebookmaker](https://ebookmaker.pglaf.org/)
-
 * TODO: add pptools here when it supports HTML5
-  * CSS transform for pptools
+  * CSS transform for pptools:
 ```css
 /* projects with bold <b> markup */
 b:before { content: "="; }
 b:after { content: "="; }
 ```
+
+### Review HTML
+* [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
+* [ ] Pay particular attention to complex items like tables, poetry
 
 ## Ebook generation
 
@@ -550,9 +535,6 @@ Submit for a decent length of time, up to the maximum. Check what's in `ebooks/`
 * If you notice an error in your own recently posted project, contact pgww at lists.pglaf.org ASAP
 * For projects over a month old, use the [errata process](https://www.gutenberg.org/help/errata.html)
 * If not posted within a week, contact WWers pgww at lists.pglaf.org
-
-* TODO: see HTML5 doc about using `display:flex` for centering poetry divs
-* TODO: Element and attribute names must all be in lowercase in HTML5
 
 ## Project wrap-up
 * [ ] When posted, then update PG URL in README.md, and [personal website list](https://tangledhelix.com/about)
