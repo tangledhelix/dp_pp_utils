@@ -459,6 +459,7 @@ Don't necessarily have to do *all* of these, but these are what I have.
 * [ ] Tablet
   * [ ] Kindle (Android)
   * [ ] Google Play Books - Android (Dropbox)
+  * [ ] Moon+ Reader - Android (Dropbox)
   * [ ] Apple Books - iPad mini
 * [ ] E-ink
   * [ ] Kobo Libra Colour (epub3)
