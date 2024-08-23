@@ -416,18 +416,26 @@ b:after { content: "="; }
 ## Ebook generation
 
 ### Notes on rendering
-* Don't use `!important` in CSS, ADE has a parsing issue with it
+#### CSS
+* Don't use `!important`, ADE has a parsing issue with it (probably others do too)
 * ADE doesn't render small-caps
 * Kindle doesn't seem to honor `width` on divs? Set all of `min-width`, `width`, `max-width` to fix. Kindle may set `min-width` 100% and need an override?
   * Other advice: "Kindle ignores max-width. If you want your narrow text to be centered (column-centered with smooth margins), add `margin: auto;` to the "narrow" definition. Otherwise, it'll be left-positioned along the body's main left margin.
-* Kindle on Mac renderes PNG transparent backgrounds as black
-* Sometimes page breaks show in weird places due to ebookmaker's chunking
 * Kindle doesn't always honor `page-break-*` CSS
-* If no cover was included, the first illustration is used instead.
+* Moon+ mis-handles drop-cap images; it should ignore them but doesn't. A DP user reported this bug so it may be fixed in the future.
+
+#### Tables
 * E-readers are bad at wide tables and non-trivial tables
 * Nook is particularly bad at table rendering
-* Kindle sometimes can show SVG, sometimes not??
 * Apple Books isn't reliably able to show PNGs in table cells??
+
+#### Images
+* Kindle on Mac renderes PNG transparent backgrounds as black
+* If no cover was included, the first illustration is used instead.
+* Kindle sometimes can show SVG, sometimes not??
+
+#### General rendering
+* Sometimes page breaks show in weird places due to ebookmaker's chunking
 * Renaming epub3 to end in `.kepub.epub` improves rendering a lot
 * Also a utility `kepubify` (link below) that converts; it's unclear what this conversion does that's any better than just renaming the file. Changing the filename is enough to invoke a different / better rendering engine on Kobo devices.
 
