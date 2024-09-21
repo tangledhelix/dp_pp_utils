@@ -239,7 +239,8 @@ We now proceed to create a Plain Text Version of the book.
 ### Fix ASCII Tables
 * [ ] Use `Search → Find Next /**/ Block` to step through all tabular material.
   * Compare to page image; reformat to best convey author intent.
-  * For complex tables, use `Txt → ASCII Table Effects` to reformat.
+  * For complex tables, try using `Txt → ASCII Table Effects` to reformat?
+* [ ] Try this regex to validate that all border characters were replace with box drawing `[=+|-]`
 
 ### Rewrap and Clear Rewrap Markers
 * [ ] Save the file if any unsaved changes.
@@ -303,7 +304,9 @@ Finally, we create an HTML version of the book.
 * [ ] Page through the book looking for text that was not handled well by automatic HTML generation, in particular:
   * [Title pages](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Title_Pages).
   * [Tables and Tables of Contents](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Tables). The `Auto Table` button can help format tables.
-  * [Indexes](https://www.pgdp.net/wiki/Indexes), which are best formatted using unsigned lists, rather than the markup Guiguts generates for `/$..$/`.
+  * [Indexes](https://www.pgdp.net/wiki/Indexes) - can use Guiguts feature but if it formats poorly, see link for a different method.
+    * [ ] Sanity-check index for links, improper line breaks, etc.
+    * [ ] Review index for "see X" entries and link any of those manually
   * Illustrations.
 * [ ] Use `HTML → HTML Markup` to make improvements. Use regex replacements to make systematic changes.
   * Where you see a problem, make a correction in Guiguts, save the file, and click the "reload" button in the web browser.
