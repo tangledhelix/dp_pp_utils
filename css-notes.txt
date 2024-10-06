@@ -1,0 +1,8 @@
+"rem" units ("root em"):
+** NOT VALID **
+This is fine in CSS3 but it is NOT a REC so we can't use it.
+That is as of 5 Oct 2024
+part of CSS 3 Values and Units
+https://www.w3.org/TR/css-values-3/#font-relative-lengths
+
+
