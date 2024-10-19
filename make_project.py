@@ -77,31 +77,32 @@ class MakeProject():
 
         self.params["project_comments"] = j["comments"].replace("\r", "")
 
-        # TODO: request that the forum link be added to the API so
-        # scrape_project_info() can be removed
-
-    def scrape_project_info(self):
-        r = requests.post(
-            f"{PGDP_URL}/c/project.php?id=projectID{self.params['project_id']}",
-            headers={"Cookie": self.dp_cookie}
-        )
-        if r.status_code != 200:
-            print("Error: unable to retrieve DP project info")
-            sys.exit(1)
-
-        html_doc = re.sub(r"\n", "", r.text)
-
-        self.params["forum_link"] = re.sub(
-            # This version broke on irishjournal, the site updated
-            # to use th instead of tr... updating to match site.
-            #r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
-            #<a href='([^']+)'>
-            #
-            r".*<th\s+class=.label.>Forum</th>\s*<td[^>]+>\s*<a href='([^']+)'.*",
-            r"\1",
-            html_doc
-        )
+        self.params["forum_link"] = j["forum_url"]
         print(f"Forum: {self.params['forum_link']}")
+
+    # Replaced with API data
+    # def scrape_project_info(self):
+    #     r = requests.post(
+    #         f"{PGDP_URL}/c/project.php?id=projectID{self.params['project_id']}",
+    #         headers={"Cookie": self.dp_cookie}
+    #     )
+    #     if r.status_code != 200:
+    #         print("Error: unable to retrieve DP project info")
+    #         sys.exit(1)
+
+    #     html_doc = re.sub(r"\n", "", r.text)
+
+    #     self.params["forum_link"] = re.sub(
+    #         # This version broke on irishjournal, the site updated
+    #         # to use th instead of tr... updating to match site.
+    #         #r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
+    #         #<a href='([^']+)'>
+    #         #
+    #         r".*<th\s+class=.label.>Forum</th>\s*<td[^>]+>\s*<a href='([^']+)'.*",
+    #         r"\1",
+    #         html_doc
+    #     )
+    #     print(f"Forum: {self.params['forum_link']}")
 
     def create_directories(self):
         os.mkdir(self.project_dir, mode=0o755)
@@ -201,7 +202,6 @@ if __name__ == "__main__":
     project.get_params()
     project.pgdp_login()
     project.get_project_info()
-    project.scrape_project_info()
 
     project.create_directories()
     project.download_text()
