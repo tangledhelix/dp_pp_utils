@@ -31,6 +31,8 @@ default:
 	@echo "make vt:    open UTF8 text file in viewer"
 	@echo "make vh:    open HTML file in viewer"
 	@echo "make view:  open both UTF8 text and HTML versions in viewers"
+	@echo "make serve: start a python3 web server on port 8000"
+	@echo "                (handy for e.g. iPhone Simulator on Mac)"
 	@echo ""
 	@echo "make ebooksget: fetch ebooks from PGLAF ebookmaker"
 	@echo ""
@@ -59,6 +61,21 @@ vh:
 
 # View both text & HTML files
 view: vt vh
+
+# Start a Python3 web server on localhost:8000.
+#
+# This can be useful when you want to use a viewer such as the
+# iPhone Simulator, which can speak to the network, but can't
+# access the Mac filesystem. It may be useful for simulators
+# on other platforms as well.
+serve:
+	@echo ""
+	@echo "    **************************************************"
+	@echo "    ***  Starting server on http://localhost:8000  ***"
+	@echo "    ***  Press Ctrl-C to terminate.                ***"
+	@echo "    **************************************************"
+	@echo ""
+	python3 -m http.server
 
 # Smooth Readers can also include ebooks. Anything in the ebooks/
 # directory will get sucked into this.
