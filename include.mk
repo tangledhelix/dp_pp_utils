@@ -7,6 +7,11 @@ BOOKSDIR=ebooks
 TXT=$(PROJECT)-utf8.txt
 HTML=$(PROJECT).html
 
+# legacy
+PPGEN_SRC=$(PROJECT)-src.txt
+PPGEN=$(HOME)/dp/ppgen/ppgen.py
+PPGEN_PY=python3.11
+
 EBOOKMAKER_URL=https://ebookmaker.pglaf.org
 
 # Default book ID, taken from the form at PGLAF's ebookmaker
@@ -34,6 +39,15 @@ default:
 	@echo ""
 	@echo "    -- you MAY specify an ebook ID (default: $(DEFAULT_BOOK_ID))"
 	@echo "       	  ex: make ebooksget cache=20220507205607 book_id=1234"
+	@echo ""
+	@echo "make legacy: show list of legacy make targets"
+
+legacy:
+	@echo "These legacy targets are included for backward compatibility"
+	@echo "with ppgen, or else as examples."
+	@echo ""
+	@echo "make ppv:    create zip file to submit to PPV"
+	@echo "make ppgen:  output UTF8 text & HTML files from ppgen source"
 
 # View text
 vt:
@@ -96,3 +110,22 @@ else
 	@ls -ltr $(BOOKSDIR)
 endif
 
+# Per PPV, the zip should have files at the root, not contain
+# a directory which then contains the files. -April 2022
+# PPV should include the .bin files.
+ppv:
+	rm -f $(ZIPDIR)/$(PROJECT)-ppv.zip
+	rm -rf $(ZIPCACHEDIR)
+	mkdir -p $(ZIPCACHEDIR)/$(IMG)/
+	cp $(TXT) $(TXT).bin $(HTML) $(HTML).bin $(ZIPCACHEDIR)
+	cp -r $(IMG)/ $(ZIPCACHEDIR)/$(IMG)/
+	rm -rf $(ZIPCACHEDIR)/$(IMG)/{.DS_Store,*.pxd,*.xcf}
+	cd $(ZIPCACHEDIR) && zip -r ../$(PROJECT)-ppv.zip .
+
+$(TXT): $(PPGEN_SRC)
+	$(PPGEN_PY) $(PPGEN) -i $(PPGEN_SRC) -o u
+
+$(HTML): $(PPGEN_SRC)
+	$(PPGEN_PY) $(PPGEN) -i $(PPGEN_SRC) -o h -img
+
+ppgen: $(TXT) $(HTML)
