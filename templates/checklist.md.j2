@@ -429,8 +429,11 @@ Perform these validation steps before submitting your book. Validation is also h
   * Validate as CSS 2.1
   * CSS3 is acceptable if current status is `REC` on [this page](https://www.w3.org/Style/CSS/current-work)
     * e.g. CSS3 drop-caps
-    * or use of `display: flex;` for centering a div (poetry)
-    * if uploading CSS3, leave a note for WWer about it.
+    * or use of `display: flex` with `justify-content: center` for centering a div (poetry)
+      * `display: flex` is acceptable but `flex:` is not permitted!
+      * `justify-content` may only be `center` and no other value
+    * `speak-as: spell-out` if a screen reader should spell out an acronym rather than read as a word
+    * [ ] if uploading CSS3, leave a note for WWer about it.
 * [ ] Use `HTML → HTML Link Checker`. Fix any reported problems.
 * [ ] Use `HTML → PPVimage` to check for image-related errors. Fix any reported problems.
 * [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) checks
