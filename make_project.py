@@ -3,9 +3,8 @@
 import json
 import requests
 import os
-import sys
-import re
 import shutil
+import sys
 
 from jinja2 import Template
 from subprocess import call
@@ -43,21 +42,6 @@ class MakeProject():
         self.get_param("project_id", 'Project ID, e.g. "projectID5351bd1e5eca9"')
         self.project_dir = f"{self.projects_base}/{self.params['project_name']}"
 
-    def pgdp_login(self):
-        payload = {
-            "destination": "/c/",
-            "userNM": self.auth["pgdp"]["username"],
-            "userPW": self.auth["pgdp"]["password"],
-        }
-
-        r = requests.post(f"{PGDP_URL}/c/accounts/login.php", data=payload)
-        if r.status_code != 200:
-            print("Error: unable to log into DP site")
-            sys.exit(1)
-
-        print(f"Logged into PGDP site as {self.auth['pgdp']['username']}.")
-        self.dp_cookie = r.headers["Set-Cookie"].split(";")[0]
-
     def get_project_info(self):
         r = requests.get(
             f"{PGDP_URL}/api/v1/projects/projectID{self.params['project_id']}",
@@ -80,30 +64,6 @@ class MakeProject():
         self.params["forum_link"] = j["forum_url"]
         print(f"Forum: {self.params['forum_link']}")
 
-    # Replaced with API data
-    # def scrape_project_info(self):
-    #     r = requests.post(
-    #         f"{PGDP_URL}/c/project.php?id=projectID{self.params['project_id']}",
-    #         headers={"Cookie": self.dp_cookie}
-    #     )
-    #     if r.status_code != 200:
-    #         print("Error: unable to retrieve DP project info")
-    #         sys.exit(1)
-
-    #     html_doc = re.sub(r"\n", "", r.text)
-
-    #     self.params["forum_link"] = re.sub(
-    #         # This version broke on irishjournal, the site updated
-    #         # to use th instead of tr... updating to match site.
-    #         #r".*<td[^>]+><b>Forum</b></td><td[^>]+><a href='([^']+)'>.*",
-    #         #<a href='([^']+)'>
-    #         #
-    #         r".*<th\s+class=.label.>Forum</th>\s*<td[^>]+>\s*<a href='([^']+)'.*",
-    #         r"\1",
-    #         html_doc
-    #     )
-    #     print(f"Forum: {self.params['forum_link']}")
-
     def create_directories(self):
         os.mkdir(self.project_dir, mode=0o755)
         os.chdir(self.project_dir)
@@ -119,7 +79,7 @@ class MakeProject():
         print(f"Git repository created")
         call(["git", "remote", "add", GITHUB_REMOTE, self.git_remote_url])
         call(["git", "push", "-u", GITHUB_REMOTE, GITHUB_BRANCH])
-        print(f"Git repository pushed")
+        print(f"Git repository created")
 
     def process_template(self, src_filename, dst_filename=None):
         if not dst_filename:
@@ -138,6 +98,7 @@ class MakeProject():
         input_file = f"{project_dir}/projectID{project_id}.txt"
         output_file = f"{project_dir}/{project_name}-utf8.txt"
         shutil.copyfile(input_file, output_file)
+        print(f"Copied text file to {project_name}-utf8.txt")
 
     def make_github_repo(self):
         headers = {
@@ -170,43 +131,28 @@ class MakeProject():
         else:
             print(f"ERROR: GitHub response code {r.status_code} unexpected.")
 
-    def download_text(self):
-        print("Downloading text from DP ...", end="", flush=True)
-        zipfile = f"projectID{self.params['project_id']}.zip"
-        url = f"{PGDP_URL}/projects/projectID{self.params['project_id']}/projectID{self.params['project_id']}.zip"
-        r = requests.get(url, headers={"Cookie": self.dp_cookie})
-        with open(zipfile, "wb") as file:
-            file.write(r.content)
-        self.unzip_file(zipfile, self.project_dir)
-        print(" done.")
-
-    def download_images(self):
-        print("Downloading images from DP ...", end="", flush=True)
-        zipfile = f"projectID{self.params['project_id']}images.zip"
-        url = f"{PGDP_URL}/c/tools/download_images.php?projectid=projectID{self.params['project_id']}"
-        r = requests.get(url, headers={"Cookie": self.dp_cookie})
-        with open(zipfile, "wb") as file:
-            file.write(r.content)
-        self.unzip_file(zipfile, f"{self.project_dir}/pngs")
-        print(" done.")
-
     def unzip_file(self, filename, path):
+        print(f"Unzipping {filename}")
         with ZipFile(filename, "r") as zip_ref:
             zip_ref.extractall(path)
+        print("done.")
         os.remove(filename)
 
+    def process_text_download(self):
+        zip_file = f"{os.environ['HOME']}/Downloads/projectID{project.params['project_id']}.zip"
+        self.unzip_file(zip_file, self.project_dir)
+
+    def process_images_download(self):
+        zip_file = f"{os.environ['HOME']}/Downloads/projectID{project.params['project_id']}_images.zip"
+        self.unzip_file(zip_file, f"{self.project_dir}/pngs")
 
 if __name__ == "__main__":
     project = MakeProject()
 
     project.get_params()
-    project.pgdp_login()
     project.get_project_info()
 
     project.create_directories()
-    project.download_text()
-    project.download_images()
-    project.copy_text_file()
 
     project.make_github_repo()
 
@@ -215,4 +161,22 @@ if __name__ == "__main__":
     project.process_template("Makefile.j2", "Makefile")
     project.process_template("gitignore.j2", ".gitignore")
     
+    print(f"""
+
+*** PROJECT CREATED ***
+
+Next steps:
+- Download text content by clicking here:
+    {PGDP_URL}/projects/projectID{project.params['project_id']}/projectID{project.params['project_id']}.zip
+- Download image content by clicking here:
+    {PGDP_URL}/c/tools/download_images.php?projectid=projectID{project.params['project_id']}&dummy=projectID{project.params['project_id']}images.zip
+
+""")
+
+    _ = input("** Once files are downloaded, press enter to continue ==> ")
+
+    project.process_text_download()
+    project.process_images_download()
+    project.copy_text_file()
+
     project.create_git_repository()
