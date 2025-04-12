@@ -30,8 +30,6 @@ Check for:
   * Between chapter head and subhead: 1 blank line
   * Between head (or subhead) and chapter body: 2 blank lines
   * Pages should **not** start with a blank line unless starting a new chapter, section, or paragraph.
-* Proper markup of `<i>italic</i>` and `<b>bold</b>`.
-  * Watch for punctuation wrongly contained in markup, such as `<i>(ibid.</i>` or `<b>Subtopic.</b>`.
 * Proper markup of Greek and other transliterations
 * Languages other than the main book language can be noted for later
   * In HTML they can be labeled with `<span lang="fr">..</span>`
@@ -39,21 +37,15 @@ Check for:
 * Block material all marked in some fashion:
   * Poetry, misc. tabular in `/* */`
   * Block quotes in `/# #/`
-  * Where blocks cross page boundary, remove the extra markers around page marker
   * Each overall block should have blank lines before & after
-* Join words hyphenated across page boundary
 * Figures properly in `[Illustration: caption]`
   * Check that caption text agrees with List of Illustrations (if any)
   * Consistent spelling, abbreviation, capitalization in captions
   * For captionless (`[Illustration: ]`), remove colon & whitespace
-* Fix Footnotes, Illustrations still inside a paragraph
-  * Move outside paragraph to next or prior page, as appropriate
-  * Don't worry about duplicate footnote numbers/symbols for now
-  * Sidenotes are handled later
 * Make notes of things that will need attention in the HTML:
   * Author cross-references like "`(p. 150)`" and "`see page 222`" that should become links.
   * How the editor laid out special sections such as tables and sidebars.
-* Check that `[Blank Page]` are actually blank pages! Can also remove them.
+* Check that `[Blank Page]` are actually blank pages!
 * Note any illustrations in a list in `README.md` for later handling
 
 * [ ] Move illustrations to `illustrations/` folder
