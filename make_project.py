@@ -45,7 +45,10 @@ class MakeProject():
     def get_project_info(self):
         r = requests.get(
             f"{PGDP_URL}/api/v1/projects/projectID{self.params['project_id']}",
-            headers={"X-Api-Key": self.auth["pgdp"]["api_key"]}
+            headers={
+                "Accept": "application/json",
+                "X-Api-Key": self.auth["pgdp"]["api_key"],
+            },
         )
         if r.status_code != 200:
             print("Error: unable to use PGDP REST API")
@@ -64,11 +67,35 @@ class MakeProject():
         self.params["forum_link"] = j["forum_url"]
         print(f"Forum: {self.params['forum_link']}")
 
+    def get_project_file_info(self):
+        r = requests.get(
+            f"{PGDP_URL}/api/v1/projects/projectID{self.params['project_id']}/artifacts/PP",
+            headers={
+                "Accept": "application/json",
+                "X-Api-Key": self.auth["pgdp"]["api_key"],
+            }
+        )
+        if r.status_code != 200:
+            print("Error: unable to use PGDP REST API")
+            sys.exit(1)
+
+        for item in r.json():
+            if item["name"] == "text_zip":
+                self.params["text_zip"] = item["url"]
+            elif item["name"] == "images_zip":
+                self.params["images_zip"] = item["url"]
+
+        if "text_zip" not in self.params:
+            print("Unable to find text zipfile link")
+            sys.exit(1)
+        if "images_zip" not in self.params:
+            print("Unable to find images zipfile link")
+            sys.exit(1)
+
     def create_directories(self):
         os.mkdir(self.project_dir, mode=0o755)
         os.chdir(self.project_dir)
         os.mkdir("images", mode=0o755)
-        os.mkdir("illustrations", mode=0o755)
         os.mkdir("pngs", mode=0o755)
         print("Created directory structure")
 
@@ -132,25 +159,38 @@ class MakeProject():
             print(f"ERROR: GitHub response code {r.status_code} unexpected.")
 
     def unzip_file(self, filename, path):
-        print(f"Unzipping {filename}")
         with ZipFile(filename, "r") as zip_ref:
             zip_ref.extractall(path)
-        print("done.")
         os.remove(filename)
 
-    def process_text_download(self):
-        zip_file = f"{os.environ['HOME']}/Downloads/projectID{project.params['project_id']}.zip"
-        self.unzip_file(zip_file, self.project_dir)
+    def download_text(self):
+        print("Downloading text from DP ...", end="", flush=True)
+        zipfile = f"projectID{self.params['project_id']}.zip"
+        r = requests.get(self.params["text_zip"],
+                         headers={"X-Api-Key": self.auth["pgdp"]["api_key"],
+                                  "Accept": "application/zip"})
+        with open(zipfile, "wb") as file:
+            file.write(r.content)
+        self.unzip_file(zipfile, self.project_dir)
+        print(" done.")
 
-    def process_images_download(self):
-        zip_file = f"{os.environ['HOME']}/Downloads/projectID{project.params['project_id']}_images.zip"
-        self.unzip_file(zip_file, f"{self.project_dir}/pngs")
+    def download_images(self):
+        print("Downloading images from DP ...", end="", flush=True)
+        zipfile = f"projectID{self.params['project_id']}images.zip"
+        r = requests.get(self.params["images_zip"],
+                         headers={"X-Api-Key": self.auth["pgdp"]["api_key"],
+                                  "Accept": "application/zip"})
+        with open(zipfile, "wb") as file:
+            file.write(r.content)
+        self.unzip_file(zipfile, f"{self.project_dir}/pngs")
+        print(" done.")
 
 if __name__ == "__main__":
     project = MakeProject()
 
     project.get_params()
     project.get_project_info()
+    project.get_project_file_info()
 
     project.create_directories()
 
@@ -161,22 +201,8 @@ if __name__ == "__main__":
     project.process_template("Makefile.j2", "Makefile")
     project.process_template("gitignore.j2", ".gitignore")
     
-    print(f"""
-
-*** PROJECT CREATED ***
-
-Next steps:
-- Download text content by clicking here:
-    {PGDP_URL}/projects/projectID{project.params['project_id']}/projectID{project.params['project_id']}.zip
-- Download image content by clicking here:
-    {PGDP_URL}/c/tools/download_images.php?projectid=projectID{project.params['project_id']}&dummy=projectID{project.params['project_id']}images.zip
-
-""")
-
-    _ = input("** Once files are downloaded, press enter to continue ==> ")
-
-    project.process_text_download()
-    project.process_images_download()
+    project.download_text()
+    project.download_images()
     project.copy_text_file()
 
     project.create_git_repository()
