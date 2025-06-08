@@ -4,8 +4,6 @@
         "password": "my_password"
     },
     "pgdp": {
-        "username": "my_username",
-        "password": "my_password",
         "api_key": "my_api_key"
     }
 }
