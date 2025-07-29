@@ -7,11 +7,15 @@ for p in *(/)
 do
     o=""
     cd $p
-    o=$(git status --porcelain)
-    if [ -n "${o##+([[:space:]])}" ]; then
-        echo "## $p"
-        echo $o
-        echo
+    if [ -d .git ]; then
+        o=$(git status --porcelain)
+        if [ -n "${o##+([[:space:]])}" ]; then
+            echo "## $p"
+            echo $o
+            echo
+        fi
+    else
+        echo "## skipping $p (no .git directory)"
     fi
     cd ..
 done
