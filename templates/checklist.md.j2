@@ -48,29 +48,24 @@ Check for:
 * Check that `[Blank Page]` are actually blank pages!
 * Note any illustrations in a list in `README.md` for later handling
 
-* [ ] Move illustrations to `illustrations/` folder
-
 ### Basic Fixup
 * [ ] Use `Tools → Basic Fixup`.
-* [ ] `Tools → Remove End-of-line Spaces`
 * [ ] Remove any remaining `[Blank Page]` lines
 
 ### Errata
 * [ ] If original book had errata, apply it and note in TN
 
 ### Fix Block Markups and Proofer Notes
+Instructions for `/* */` and `/# #/` blocks:
+* Check for a blank line before and after markup
+* If specific [rewrap markers](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) should be used, don't change them now, but add a note to your list for later handling, after page separators are removed.
+* For blocks that span a page boundary: if the next-page opening marker is on the second line with one blank before it, but it's still part of the same block from the previous page, move the wrap marker to the first line of the page, next to the page separator. This will make it easier to remove them during the removal of page separators.
 * [ ] Use the `Search` menu to step through all `/* */` blocks.
   * Regex: `^(/\*|\*/)`
-  * Check for a blank line before and after markup
-  * Make sure correct [Rewrap Markers](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) are used
-  * Close-up where broken at page boundaries, if not already done
   * Apply specific [indent value](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Table_Indent) if desired
   * Make sure poetry line numbers are at least two spaces to the right of the line.
 * [ ] Use the `Search` menu to step through all `/#..#/` blocks.
   * Regex: `^(/#|#/)`
-  * Check for a blank line before and after markup
-  * Make sure correct [Rewrap Markers](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) are used
-  * Close-up where broken at page boundaries, if not already done
   * Check consistent indentation of block text
   * Apply specific [margin values](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Block_Quote_Indent_and_Margins) if desired
 * [ ] `Search → Find Proofer Comments`. Resolve all proofer's notes.
@@ -81,81 +76,9 @@ Check for:
   * Do not omit the lowly parenthesis, often mis-scanned as curly-brace.
 * [ ] Look for malformed thought-breaks (5 stars). Regex: `\*\s*\*\s*\*\s*\*\s*\*`
 
-### Format Front Matter
-* [ ] Format the title page, preserving as much of the original material as possible. Protect in `/X...X/` (no rewrap, no indent) or `/F...F/` (the same, except that it will be centered in the html version).
-* [ ] Edit the TOC. Find each matching chapter head; make sure heads are 1:1 with TOC. Protect TOC with `/X...X/`. Note that your TOC will probably need to be indented to prevent rewrapping, particularly if you use multiple spaces to align page numbers.
-* [ ] If book has illustrations, edit or create *List of Illustrations* (**Note:** this is not a requirement). Make sure it is 1:1 with `[Illustration]` captions. Protect with `/X...X/`.
-
-### Edit Transliterations
-* [ ] Use `Tools → Character Tools` to search for transliterations. Check the content of each transliteration. For Greek, there's a "Greek Transliteration Tool", but entering Unicode Greek is preferable.
-  * (not supported in GG2)
-
-### Remove Visible Page Breaks
-* [ ] Run `Tools → Page Separator Fixup` to remove visible page separators
-
-### Apply Word-Frequency Checks
-* [ ] Open `Tools → Word Frequency`. Click on an entry to jump to it.
-* [ ] Choose `Freq` and `All Words`. List is now sorted by word frequency; scroll to the end and skim up the list of words that only appear 1 time looking for oddities and obvious misspellings.
-* [ ] Click `Character Cnts`.
-  * Note characters that appear only once, check usage.
-  * Check for equal counts of left & right parens and brackets.
-* [ ] Choose `Alph` and `All Words`. Scroll to the word Footnote and write down count for later use. (If the count is large, click once on Footnote and click 1st Harm. The harmonic window shows you any of the common misspellings of "Footnote" that occur.)
-* [ ] Click `Emdashes`. This shows words with emdashes in them as well as similar words without emdashes (aka: suspects) marked with `****`. Check suspects against the text and page images. Preserve author's intent even when inconsistent. **Hint**: Enable the `Suspects` flag and click `Emdashes` again to see only suspects words.
-* [ ] Click `Hyphens`. Same as Emdashes above but for Hyphens.
-* [ ] Click `Alpha/num`. Scan list for `one/ell` and `oh/zero` errors.
-* [ ] Click `ALL CAPITALS`. Scan list looking for oddities.
-* [ ] Click `MiXeD CasE`. Scan list looking for letters such as o that sometimes OCR wrongly as uppercase. `Oh/zero` errors can show up here, too.
-* [ ] Click `Accents`. Scan list looking for mistakes, inconsistent usages.
-* [ ] Click `Ital/Bold/SC`. Scan list for incorrect or inconsistent use of italics, bold face, and small caps.
-* [ ] Click `Ligatures`. Scan list for [incorrect or inconsistent use](https://www.pgdp.net/wiki/Æ_and_œ_ligatures) of `ae` and `oe` ligatures.
-```text
-æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
-œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
-<shift> for capital letter
-```
-* [ ] Look for missed ligature / diacritical transliterations. Regex: `\[[^*]`
-
-### Apply Scanno Checks
-* [ ] Use `Tools → Stealth Scannos`
-  * [ ] Search based on `en-commn.rc`. Work through the list.
-  * [ ] Search based on `misspelled.rc`. Work through the list.
-  * [ ] Search based on `regex.rc`. Work through the list.
-* [ ] `Tools → Jeebies`. Examine its report of possible `he/be` errors.
-
-### Misc checks
-* [ ] Check for chapter/section spacing. Regex: `\n\n\n`
-* [ ] Check spaces around hyphens. Regex: `(\s+-|-\s+)`
-* [ ] Check spaces before punctuation. Regex: `\s+[.!?;:,]`
-* [ ] Check spaces around quotes. Regex: `(\s+['"][^\s]|[^\s]['"]\s+)`
-* [ ] Check spaces around brackets. Regex: `(\s+[({[\]})]|[({[\]})]\s+)`
-* [ ] Search regex `(Dr|M(me|lle|essrs|rs?)|St|Fr|Rev)\s` and add missing period if needed
-* [ ] Check `A.M.`, `P.M.` and similar for spacing to match book - regex: `[AP]\.\s*M\.`
-  * Note these to do `&nbsp;` in HTML, to avoid line wrap mid-abbreviation
-* [ ] Does book use small-caps A.D. B.C.?
-  * Search `[A-Z]\.\s*[A-Z]\.`, add `<sc>` and note for `&nbsp;` if needed
-* [ ] Check for multiple consecutive spaces which are not in a no-wrap block
-* [ ] Look at `<tb>` and look for improper uses
-* [ ] Check all ellipses. Regex: `\.\.\.`
-* [ ] Check for 3 dashes (not either 2 or 4). Regex: `[^-]---[^-]`
-* [ ] Look for spaces around em- or long-dash. Regex: `\s+--(--)?\s+`
-* [ ] Check adjacent letters and numbers. Regex: `([0-9][A-Za-z]|[A-Za-z][0-9])`
-* [ ] Superscripts (search `^` without regex). Can use `^` or `^{th}` form
-  * Add TN to text version about this superscript notation
-
-### Apply Bookloupe
-* [ ] `Tools → Bookloupe`.
-  * Forward slash
-  * HTML tag
-* Otherwise, use pptext from the [Post-Processing Workbench](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Post-Processing_Workbench).
-* Work through the list, correcting as appropriate.
-
-### Apply Spellcheck
-* [ ] Use `Tools → Spelling`. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
-
-### Fix Sidenotes
-* [ ] Read the [discussion](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes). Step through sidenotes with: Search & Replace of `[S`, not regex, not whole word, ignore case. Click `Search` to find each Sidenote.
-  * Compare to page image. Move note above paragraph if feasible.
-  * Otherwise, position it above the sentence to which it applies, with blank lines to prevent rewrapping if you decide that is best.
+### Transliterations
+* [ ] Check for non-Latin script tags. `\[(Greek|Hebrew|Arabic|Cyrillic)`
+* [ ] Handle each case as appropriate.
 
 ### Fix Footnotes
 * [ ] Use `Tools → Footnote Fixup`. This will help you validate and move any footnotes.
@@ -168,33 +91,106 @@ Check for:
   * `Footnote Fixup`, `Re-run`
   * `All to Number`, `Reindex`
   * `Re-run`, `Move FNs to Paragraphs`
-* [ ] Save file, `Tools → Bookloupe` and check only `No punctuation at para end`
-  * Find para and error, move footnotes as needed
+* [ ] Search for blocks: regex (no case match) `^/[#*$PCRFLXI]` and move footnotes outside of blocks as appropriate
+
+### Remove Visible Page Breaks
+* [ ] Run `Tools → Page Separator Fixup` to remove visible page separators
+
+### Format Front Matter
+* [ ] Format the title page, preserving as much of the original material as possible. Protect in `/X...X/` (no rewrap, no indent) or `/F...F/` (the same, except that it will be centered in the html version).
+* [ ] Edit the TOC. Find each matching chapter head; make sure heads are 1:1 with TOC. Protect TOC with `/X...X/`. Note that your TOC will probably need to be indented to prevent rewrapping, particularly if you use multiple spaces to align page numbers.
+* [ ] If book has illustrations, edit or create *List of Illustrations* (**Note:** this is not a requirement). Make sure it is 1:1 with `[Illustration]` captions. Protect with `/X...X/`.
+
+### Add Noted Rewrap Markers
+* [ ] If the to-do list has any notes about adding [rewrap markers](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) (such as indexes or poetry), make those changes.
+
+### Apply Word-Frequency Checks
+* [ ] Open `Tools → Word Frequency`. Click on an entry to jump to it.
+* [ ] Choose `Freq` and `All Words`. List is now sorted by word frequency; scroll to the end and skim up the list of words that only appear 1 time looking for oddities and obvious misspellings.
+* [ ] Click `Character Cnts`.
+  * Note characters that appear only once, check usage.
+  * Check for equal counts of left & right parens and brackets.
+* [ ] Click `Emdashes`. This shows words with emdashes in them as well as similar words without emdashes (aka: suspects) marked with `****`. Check suspects against the text and page images. Preserve author's intent even when inconsistent.
+* [ ] Click `Hyphens`. Same as Emdashes above but for Hyphens.
+* [ ] Click `Alpha/num`. Scan list for `one/ell` and `oh/zero` errors.
+* [ ] Click `ALL CAPITALS`. Scan list looking for oddities.
+* [ ] Click `MiXeD CasE`. Scan list looking for letters such as o that sometimes OCR wrongly as uppercase. `Oh/zero` errors can show up here, too.
+* [ ] Click `Diacritics/Ligatures`. Scan list looking for mistakes, inconsistent usages.
+* [ ] Click `Ital/Bold/SC`. Scan list for incorrect or inconsistent use of italics, bold face, and small caps.
+* [ ] Click `Ligatures`. Scan list for [incorrect or inconsistent use](https://www.pgdp.net/wiki/Æ_and_œ_ligatures) of `ae` and `oe` ligatures.
+```text
+æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
+œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
+<shift> for capital letter
+```
+* [ ] Look for missed ligature / diacritical transliterations. Regex:
+```
+\[([=:.`'^v)(~*][a-z]|[a-z][=:.`'^v)(~*,])\]
+```
+
+### Apply Scanno Checks
+* [ ] Use `Tools → Stealth Scannos`
+  * [ ] Search based on `en-common.json`. Work through the list.
+  * [ ] Search based on `misspelled.json`. Work through the list.
+  * [ ] Search based on `regex.json`. Work through the list.
+* [ ] `Tools → Jeebies`. Examine its report of possible `he/be` errors.
+
+### Misc checks
+* [ ] Check for chapter/section spacing. Regex: `\n\n\n`
+* [ ] Check spaces around hyphens. Regex: `(\s+-|-\s+)`
+* [ ] Check spaces before punctuation. Regex: `\s+[.!?;:,]`
+* [ ] Check spaces around quotes. Regex: `\s+['"]\s+`
+* [ ] Check spaces around brackets. Regex: `\s+[({[\]})]\s+`
+* [ ] Search regex `(Dr|M(me|lle|essrs|rs?|grs?)|St|Fr|Rev)\s` and add missing period if needed
+* [ ] Check `A.M.`, `P.M.` and similar for spacing to match book - regex: `[AP]\.\s*M\.`
+  * Note these to do `&nbsp;` in HTML, to avoid line wrap mid-abbreviation
+* [ ] Does book use small-caps A.D. B.C.?
+  * Search `[^A-Za-z][A-Z]\.\s*[A-Z]\.[^A-Za-z]`, add `<sc>` and note for `&nbsp;` if needed
+* [ ] Check for multiple consecutive spaces which are not in a no-wrap block
+* [ ] Look at `<tb>` and look for improper uses
+* [ ] Check all ellipses. Regex: `\.\.\.`
+* [ ] Check for 3 dashes (not either 2 or 4). Regex: `[^-]---[^-]`
+* [ ] Check for 5 dashes (not either 2 or 4). Regex: `[^-]-----[^-]`
+* [ ] Look for spaces around em- or long-dash. Regex: `\s+--(--)?\s+`
+* [ ] Check adjacent letters and numbers. Regex: `([0-9][A-Za-z]|[A-Za-z][0-9])`
+* [ ] Superscripts (search `^` without regex). Can use `^` or `^{th}` form
+  * Add TN to text version about this superscript notation
+
+### Apply Bookloupe
+* [ ] `Tools → Bookloupe`.
+  * Hide "Forward slash", "HTML tag", "Short line"
+* Otherwise, use pptext from the [Post-Processing Workbench](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Post-Processing_Workbench).
+* Work through the list, correcting as appropriate.
+
+### Apply Spellcheck
+* [ ] Use `Tools → Spelling`. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
+
+### Fix Sidenotes
+* [ ] Read the [discussion](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes). Step through sidenotes with: Search & Replace of `[S`, not regex, not whole word, ignore case. Click `Search` to find each Sidenote.
+  * Compare to page image. Move note above paragraph if feasible.
+  * Otherwise, position it above the sentence to which it applies, with blank lines to prevent rewrapping if you decide that is best.
 
 ### Fix Poetry Line Numbers
 * [ ] If the book has poetry that uses line numbers, read [this page](https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Poetry_Line_Numbers) and align the line numbers consistently.
 
-### Consider page numbers and curly quotes
+### Curly quotes
 * [ ] Curly quotes are [recommended](https://www.pgdp.net/phpBB3/viewtopic.php?f=3&t=73290) in both the text and HTML versions. Now is the time to put them in, before the split.
     * `Tools → Convert to Curly Quotes`
     * Various fixup tools included on this panel
 * [ ] If needed, validate quotes pairings by searching for `[“”‘’]`
 
-### Unicode dashes
-* [ ] Long dash: S/R `([^-])----([^-]|$)` → `$1——$2`
-  * There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
-* [ ] Em dash: S/R `([^-])--([^-]|$)` → `$1—$2`
-  * There exists another dash (HORIZONTAL BAR, U+2015) which one PM/PP prefers to EM DASH (using two bars for one EM DASH), based on appearance in text version. I opted not to use this in favor of using the EM DASH character in both text and HTML.
-* [ ] [En dash](https://www.pgdp.net/wiki/En-dash): S/R `([^-])-([^-]|$)` → `$1–$2`
+### Unicode EN dashes
+For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
+* [ ] [En dash](https://www.pgdp.net/wiki/En-dash): S/R `([^-])-([^-]|$)` → `\1–\2`
   * Range of numbers `12–15`
   * Mathematical minus sign `15 – 12 = 3`
   * Negative numbers `–14º`
   * **Do not** use en-dash for fractions like `1-1/2` (or Convert Fractions function will be confused)
-* Any dashes not covered above are simple hyphens.
+* Any single dashes not covered above are treated as hyphens.
 
 ### Last pre-split check
 * [ ] Look at the revisit list for anything to handle before text/html split
-* [ ] Check for unexpected `*` to make sure no stray proofer notes or split-word/fn markers were missed
+* [ ] Check for unexpected `*`: Search → Find Asterisks w/o Slash
 
 ### Save Edited Markup
 * [ ] Save any unsaved changes
@@ -215,15 +211,17 @@ We now proceed to create a Plain Text Version of the book.
 ### Fix ASCII Tables
 **Pending implementation in GG2**
 
-* [ ] Use `Search → Find Next /**/ Block` to step through all tabular material.
+* [ ] Search for `/*` (no regex) and step through any tables
   * Compare to page image; reformat to best convey author intent.
   * For complex tables, try using `Txt → ASCII Table Effects` to reformat?
 * [ ] Try this regex to validate that all border characters were replace with box drawing `[=+|-]`
 
 ### Rewrap and Clear Rewrap Markers
+* [ ] Search for `^/[*$pcrflxi]` (regex, no match-case) and make any desired [rewrap marker](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) changes before wrapping
 * [ ] Save the file if any unsaved changes.
 * [ ] `Tools → Rewrap All`.
 * [ ] Page through entire text, looking for improper indentation. If found, re-open, clicking NO when asked if you want to save the edits. Find and fix broken rewrap markups. Repeat `Tools → Rewrap All`.
+* [ ] Search `  [Footnote` (no regex; 2 leading spaces) to find footnotes in blockquotes; move them out of the blockquote.
 * [ ] Under `Tools → Footnote Fixup`, use `Tidy Footnotes`.
 * [ ] `Tools → Clean Up Rewrap Markers`.
 * [ ] Rerun Bookloupe or pptext. Resolve any new issues.
@@ -266,11 +264,23 @@ p. 123: changed “foo” to “fool” (the fool and his money)
 
 ## Prepare the HTML Version
 Finally, we create an HTML version of the book.
+* [ ] Open `{{project_name}}.html` that was saved previously.
+
+### Convert EM and LONG dashes to UTF8
+Earlier, EN dashes were converted. That's done before the split for both versions. The EM and LONG dash conversions are left for HTML only, because the EM dash character displays as a fixed width for most readers of the text file. There have been differences of opinion about this matter, but I'm sticking to `--`, `----` in the text unless PG stops accepting it.
+
+References: ([p1347865](https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p1347865)), ([p1179008](https://www.pgdp.net/phpBB3/viewtopic.php?p=1179008#p1179008))
+
+* [ ] Long dash: S/R `([^-])----([^-]|$)` → `\1——\2`
+  * There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
+* [ ] Em dash: S/R `([^-])--([^-]|$)` → `\1—\2`
+  * There exists another dash (HORIZONTAL BAR, U+2015) which one PM/PP prefers to EM DASH (using two bars for one EM DASH), based on appearance in text version. I opted not to use this in favor of using the EM DASH character in both text and HTML.
 
 ### Generate the HTML
-* [ ] Open `{{project_name}}.html` that was saved previously.
 * [ ] It is preferable for the source line-breaks to match the book; however HTML poetry markup won't work unless `/P..P/` sections have been rewrapped. If the book has much poetry, rewrap it all; else select and rewrap poetry sections individually.
   * Don't remove the rewrap markers. These are needed for generation of proper HTML.
+* [ ] Search for `^/[*$pcrflxi]` (regex, no match-case) and make any desired [rewrap marker](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers) changes before HTML generation
+* [ ] TODO: Footnotes need to move to landing zones before HTML generation?
 * [ ] Open `HTML → HTML Generator`.
   * Correct the Title if not auto-detected properly.
   * Set options as desired.
@@ -286,25 +296,28 @@ Finally, we create an HTML version of the book.
     * [ ] Review index for "see X" entries and link any of those manually
   * Illustrations.
 * [ ] Use `HTML → HTML Markup` to make improvements. Use regex replacements to make systematic changes.
-  * **NOT YET IMPLEMENTED IN GG2**
   * Where you see a problem, make a correction in Guiguts, save the file, and click the "reload" button in the web browser.
 * [ ] Hyperlink page references in text, TOC, and index (discussed [here](https://www.pgdp.net/wiki/PPTools/Guiguts/HTML#Hyperlinking_Page_Numbers) and [here](https://www.pgdp.net/wiki/Indexes)).
 * [ ] Remove the [Generated TOC](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC) if it is not needed.
 * [ ] If `A.M.` `P.M.` or similar abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
 * [ ] If superscripts were used, convert to `<sup>`
 * [ ] Semantic fixup for italics
+  * (Note: `lang="xx"` can be used on **any** HTML tag including `cite`, `em`, ...)
   * Search `<i>((.|\n)+?)</i>`
-  * Replace (emphasis) `<em>$1</em>`
-  * Replace (citation) `<cite>$1</cite>`
-  * Replace ([languages](http://www.w3schools.com/tags/ref_language_codes.asp)) `<i lang="fr">$1</i>`
+  * Replace (emphasis) `<em>\1</em>`
+  * Replace (citation) `<cite>\1</cite>`
+  * Replace ([languages](http://www.w3schools.com/tags/ref_language_codes.asp)) `<i lang="fr">\1</i>`
   * Leave other cases as `<i>..</i>`
 * [ ] Add `abbr` tags if appropriate. ([Reference](https://www.pgdp.net/wiki/Accessibility_Recipes/Abbreviations))
-* [ ] If there is a cover image for e-readers supplied with the project, or you are creating one yourself, you can find information on what is needed in your HTML in the [Proofreaders' Guide to EPUB](https://www.pgdp.net/wiki/The_Proofreader%27s_Guide_to_EPUB#Cover_Page) or the [PP guide to cover pages](https://www.pgdp.net/wiki/PP_guide_to_cover_pages).
 
 ### Fractions
 For consistency the superscript/subscript form of fractions might be best (e.g. the 3-character ¹⁄₂ vs. single-character ½). A few fractions have a single character form but most do not. And fractions like 5/16 have no 3-char form even, you need 4 ...
 
+Guiguts has fraction conversion tools: Tools → Convert Fractions
+
 This regex: `([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)` may be of use to locate fractions once converted.
+
+* [ ] Handle any fractions
 
 ### Process Hi-resolution Images
 If the project manager provided high-resolution scans of the images in the text, use an image processing program such as GIMP or Adobe Photoshop Elements to optimize them—see [Guide to Image Processing](https://www.pgdp.net/wiki/Guide_to_Image_Processing). You can do this before, during, or after HTML conversion.
@@ -334,14 +347,15 @@ Image [sizes](https://www.pgdp.net/phpBB3/viewtopic.php?f=3&t=70286):
 * Covers: see [cover documentation](https://www.pgdp.net/wiki/PP_guide_to_cover_pages). Recommend 1600x2560, aspect ratio ~1:1.6. Not over 5000x5000px. Minimum 650x1000. **No specific file size limit**, but use judgement and don't make it larger than necessary.
 
 For each image:
-* [ ] Load image from the `illustrations/` folder (see the Initial Setup step).
+* [ ] Load image from the `pngs/` folder.
 * [ ] Straighten it (almost all scanned images are off-perpendicular; some are trapezoidal owing to the page not being flat on the scan window). Perspective tool.
 * [ ] Crop it to remove all redundant white space and borders (provide margins and borders with CSS styling of the `<img>` markup).
 * [ ] Correct the contrast
 * [ ] Use the [dodge/burn layer technique](https://www.pgdp.net/wiki/Guide_to_Image_Processing#Linear_Light_in_The_GIMP) to clean up, at least for line drawings
+* [ ] Resize if needed.
 * [ ] Sharpen.
 * [ ] Correct any major scratches, freckles, dirt, etc.
-* [ ] Save in the subfolder images using appropriate type:
+* [ ] Save in the subfolder `images/` using appropriate type:
   * Line drawings in `.png` at 8 bits per pixel (not the default 24-bit RGB format).
   * Photographs as `.jpg` with an appropriate compression level such as (Photoshop) level 6.
 * [ ] Use `HTML → Auto-Illustrations`. This will help add the images to the book.
@@ -377,24 +391,11 @@ An example entry might look like this. Use the book's page numbers, not PNG numb
 </ul>
 ```
 
-And accompany this with a target in the correction site, e.g. the below.
-Use a `<span>` if another element isn't already present; otherwise use the
-existing element and add the `id` attribute.
-
-```html
-They say that <span id="TN1">the fool and his money</span> are soon separated
-```
-
 * [ ] Make sure the TN has no straight-quotes `'"` and instead uses curly quotes `“”‘’`
 
 ### Validate HTML and CSS
 Perform these validation steps before submitting your book. Validation is also helpful while customizing the HTML and CSS above.
 
-* [ ] File should start with HTML opening
-```html
-<!DOCTYPE html>
-<html lang="en">
-```
 * [ ] Confirm that the `<title>` tag matches the format specified by the [Post-Processing FAQ](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Post-Processing_FAQ#HTML_title).
   * `<title>Alice's Adventures in Wonderland | Project Gutenberg</title>`
   * Sentence case isn't required here (but it is on the upload form)
@@ -411,11 +412,6 @@ Perform these validation steps before submitting your book. Validation is also h
     * `speak-as: spell-out` if a screen reader should spell out an acronym rather than read as a word
     * [ ] if uploading CSS3, leave a note for WWer about it.
 * [ ] Use `HTML → HTML Link Checker`. Fix any reported problems.
-* [ ] Use `HTML → PPVimage` to check for image-related errors. Fix any reported problems.
-    * **NOT IMPLEMENTED YET IN GG2?**
-* [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) checks
-  * [ ] [pphtml](https://www.pgdp.net/ppwb/pphtml.php)
-  * [ ] [ppcomp](https://www.pgdp.net/ppwb/ppcomp.php) to compare text/html files
 
 ### Review HTML
 * [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
@@ -449,13 +445,11 @@ Perform these validation steps before submitting your book. Validation is also h
 * Also a utility `kepubify` (link below) that converts; it's unclear what this conversion does that's any better than just renaming the file. Changing the filename is enough to invoke a different / better rendering engine on Kobo devices.
 
 ### Build and upload Ebooks
-* [ ] `make zip`
-* [ ] Upload to [ebookmaker](https://ebookmaker.pglaf.org/) to generate Ebook files
-* [ ] `make ebooksget cache={cache_number}` to download ebook files
-* [ ] Convert epub3 with [kepubify](https://pgaskin.net/kepubify/try/)
-* [ ] Upload epub3 with [Send to Kindle](https://www.amazon.com/gp/sendtokindle)
+* [ ] HTML → Ebookmaker (online)
+* [ ] Optional: Convert epub3 with [kepubify](https://pgaskin.net/kepubify/try/)
+* [ ] Optional: Upload epub3 with [Send to Kindle](https://www.amazon.com/gp/sendtokindle)
 * [ ] Add epub3 to Apple Books
-* [ ] Add epub, epub3, renamed-kepub, converted-kepub to Dropbox for Kobo
+* [ ] Optional: Add epub, epub3, renamed-kepub, converted-kepub to Dropbox for Kobo
 
 ### Ebook review
 <details>
