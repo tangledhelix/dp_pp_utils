@@ -206,10 +206,12 @@ We now proceed to create a Plain Text Version of the book.
   * [ ] Convert [smallcaps](https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Guide_to_smallcaps).
 
 ### Fix ASCII Tables
-**Pending implementation in GG2**
+**Pending implementation in GG2?**
 
 * [ ] Search for `/*` (no regex) and step through any tables
   * Compare to page image; reformat to best convey author intent.
+  * DO NOT REMOVE REWRAP MARKERS.
+  * To indent entire table during rewrap, change opening rewrap marker to e.g. `/*[4]` for 4-space indent.
   * For complex tables, try using `Txt → ASCII Table Effects` to reformat?
 * [ ] Try this regex to validate that all border characters were replace with box drawing `[=+|-]`
 
