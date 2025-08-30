@@ -180,8 +180,8 @@ Instructions for `/* */` and `/# #/` blocks:
 For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
 * [ ] [En dash](https://www.pgdp.net/wiki/En-dash): S/R `([^-])-([^-]|$)` → `\1–\2`
   * Range of numbers `12–15`
-  * Mathematical minus sign `15 – 12 = 3`
-  * Negative numbers `–14º`
+  * Mathematical minus sign `15 – 12 = 3`  ## TODO: instead use − MINUS SIGN U+2212 ?
+  * Negative numbers `–14º`  ## TODO: instead use − MINUS SIGN U+2212 ?
   * **Do not** use en-dash for fractions like `1-1/2` (or Convert Fractions function will be confused)
 * Any single dashes not covered above are treated as hyphens.
 
