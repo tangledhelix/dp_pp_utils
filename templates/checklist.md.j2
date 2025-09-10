@@ -424,7 +424,6 @@ Perform these validation steps before submitting your book. Validation is also h
 ### Notes on rendering
 #### CSS
 * Don't use `!important`, ADE has a parsing issue with it (probably others do too)
-* ADE doesn't render small-caps
 * Kindle doesn't seem to honor `width` on divs? Set all of `min-width`, `width`, `max-width` to fix. Kindle may set `min-width` 100% and need an override?
   * Other advice: "Kindle ignores max-width. If you want your narrow text to be centered (column-centered with smooth margins), add `margin: auto;` to the "narrow" definition. Otherwise, it'll be left-positioned along the body's main left margin.
 * Kindle doesn't always honor `page-break-*` CSS
