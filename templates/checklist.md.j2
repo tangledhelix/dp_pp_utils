@@ -416,6 +416,12 @@ Perform these validation steps before submitting your book. Validation is also h
 * [ ] Use `HTML → HTML Link Checker`. Fix any reported problems.
 
 ### Review HTML
+The iPhone/iPad simulator can't read from the Mac's filesystem, so you need a
+web server for them to talk to. Go to the book's directory and run
+`python3 -m http.server`. Then navigate to `localhost:8000` in Safari.
+
+To use multi-touch gestures on iPhone/iPad Simulator, hold the Option key.
+
 * [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
 * [ ] Pay particular attention to complex items like tables, poetry
 
