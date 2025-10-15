@@ -10,7 +10,7 @@
 # Input is presumed to be the $t expansion.
 
 echo "$1" | \
-    gsed 's/\[Pg [0-9]\+\]//g' | \	# page markers
-    gsed 's/&#x[0-9]\+;//g' | \		# HTML hex/unicode entities
-    gsed 's/&[a-zA-Z]\+;//g' | \        # HTML named entities
+    gsed 's/\[Pg [0-9]\+\]//g' | \
+    gsed 's/&#x[0-9]\+;//g' | \
+    gsed 's/&[a-zA-Z]\+;//g' | \
     pbcopy
