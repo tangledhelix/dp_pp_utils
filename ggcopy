@@ -3,14 +3,17 @@
 # Utility to strip extra bits from Guiguts HTML
 # - assumes tags are already stripped (Guiguts does that)
 # - strips [Pg 123] page marks
-# - strips hex/unicode entities - &#x2060;
-# - strips named entities - &nbsp; (case insensitive)
+# - converts certain hex/unicode entities to ascii
+# - strips other hex/unicode entities - &#x2060;
+# - strips other named entities - &oplus; (case insensitive)
 #
 # Meant to be called from Guiguts custom menu.
 # Input is presumed to be the $t expansion.
 
 echo "$1" | \
     gsed 's/\[Pg [0-9]\+\]//g' | \
+    gsed 's/&amp;/&/' | \
+    gsed 's/&(nb|en|em|thin)sp;/ /' | \
     gsed 's/&#x[0-9]\+;//g' | \
     gsed 's/&[a-zA-Z]\+;//g' | \
     pbcopy
