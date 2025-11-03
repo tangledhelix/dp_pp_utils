@@ -21,7 +21,7 @@
       "hint": "Space around brackets: keep NONE, to LEFT, to RIGHT"
     },
     {
-      "match": "(Dr|M(me|lle|essrs|rs?|grs?)|St|Fr|Rev)(\\s)",
+      "match": "(Dr|M(me|lle|essrs|rs?|grs?)|St|Fr|Rev)([^.a-zA-Z])",
       "replacement": ["\\1.\\3"],
       "hint": "Add missing period after title"
     },
@@ -41,8 +41,8 @@
       "hint": "Collapse multiple spaces (except in no-wrap blocks)"
     },
     {
-      "match": "<tb>",
-      "replacement": [],
+      "match": "(<tb>)",
+      "replacement": [""],
       "hint": "Look at thought breaks for improper use"
     },
     {
@@ -51,13 +51,13 @@
       "hint": "Check ellipses for missing 4th period"
     },
     {
-      "match": "[^-]---[^-]",
-      "replacement": ["--", "----"],
+      "match": "([^-])---([^-])",
+      "replacement": ["\\1--\\2", "\\1----\\2"],
       "hint": "Check for 3 dashes (not 2 or 4)"
     },
     {
-      "match": "[^-]-----[^-]",
-      "replacement": ["----"],
+      "match": "([^-])-----([^-])",
+      "replacement": ["\\1----\\2"],
       "hint": "Check for 5 dashes (not 4)"
     },
     {
