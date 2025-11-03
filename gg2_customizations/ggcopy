@@ -6,6 +6,7 @@
 # - converts certain hex/unicode entities to ascii
 # - strips other hex/unicode entities - &#x2060;
 # - strips other named entities - &oplus; (case insensitive)
+# - strips DP superscript markup
 #
 # Meant to be called from Guiguts custom menu.
 # Input is presumed to be the $t expansion.
@@ -16,4 +17,5 @@ echo "$1" | \
     gsed 's/&(nb|en|em|thin)sp;/ /' | \
     gsed 's/&#x[0-9]\+;//g' | \
     gsed 's/&[a-zA-Z]\+;//g' | \
+    gsed -E 's/\^\{([^}]+)}/\1/g' | \
     pbcopy
