@@ -1,0 +1,42 @@
+
+/* indent paragraphs */
+p { text-indent: 1em; }
+p.noindent { text-indent: 0; }
+
+/* de-emphasize page numbers */
+.pagenum { color: #bbbbbb; }
+
+/* footnote block styling */
+.footnotes {
+    border: 1px dashed #aaaaaa;
+    margin-top: 1.5em;
+}
+
+/* TN styling */
+.transnote {
+    background-color: inherit;
+    border: 1px dashed #bbbbbb;
+    margin-top: 3em;
+    page-break-before: always;
+}
+
+/* don't visibly style abbr */
+abbr {
+    border: none;
+    text-decoration: none;
+    font-variant: normal;
+}
+/* abbrs that should be read letter-by-letter */
+abbr.spell { speak: spell-out; }
+
+/* "gray bar" blockquotes */
+blockquote {
+    border-left: .15em solid #c8c8c8;
+    padding-left: .7em;
+    margin-left: 4%;
+    margin-right: 8%;
+}
+
+/* don't wrap; better than invisible word joiner char? */
+.nowrap { white-space: nowrap; }
+
