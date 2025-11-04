@@ -1,7 +1,7 @@
 {
   "regexes": [
     {
-      "match": "(\\s+-|-\\s+)",
+      "match": "(\\s+-[^-]|[^-]-\\s+)",
       "replacement": ["-"],
       "hint": "Remove space around hyphens"
     },
