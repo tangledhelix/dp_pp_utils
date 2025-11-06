@@ -164,11 +164,12 @@ Instructions for `/* */` and `/# #/` blocks:
 
 ### Unicode EN dashes
 For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
-* [ ] [En dash](https://www.pgdp.net/wiki/En-dash): S/R `([^-])-([^-]|$)` → `\1–\2`
-  * Range of numbers `12–15`
-  * Mathematical minus sign `15 – 12 = 3`  ## TODO: instead use − MINUS SIGN U+2212 ?
-  * Negative numbers `–14º`  ## TODO: instead use − MINUS SIGN U+2212 ?
-  * **Do not** use en-dash for fractions like `1-1/2` (or Convert Fractions function will be confused)
+* [ ] [En dash](https://www.pgdp.net/wiki/En-dash):
+  * `Tools → Regex Library` and load the dashes.json file
+  * Ignore the first regex (em-dash) and do these:
+    * Range of numbers `12–15` (uses EN DASH)
+    * Negative numbers `–14º` (uses MINUS SIGN)
+  * **Do not** change dash in fractions like `1-1/2` (or Convert Fractions function will be confused)
 * Any single dashes not covered above are treated as hyphens.
 
 ### Last pre-split check
