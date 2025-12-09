@@ -1,0 +1,50 @@
+{
+  "regexes": [
+    {
+      "match": "\\b((Mr|Mrs|Dr)\\.)",
+      "replacement": ["<abbr>\\1</abbr>"],
+      "hint": "Common title abbreviations"
+    },
+    {
+      "match": "\\b((\\d*1st|\\d*2nd|\\d*3rd|\\d+th)\\.)",
+      "replacement": ["<abbr>\\1</abbr>"],
+      "hint": "Common numeric counting abbreviations"
+    },
+    {
+      "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g)\\.)",
+      "replacement": ["<abbr>\\1</abbr>"],
+      "hint": "Common Latin abbreviations"
+    },
+    {
+      "match": "\\b(Fig\\.) (\\d+)",
+      "replacement": ["<abbr>\\1</abbr> \\2"],
+      "hint": "Labeled figures with numeric series"
+    },
+    {
+      "match": "\\b(St\\.)",
+      "replacement": [
+        "<abbr title=\"Saint\">\\1</abbr>",
+        "<abbr title=\"Street\">\\1</abbr>"
+      ],
+      "hint": "Saint or Street?"
+    },
+    {
+      "match": "\\b(\\d*[23]d)\\b",
+      "replacement": [
+        "<abbr title=\"second\">\\1</abbr>",
+        "<abbr title=\"third\">\\1</abbr>"
+      ],
+      "hint": "Archaic second or third"
+    },
+    {
+      "match": "\\b(&c\\.)",
+      "replacement": ["<abbr title=\"etc.\">\\1</abbr>"],
+      "hint": "Archaic etc."
+    },
+    {
+      "match": "([IVXLCDM]+|[ivxlcdm]+)",
+      "replacement": ["<abbr title=\"\\N\\1\\E\">\\1</abbr>"],
+      "hint": "Roman numerals"
+    }
+  ]
+}
