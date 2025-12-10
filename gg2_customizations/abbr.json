@@ -42,8 +42,8 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "([IVXLCDM]+|[ivxlcdm]+)",
-      "replacement": ["<abbr title=\"\\N\\1\\E\">\\1</abbr>"],
+      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)?\\b",
+      "replacement": ["<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>"],
       "hint": "Roman numerals"
     }
   ]
