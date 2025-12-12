@@ -7,12 +7,12 @@
         "<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>",
         "<abbr title=\"Reverend\">\\1</abbr>"
       ],
-      "hint": "Common title abbreviations"
+      "hint": "Common titles"
     },
     {
-      "match": "\\b((\\d*1st|\\d*2nd|\\d*3rd|\\d+th)\\.)",
+      "match": "\\b((\\d*(1st|2nd|3rd)|\\d+th)\\.?)\\b",
       "replacement": ["<abbr>\\1</abbr>"],
-      "hint": "Common numeric counting abbreviations"
+      "hint": "Numeric counting"
     },
     {
       "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g|cf|Cf)\\.)",
@@ -21,11 +21,11 @@
         "<abbr title=\"confer\">\\1</abbr>",
         "<abbr title=\"Confer\">\\1</abbr>"
       ],
-      "hint": "Common Latin abbreviations"
+      "hint": "Common Latin"
     },
     {
-      "match": "\\b(Fig\\.) (\\d+)",
-      "replacement": ["<abbr>\\1</abbr> \\2"],
+      "match": "\\b(Fig\\.)(\\s+)(\\d+)",
+      "replacement": ["<abbr>\\1</abbr>\\2\\3"],
       "hint": "Labeled figures with numeric series"
     },
     {
@@ -55,12 +55,12 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)?\\b",
+      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)\\b",
       "replacement": ["<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>"],
       "hint": "Roman numerals"
     },
     {
-      "match": "\\b(([pP]|pp)\\.?)\\b",
+      "match": "\\b(([pP]|pp)\\.)\\b",
       "replacement": [
         "<abbr title=\"page\">\\1</abbr>",
         "<abbr title=\"Page\">\\1</abbr>",
@@ -70,7 +70,7 @@
       "hint": "Pages"
     },
     {
-      "match": "\\b(([vV]ol|[vV]ols|[vV])\\.?)\\b",
+      "match": "\\b(([vV]ol|[vV]ols|[vV])\\.)\\b",
       "replacement": [
         "<abbr title=\"volume\">\\1</abbr>",
         "<abbr title=\"Volume\">\\1</abbr>",
@@ -92,7 +92,7 @@
       "hint": "Edited, Editions, Editor"
     },
     {
-      "match": "\\b(([tT]rans|[tT]ransl|[tT]r)\\.)\\b",
+      "match": "\\b(([tT]ransl?|[tT]r)\\.)\\b",
       "replacement": [
         "<abbr title=\"translated by\">\\1</abbr>",
         "<abbr title=\"Translated by\">\\1</abbr>",
@@ -115,7 +115,7 @@
       "hint": "Religious honorifics"
     },
     {
-      "match": "\\b(([12] (Thess\\.|Peter)|(Heb|Rom|Apoc)\\.))\\b",
+      "match": "\\b(([12] (Thess|Peter)|(Heb|Rom|Apoc))\\.)\\b",
       "replacement": [
         "<abbr title=\"First Thessalonians\">\\1</abbr>",
         "<abbr title=\"Second Thessalonians\">\\1</abbr>",
@@ -125,7 +125,7 @@
         "<abbr title=\"Hebrews\">\\1</abbr>",
         "<abbr title=\"Apocalypse\">\\1</abbr>"
       ],
-      "hint": "Bible citation"
+      "hint": "Bible citations"
     },
     {
       "match": "\\b((Ms|MS|ms)\\.)\\b",
@@ -144,14 +144,14 @@
       "hint": "Section"
     },
     {
-      "match": "\\b((8vo|6mo|4to|12mo|16mo)\\.)\\b",
+      "match": "\\b((8vo|4to|6mo|12mo|16mo)\\.)\\b",
       "replacement": [
         "<abbr title=\"octavo\">\\1</abbr>",
         "<abbr title=\"Octavo\">\\1</abbr>",
-        "<abbr title=\"sexto\">\\1</abbr>",
-        "<abbr title=\"Sexto\">\\1</abbr>",
         "<abbr title=\"quarto\">\\1</abbr>",
         "<abbr title=\"Quarto\">\\1</abbr>",
+        "<abbr title=\"sexto\">\\1</abbr>",
+        "<abbr title=\"Sexto\">\\1</abbr>",
         "<abbr title=\"duodecimo\">\\1</abbr>",
         "<abbr title=\"Duodecimo\">\\1</abbr>",
         "<abbr title=\"sextodecimo\">\\1</abbr>",
