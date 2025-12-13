@@ -29,9 +29,16 @@
       "hint": "Labeled figures with numeric series"
     },
     {
-      "match": "\\b(A\\.\\s*D\\.|B\\.\\s*C\\.|A\\.\\s*M\\.|P\\.\\s*M\\.)(\\s)",
+      "match": "\\b(A\\.\\s*D\\.|B\\.\\s*C\\.|[AP]\\.\\s*M\\.)(\\s)",
       "replacement": ["<abbr class=\"spell\">\\1</abbr>\\2"],
-      "hint": "A.D. (etc): class=spell"
+      "hint": "A.D., B.C., A.M., P.M.: class=spell"
+    },
+    {
+      "match": "\\b(M\\.\\s*D\\.)\\b",
+      "replacement": [
+        "<abbr class=\"spell\">\\1</abbr>"
+      ],
+      "hint": "M.D.: class=spell (titles)"
     },
     {
       "match": "\\b(St\\.)",
