@@ -1,16 +1,19 @@
 {
   "regexes": [
     {
-      "match": "\\b((Mr|Mrs|Dr|M|Rev)\\.)",
+      "match": "\\b((Mr|Mrs|Dr|M|Rev|Hon)\\.)",
       "replacement": [
         "<abbr>\\1</abbr>",
         "<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>",
-        "<abbr title=\"Reverend\">\\1</abbr>"
+        "<abbr title=\"Reverend\">\\1</abbr>",
+        "<abbr title=\"Honorary\">\\1</abbr>",
+        "<abbr title=\"Honorable\">\\1</abbr>",
+        "<abbr title=\"Honourable\">\\1</abbr>"
       ],
       "hint": "Common titles"
     },
     {
-      "match": "\\b((\\d*(1st|2nd|3rd)|\\d+th)\\.?)\\b",
+      "match": "\\b((\\d*(1st|2nd|3rd)|\\d+th)\\.?)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Numeric counting"
     },
@@ -29,12 +32,12 @@
       "hint": "Labeled figures with numeric series"
     },
     {
-      "match": "\\b(A\\.\\s*D\\.|B\\.\\s*C\\.|[AP]\\.\\s*M\\.)(\\s)",
-      "replacement": ["<abbr class=\"spell\">\\1</abbr>\\2"],
+      "match": "\\b(A\\.\\s*D\\.|B\\.\\s*C\\.|[AP]\\.\\s*M\\.)",
+      "replacement": ["<abbr class=\"spell\">\\1</abbr>"],
       "hint": "A.D., B.C., A.M., P.M.: class=spell"
     },
     {
-      "match": "\\b(M\\.\\s*D\\.)\\b",
+      "match": "\\b(M\\.\\s*D\\.)",
       "replacement": [
         "<abbr class=\"spell\">\\1</abbr>"
       ],
@@ -62,12 +65,12 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)\\b",
+      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)",
       "replacement": ["<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>"],
       "hint": "Roman numerals"
     },
     {
-      "match": "\\b(([pP]|pp)\\.)\\b",
+      "match": "\\b(([pP]|pp)\\.)",
       "replacement": [
         "<abbr title=\"page\">\\1</abbr>",
         "<abbr title=\"Page\">\\1</abbr>",
@@ -77,7 +80,7 @@
       "hint": "Pages"
     },
     {
-      "match": "\\b(([vV]ol|[vV]ols|[vV])\\.)\\b",
+      "match": "\\b(([vV]ol|[vV]ols|[vV])\\.)",
       "replacement": [
         "<abbr title=\"volume\">\\1</abbr>",
         "<abbr title=\"Volume\">\\1</abbr>",
@@ -87,7 +90,7 @@
       "hint": "Volumes"
     },
     {
-      "match": "\\b(([eE]d|[eE]dit)\\.)\\b",
+      "match": "\\b(([eE]d|[eE]dit)\\.)",
       "replacement": [
         "<abbr title=\"edition\">\\1</abbr>",
         "<abbr title=\"Edition\">\\1</abbr>",
@@ -99,7 +102,7 @@
       "hint": "Edited, Editions, Editor"
     },
     {
-      "match": "\\b(([tT]ransl?|[tT]r)\\.)\\b",
+      "match": "\\b(([tT]ransl?|[tT]r)\\.)",
       "replacement": [
         "<abbr title=\"translated by\">\\1</abbr>",
         "<abbr title=\"Translated by\">\\1</abbr>",
@@ -111,7 +114,7 @@
       "hint": "Translate"
     },
     {
-      "match": "\\b((Card|Fr|Mgrs?|Bp)\\.)\\b",
+      "match": "\\b((Card|Fr|Mgrs?|Bp)\\.)",
       "replacement": [
         "<abbr title=\"Cardinal\">\\1</abbr>",
         "<abbr title=\"Father\">\\1</abbr>",
@@ -122,7 +125,7 @@
       "hint": "Religious honorifics"
     },
     {
-      "match": "\\b(([12] (Thess|Peter)|(Heb|Rom|Apoc))\\.)\\b",
+      "match": "\\b(([12] (Thess|Peter)|(Heb|Rom|Apoc))\\.)",
       "replacement": [
         "<abbr title=\"First Thessalonians\">\\1</abbr>",
         "<abbr title=\"Second Thessalonians\">\\1</abbr>",
@@ -135,7 +138,7 @@
       "hint": "Bible citations"
     },
     {
-      "match": "\\b((Ms|MS|ms)\\.)\\b",
+      "match": "\\b((Ms|MS|ms)\\.)",
       "replacement": [
         "<abbr title=\"manuscript\">\\1</abbr>",
         "<abbr title=\"Manuscript\">\\1</abbr>"
@@ -151,7 +154,7 @@
       "hint": "Section"
     },
     {
-      "match": "\\b((8vo|4to|6mo|12mo|16mo)\\.)\\b",
+      "match": "\\b((8vo|4to|6mo|12mo|16mo)\\.)",
       "replacement": [
         "<abbr title=\"octavo\">\\1</abbr>",
         "<abbr title=\"Octavo\">\\1</abbr>",
@@ -167,14 +170,14 @@
       "hint": "Page sizes"
     },
     {
-      "match": "\\b((\\d*\\s*)(ff\\.))\\b",
+      "match": "\\b((\\d*\\s*)(ff\\.))",
       "replacement": [
         "\\2<abbr title=\"and following\">\\3</abbr>"
       ],
       "hint": "ff.: following"
     },
     {
-      "match": "\\b(sqq?\\.)\\b",
+      "match": "\\b(sqq?\\.)",
       "replacement": [
         "<abbr title=\"following\">\\1</abbr>",
         "<abbr title=\"and following\">\\1</abbr>",
