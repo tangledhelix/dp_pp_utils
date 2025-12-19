@@ -40,3 +40,6 @@ blockquote {
 /* don't wrap; better than invisible word joiner char? */
 .nowrap { white-space: nowrap; }
 
+/* remove italic styling, e.g. on a <cite> */
+.nonitalic { font-style: normal; }
+
