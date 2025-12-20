@@ -1,14 +1,15 @@
 {
   "regexes": [
     {
-      "match": "\\b((Mr|Mrs|Dr|M|Rev|Hon)\\.)",
+      "match": "\\b((Mr|Mrs|Dr|M|Rev|Hon|Esq)\\.)",
       "replacement": [
         "<abbr>\\1</abbr>",
         "<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>",
         "<abbr title=\"Reverend\">\\1</abbr>",
         "<abbr title=\"Honorary\">\\1</abbr>",
         "<abbr title=\"Honorable\">\\1</abbr>",
-        "<abbr title=\"Honourable\">\\1</abbr>"
+        "<abbr title=\"Honourable\">\\1</abbr>",
+        "<abbr title=\"Esquire\">\\1</abbr>"
       ],
       "hint": "Common titles"
     },
