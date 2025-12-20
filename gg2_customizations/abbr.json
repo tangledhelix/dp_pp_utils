@@ -18,11 +18,12 @@
       "hint": "Numeric counting"
     },
     {
-      "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g|cf|Cf)\\.)",
+      "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g|cf|Cf|viz)\\.)",
       "replacement": [
         "<abbr>\\1</abbr>",
         "<abbr title=\"confer\">\\1</abbr>",
-        "<abbr title=\"Confer\">\\1</abbr>"
+        "<abbr title=\"Confer\">\\1</abbr>",
+        "<abbr title=\"videlicet\" lang=\"la\">\\1</abbr>"
       ],
       "hint": "Common Latin"
     },
@@ -125,7 +126,7 @@
       "hint": "Religious honorifics"
     },
     {
-      "match": "\\b(([12] (Thess|Peter)|(Heb|Rom|Apoc))\\.)",
+      "match": "\\b(([12] (Thess|Peter)|(Heb|Rom|Apoc|Rev|Deut))\\.)",
       "replacement": [
         "<abbr title=\"First Thessalonians\">\\1</abbr>",
         "<abbr title=\"Second Thessalonians\">\\1</abbr>",
@@ -133,7 +134,9 @@
         "<abbr title=\"Second Peter\">\\1</abbr>",
         "<abbr title=\"Romans\">\\1</abbr>",
         "<abbr title=\"Hebrews\">\\1</abbr>",
-        "<abbr title=\"Apocalypse\">\\1</abbr>"
+        "<abbr title=\"Apocalypse\">\\1</abbr>",
+        "<abbr title=\"Revelation\">\\1</abbr>",
+        "<abbr title=\"Deuteronomy\">\\1</abbr>"
       ],
       "hint": "Bible citations"
     },
