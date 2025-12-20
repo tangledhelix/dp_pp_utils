@@ -195,6 +195,30 @@
         "<abbr title=\"sequens\" lang=\"la\">\\1</abbr>"
       ],
       "hint": "sq., sqq.: following/sequens"
+    },
+    {
+      "match": "\\b(Co\\.)",
+      "replacement": [
+        "<abbr title=\"Company\">\\1</abbr>"
+      ],
+      "hint": "Company"
+    },
+    {
+      "match": "\\b((Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\.)",
+      "replacement": [
+        "<abbr title=\"January\">\\1</abbr>",
+        "<abbr title=\"February\">\\1</abbr>",
+        "<abbr title=\"March\">\\1</abbr>",
+        "<abbr title=\"April\">\\1</abbr>",
+        "<abbr title=\"June\">\\1</abbr>",
+        "<abbr title=\"July\">\\1</abbr>",
+        "<abbr title=\"August\">\\1</abbr>",
+        "<abbr title=\"September\">\\1</abbr>",
+        "<abbr title=\"October\">\\1</abbr>",
+        "<abbr title=\"November\">\\1</abbr>",
+        "<abbr title=\"December\">\\1</abbr>"
+      ],
+      "hint": "Months"
     }
   ]
 }
