@@ -150,7 +150,7 @@
       "hint": "Manuscript"
     },
     {
-      "match": "\\b(ch\\.)",
+      "match": "\\b((ch|c)\\.)",
       "replacement": [
         "<abbr title=\"chapter\">\\1</abbr>"
       ],
