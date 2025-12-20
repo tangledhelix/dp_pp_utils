@@ -150,6 +150,13 @@
       "hint": "Manuscript"
     },
     {
+      "match": "\\b(ch\\.)",
+      "replacement": [
+        "<abbr title=\"chapter\">\\1</abbr>"
+      ],
+      "hint": "chapter"
+    },
+    {
       "match": "§",
       "replacement": [
         "<abbr title=\"section\">\\1</abbr>",
