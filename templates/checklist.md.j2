@@ -295,7 +295,7 @@ References: ([p1347865](https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p134
 * [ ] Hyperlink page references in text, TOC, and index (discussed [here](https://www.pgdp.net/wiki/PPTools/Guiguts/HTML#Hyperlinking_Page_Numbers) and [here](https://www.pgdp.net/wiki/Indexes)).
 * [ ] Remove the [Generated TOC](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC) if it is not needed.
 * [ ] If `A.M.` `P.M.` or similar abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
-* [ ] If superscripts were used, convert to `<sup>`
+* [ ] If {super,sub}scripts were used, convert to `<sup>` or `<sub>` (NOTE: does Guiguts do this itself? Seems to for subs.)
 * [ ] Semantic fixup for italics
   * Use the Regex Library tool and italic_semantics.json.
   * Note: `lang="xx"` can be used on **any** HTML tag including `cite`, `em`, ...
