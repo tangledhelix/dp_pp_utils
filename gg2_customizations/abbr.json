@@ -2,30 +2,22 @@
   "regexes": [
     {
       "match": "\\b((Mr|Mrs|Dr)\\.)",
-      "replacement": [
-        "<abbr>\\1</abbr>"
-      ],
+      "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common titles not needing 'title' attribute"
     },
     {
       "match": "\\b(M\\.)",
-      "replacement": [
-        "<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>"],
       "hint": "Monsieur"
     },
     {
       "match": "\\b(Rev\\.)",
-      "replacement": [
-        "<abbr title=\"Reverend\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Reverend\">\\1</abbr>"],
       "hint": "Reverend"
     },
     {
       "match": "\\b(Esq\\.)",
-      "replacement": [
-        "<abbr title=\"Esquire\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Esquire\">\\1</abbr>"],
       "hint": "Esquire"
     },
     {
@@ -44,23 +36,17 @@
     },
     {
       "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g)\\.)",
-      "replacement": [
-        "<abbr>\\1</abbr>"
-      ],
+      "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
     },
     {
       "match": "\\b(viz\\.)",
-      "replacement": [
-        "<abbr title=\"videlicet\" lang=\"la\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"videlicet\" lang=\"la\">\\1</abbr>"],
       "hint": "Latin viz."
     },
     {
       "match": "\\b(([cC])f\\.)",
-      "replacement": [
-        "<abbr title=\"\\2onfer\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\2onfer\">\\1</abbr>"],
       "hint": "Latin cf."
     },
     {
@@ -75,9 +61,7 @@
     },
     {
       "match": "\\b(M\\.\\s*D\\.)",
-      "replacement": [
-        "<abbr class=\"nowrap spell\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr class=\"nowrap spell\">\\1</abbr>"],
       "hint": "M.D.: class=spell (titles)"
     },
     {
@@ -90,16 +74,12 @@
     },
     {
       "match": "\\b(\\d*2d)\\b",
-      "replacement": [
-        "<abbr title=\"second\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"second\">\\1</abbr>"],
       "hint": "Archaic second"
     },
     {
       "match": "\\b(\\d*3d)\\b",
-      "replacement": [
-        "<abbr title=\"third\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"third\">\\1</abbr>"],
       "hint": "Archaic third"
     },
     {
@@ -114,30 +94,22 @@
     },
     {
       "match": "\\b(([pP])\\.)",
-      "replacement": [
-        "<abbr title=\"\\2age\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\2age\">\\1</abbr>"],
       "hint": "Page"
     },
     {
       "match": "\\b(([pP])p\\.)",
-      "replacement": [
-        "<abbr title=\"\\2ages\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\2ages\">\\1</abbr>"],
       "hint": "Pages"
     },
     {
       "match": "\\b((([vV])(ol)?)\\.)",
-      "replacement": [
-        "<abbr title=\"\\3olume\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\3olume\">\\1</abbr>"],
       "hint": "Volume"
     },
     {
       "match": "\\b(([vV])ols\\.)",
-      "replacement": [
-        "<abbr title=\"\\2olumes\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\2olumes\">\\1</abbr>"],
       "hint": "Volumes"
     },
     {
@@ -160,255 +132,225 @@
     },
     {
       "match": "\\b(Card\\.)",
-      "replacement": [
-        "<abbr title=\"Cardinal\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Cardinal\">\\1</abbr>"],
       "hint": "Cardinal"
     },
     {
       "match": "\\b(Fr\\.)",
-      "replacement": [
-        "<abbr title=\"Father\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Father\">\\1</abbr>"],
       "hint": "Father"
     },
     {
       "match": "\\b(Bp\\.)",
-      "replacement": [
-        "<abbr title=\"Bishop\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Bishop\">\\1</abbr>"],
       "hint": "Bishop"
     },
     {
       "match": "\\b(Mgr\\.)",
-      "replacement": [
-        "<abbr title=\"Monseigneur\" lang=\"fr\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Monseigneur\" lang=\"fr\">\\1</abbr>"],
       "hint": "Monseigneur"
     },
     {
       "match": "\\b(Mgrs\\.)",
-      "replacement": [
-        "<abbr title=\"Messieurs\" lang=\"fr\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Messieurs\" lang=\"fr\">\\1</abbr>"],
       "hint": "Messieurs"
     },
     {
       "match": "\\b(1 Thess\\.)",
-      "replacement": [
-        "<abbr title=\"First Thessalonians\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"First Thessalonians\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(2 Thess\\.)",
-      "replacement": [
-        "<abbr title=\"Second Thessalonians\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Second Thessalonians\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(1 Peter\\.)",
-      "replacement": [
-        "<abbr title=\"First Peter\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"First Peter\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(2 Peter\\.)",
-      "replacement": [
-        "<abbr title=\"Second Peter\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Second Peter\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Heb\\.)",
-      "replacement": [
-        "<abbr title=\"Hebrews\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Hebrews\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Rom\\.)",
-      "replacement": [
-        "<abbr title=\"Romans\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Romans\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Apoc\\.)",
-      "replacement": [
-        "<abbr title=\"Apocalypse\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Apocalypse\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Rev\\.)",
-      "replacement": [
-        "<abbr title=\"Revelation\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Revelation\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Deut\\.)",
-      "replacement": [
-        "<abbr title=\"Deuteronomy\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Deuteronomy\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(([Mm])[Ss]\\.)",
-      "replacement": [
-        "<abbr title=\"\\2anuscript\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"\\2anuscript\">\\1</abbr>"],
       "hint": "Manuscript"
     },
     {
       "match": "\\b((ch|c)\\.)",
-      "replacement": [
-        "<abbr title=\"chapter\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"chapter\">\\1</abbr>"],
       "hint": "chapter"
     },
     {
       "match": "§",
-      "replacement": [
-        "<abbr title=\"section\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"section\">\\1</abbr>"],
       "hint": "Section"
     },
     {
       "match": "\\b(8vo\\.)",
-      "replacement": [
-        "<abbr title=\"octavo\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"octavo\">\\1</abbr>"],
       "hint": "Page sizes"
     },
     {
       "match": "\\b(4to\\.)",
-      "replacement": [
-        "<abbr title=\"quarto\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"quarto\">\\1</abbr>"],
       "hint": "Page sizes"
     },
     {
       "match": "\\b(6mo\\.)",
-      "replacement": [
-        "<abbr title=\"sexto\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"sexto\">\\1</abbr>"],
       "hint": "Page sizes"
     },
     {
       "match": "\\b(12mo\\.)",
-      "replacement": [
-        "<abbr title=\"duodecimo\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"duodecimo\">\\1</abbr>"],
       "hint": "Page sizes"
     },
     {
       "match": "\\b(16mo\\.)",
-      "replacement": [
-        "<abbr title=\"sextodecimo\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"sextodecimo\">\\1</abbr>"],
       "hint": "Page sizes"
     },
     {
       "match": "\\b((\\d*\\s*)(ff\\.))",
-      "replacement": [
-        "\\2<abbr title=\"and following\">\\3</abbr>"
-      ],
+      "replacement": ["\\2<abbr title=\"and following\">\\3</abbr>"],
       "hint": "ff.: following"
     },
     {
       "match": "\\b(sqq?\\.)",
-      "replacement": [
-        "<abbr title=\"and following\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"and following\">\\1</abbr>"],
       "hint": "sq., sqq."
     },
     {
       "match": "\\b(Co\\.)",
-      "replacement": [
-        "<abbr title=\"Company\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"Company\">\\1</abbr>"],
       "hint": "Company"
     },
     {
       "match": "\\b(Jan\\.)",
-      "replacement": [
-        "<abbr title=\"January\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"January\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Feb\\.)",
-      "replacement": [
-        "<abbr title=\"February\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"February\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Mar\\.)",
-      "replacement": [
-        "<abbr title=\"March\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"March\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Apr\\.)",
-      "replacement": [
-        "<abbr title=\"April\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"April\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Jun\\.)",
-      "replacement": [
-        "<abbr title=\"June\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"June\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Jul\\.)",
-      "replacement": [
-        "<abbr title=\"July\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"July\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Aug\\.)",
-      "replacement": [
-        "<abbr title=\"August\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"August\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Sep\\.)",
-      "replacement": [
-        "<abbr title=\"September\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"September\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Oct\\.)",
-      "replacement": [
-        "<abbr title=\"October\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"October\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Nov\\.)",
-      "replacement": [
-        "<abbr title=\"November\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"November\">\\1</abbr>"],
       "hint": "Months"
     },
     {
       "match": "\\b(Dec\\.)",
-      "replacement": [
-        "<abbr title=\"December\">\\1</abbr>"
-      ],
+      "replacement": ["<abbr title=\"December\">\\1</abbr>"],
       "hint": "Months"
+    },
+    {
+      "match": "\\b(Inc\\.)",
+      "replacement": ["<abbr title=\"Incorporated\">\\1</abbr>"],
+      "hint": "Incorporated"
+    },
+    {
+      "match": "\\b(Ass['’]?n\\.)",
+      "replacement": ["<abbr title=\"Association\">\\1</abbr>"],
+      "hint": "Association"
+    },
+    {
+      "match": "\\b(Ltd\\.)",
+      "replacement": ["<abbr title=\"Limited\">\\1</abbr>"],
+      "hint": "Limited"
+    },
+    {
+      "match": "\\b((et\\s+)(al\\.))",
+      "replacement": [
+        "<span lang=\"la\">\\2<abbr title=\"alia\">\\3</abbr></span>"
+      ],
+      "hint": "et al."
+    },
+    {
+      "match": "\\b(N\\.\\s*J\\.)",
+      "replacement": ["<abbr title=\"New Jersey\">\\1</abbr>"],
+      "hint": "New Jersey"
+    },
+    {
+      "match": "\\b(N\\.\\s*Y\\.)",
+      "replacement": ["<abbr title=\"New York\">\\1</abbr>"],
+      "hint": "New York"
+    },
+    {
+      "match": "\\b((Penna?|Pa)\\.)",
+      "replacement": ["<abbr title=\"Pennsylvania\">\\1</abbr>"],
+      "hint": "Pennsylvania"
+    },
+    {
+      "match": "(\\s)(([A-Z]\\.){2,})(\\s)",
+      "replacement": ["\\1<abbr class=\"spell\">\\2</abbr>\\4"],
+      "hint": "Spell out capitalized abbrs with no spacing"
     }
   ]
 }
