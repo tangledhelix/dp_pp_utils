@@ -43,3 +43,9 @@ blockquote {
 /* remove italic styling, e.g. on a <cite> */
 .nonitalic { font-style: normal; }
 
+/* hanging indent */
+.hanging2 {
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
