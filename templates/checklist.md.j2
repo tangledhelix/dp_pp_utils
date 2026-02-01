@@ -304,6 +304,19 @@ References: ([p1347865](https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p134
 * [ ] Using Regex Library and my `abbr.json` file, add `abbr` tags as appropriate. ([Reference](https://www.pgdp.net/wiki/Accessibility_Recipes/Abbreviations))
 
 ### Table notes
+
+#### Wide tables and scrolling
+Surround your table in a div using `overflow-x` and it will become scrollable in the browser. (YMMV in e-readers.)
+
+```html
+<div style="overflow-x:auto;">
+<table>...</table>
+</div>
+```
+
+I used this technique in `catholichistory`.
+
+#### Large brackets or braces grouping table cells
 Tables using wide-span braces or brackets are a pain. An image adjusted for size in CSS probably works the best. See `eugenics` for examples. That project used both horizontal and vertical curly braces in tables, using images:
 
 * [images/bottom-brace.png](https://raw.githubusercontent.com/tangledhelix/DP_eugenics/refs/heads/main/images/bottom-brace.png)
