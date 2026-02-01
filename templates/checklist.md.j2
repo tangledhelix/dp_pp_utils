@@ -303,6 +303,35 @@ References: ([p1347865](https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p134
   * [List of language codes](http://www.w3schools.com/tags/ref_language_codes.asp)
 * [ ] Using Regex Library and my `abbr.json` file, add `abbr` tags as appropriate. ([Reference](https://www.pgdp.net/wiki/Accessibility_Recipes/Abbreviations))
 
+### Table notes
+Tables using wide-span braces or brackets are a pain. An image adjusted for size in CSS probably works the best. See `eugenics` for examples. That project used both horizontal and vertical curly braces in tables, using images:
+
+* images/bottom-brace.png
+* images/left-brace.png
+* images/right-brace.png
+* images/top-brace.png
+
+The CSS will need tweaking for each specific project's needs.
+
+```css
+.lr-brace { height: 2.25em; max-height: 2.25em; }
+.tb-brace { width: 3em; max-width: 3em; }
+
+.c014 { vertical-align: middle; text-align: right; padding-left: .5em;
+        padding-right: .5em; }
+.c015 { vertical-align: middle; text-align: center; padding-left: .5em;
+        padding-right: .5em; }
+
+```
+
+```html
+<!-- left brace spanning 2 rows -->
+<td class="c014" rowspan="2"> <img class="lr-brace" alt="left curly bracket" src="images/left-brace.png"></td>
+
+<!-- top brace spanning 2 columns -->
+<td class="c015" colspan="2"><img class="tb-brace" alt="top curly bracket" src="images/top-brace.png"></td>
+```
+
 ### Fractions
 For consistency the superscript/subscript form of fractions might be best (e.g. the 3-character ¹⁄₂ vs. single-character ½). A few fractions have a single character form but most do not. And fractions like 5/16 have no 3-char form even, you need 4 ...
 
