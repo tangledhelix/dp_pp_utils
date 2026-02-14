@@ -351,6 +351,14 @@
       "match": "(\\s)(([A-Z]\\.){2,})(\\s)",
       "replacement": ["\\1<abbr class=\"spell\">\\2</abbr>\\4"],
       "hint": "Spell out capitalized abbrs with no spacing"
+    },
+    {
+      "match": "\\b(deg\\.)",
+      "replacement": [
+        "<abbr title=\"degrees\">\\1</abbr>",
+        "<abbr title=\"degree\">\\1</abbr>"
+      ],
+      "hint": "degrees (or degree)"
     }
   ]
 }
