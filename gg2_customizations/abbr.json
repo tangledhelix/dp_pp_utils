@@ -359,6 +359,11 @@
         "<abbr title=\"degree\">\\1</abbr>"
       ],
       "hint": "degrees (or degree)"
+    },
+    {
+      "match": "\\b(([Ff])ahr\\.)",
+      "replacement": ["<abbr title=\"\\2ahrenheit\">\\1</abbr>"],
+      "hint": "Fahrenheit"
     }
   ]
 }
