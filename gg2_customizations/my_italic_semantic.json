@@ -1,0 +1,25 @@
+{
+  "regexes": [
+    { "match": "<i>((.|\\n)*?)</i>",
+      "replacement": [
+        "<i>\\1</i>",
+        "<em>\\1</em>",
+        "<cite>\\1</cite>",
+        "<i lang=\"la\">\\1</i>",
+        "<i lang=\"fr\">\\1</i>",
+        "<i lang=\"de\">\\1</i>",
+        "<i lang=\"it\">\\1</i>",
+        "<i lang=\"es\">\\1</i>",
+        "<i lang=\"pt\">\\1</i>",
+        "<cite lang=\"la\">\\1</cite>",
+        "<cite lang=\"fr\">\\1</cite>",
+        "<cite lang=\"de\">\\1</cite>",
+        "<cite lang=\"it\">\\1</cite>",
+        "<cite lang=\"es\">\\1</cite>",
+        "<cite lang=\"pt\">\\1</cite>",
+        "<q>\\1</q>"
+      ],
+      "hint": "Mark italic phrases with semantic tags using S/R dialog (Shift-click Replace)"
+    }
+  ]
+}
