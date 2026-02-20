@@ -338,6 +338,13 @@
       "hint": "et al."
     },
     {
+      "match": "\\b((et\\s+)(seq\\.))",
+      "replacement": [
+        "<span lang=\"la\">\\2<abbr>\\3</abbr></span>"
+      ],
+      "hint": "et seq."
+    },
+    {
       "match": "\\b(N\\.\\s*J\\.)",
       "replacement": ["<abbr title=\"New Jersey\">\\1</abbr>"],
       "hint": "New Jersey"
