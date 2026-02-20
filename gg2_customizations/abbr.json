@@ -113,6 +113,11 @@
       "hint": "Volumes"
     },
     {
+      "match": "\\b(([vV])s?\\.)",
+      "replacement": ["<abbr title=\"\\3ersus\" lang=\"la\">\\1</abbr>"],
+      "hint": "versus"
+    },
+    {
       "match": "\\b(([eE])(d|dit)\\.)",
       "replacement": [
         "<abbr title=\"\\2dition\">\\1</abbr>",
