@@ -83,7 +83,7 @@
       "hint": "Archaic third"
     },
     {
-      "match": "\\b(&c\\.)",
+      "match": "\\b(&(amp;)?c\\.)",
       "replacement": ["<abbr title=\"etc.\">\\1</abbr>"],
       "hint": "Archaic etc."
     },
