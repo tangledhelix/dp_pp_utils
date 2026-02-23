@@ -376,6 +376,16 @@
       "match": "\\b(([Ff])ahr\\.)",
       "replacement": ["<abbr title=\"\\2ahrenheit\">\\1</abbr>"],
       "hint": "Fahrenheit"
+    },
+    {
+      "match": "\\b(Q\\.)",
+      "replacement": ["<abbr title=\"Question\">\\1</abbr>"],
+      "hint": "Q. for Question"
+    },
+    {
+      "match": "\\b(A\\.)",
+      "replacement": ["<abbr title=\"Answer\">\\1</abbr>"],
+      "hint": "A. for Answer"
     }
   ]
 }
