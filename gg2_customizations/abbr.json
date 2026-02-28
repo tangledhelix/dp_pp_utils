@@ -406,6 +406,11 @@
       "match": "\\b(U\\.\\s*S\\.\\s*A\\.)",
       "replacement": ["<abbr title=\"United States of America\">\\1</abbr>"],
       "hint": "U.S.A. for United States of America"
+    },
+    {
+      "match": "(×)",
+      "replacement": ["<abbr title=\"times\">\\1</abbr>"],
+      "hint": "× as abbr for 'times'"
     }
   ]
 }
