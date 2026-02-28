@@ -386,6 +386,26 @@
       "match": "\\b(A\\.)",
       "replacement": ["<abbr title=\"Answer\">\\1</abbr>"],
       "hint": "A. for Answer"
+    },
+    {
+      "match": "\\b(Wm\\.)",
+      "replacement": ["<abbr title=\"William\">\\1</abbr>"],
+      "hint": "Wm. for William"
+    },
+    {
+      "match": "\\b(Jas\\.)",
+      "replacement": ["<abbr title=\"James\">\\1</abbr>"],
+      "hint": "Jas. for James"
+    },
+    {
+      "match": "\\b(U\\.\\s*S\\.)(?!\\s*A\\.)",
+      "replacement": ["<abbr title=\"United States\">\\1</abbr>"],
+      "hint": "U.S. for United States"
+    },
+    {
+      "match": "\\b(U\\.\\s*S\\.\\s*A\\.)",
+      "replacement": ["<abbr title=\"United States of America\">\\1</abbr>"],
+      "hint": "U.S.A. for United States of America"
     }
   ]
 }
