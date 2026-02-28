@@ -80,8 +80,7 @@ Instructions for `/* */` and `/# #/` blocks:
 * [ ] Look for malformed thought-breaks (5 stars). Regex: `\*\s*\*\s*\*\s*\*\s*\*`
 
 ### Transliterations
-* [ ] Check for non-Latin script tags. `\[(Greek|Hebrew|Arabic|Cyrillic)`
-* [ ] Handle each case as appropriate.
+* [ ] Check for non-Latin script tags, handle as appropriate. `\[(Greek|Hebrew|Arabic|Cyrillic)`
 
 ### Fix Footnotes
 * [ ] Use `Tools → Footnote Fixup`. This will help you validate and move any footnotes.
@@ -166,16 +165,6 @@ Instructions for `/* */` and `/# #/` blocks:
     * Various fixup tools included on this panel
 * [ ] If needed, validate quotes pairings by searching for `[“”‘’]`
 
-### Unicode EN dashes
-For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
-* [ ] [En dash](https://www.pgdp.net/wiki/En-dash):
-  * `Tools → Regex Library` and load the dashes.json file
-  * Ignore the first regex (em-dash) and do these:
-    * Range of numbers `12–15` (uses EN DASH)
-    * Negative numbers `–14º` (uses MINUS SIGN)
-  * **Do not** change dash in fractions like `1-1/2` (or Convert Fractions function will be confused)
-* Any single dashes not covered above are treated as hyphens.
-
 ### Fractions
 For consistency the superscript/subscript form of fractions might be best (e.g. the 3-character ¹⁄₂ vs. single-character ½). A few fractions have a single character form but most do not. And fractions like 5/16 have no 3-char form even, you need 4 ...
 
@@ -184,6 +173,15 @@ Guiguts has fraction conversion tools: Tools → Convert Fractions
 This regex: `([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)` may be of use to locate fractions once converted.
 
 * [ ] Handle any fractions
+
+### Unicode EN dashes
+For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
+* [ ] [En dash](https://www.pgdp.net/wiki/En-dash):
+  * `Tools → Regex Library` and load the dashes.json file
+  * Ignore the first regex (em-dash) and do these:
+    * Range of numbers `12–15` (uses EN DASH)
+    * Negative numbers `–14º` (uses MINUS SIGN)
+* Any single dashes not covered above are treated as hyphens.
 
 ### Last pre-split check
 * [ ] Look at the revisit list for anything to handle before text/html split
@@ -457,6 +455,7 @@ Perform these validation steps before submitting your book. Validation is also h
 ### Compare text and HTML
 * [ ] Compare files using [ppcomp](https://www.pgdp.net/ppwb/index.php) and make any adjustments needed.
   * Suppress word join (NoBreak) because GG2 uses them for footnotes
+  * TODO: try the ppcomp built into Guiguts.
 
 ### Review HTML
 The iPhone/iPad simulator can't read from the Mac's filesystem, so you need a
@@ -467,7 +466,7 @@ To use multi-touch gestures on iPhone/iPad Simulator, hold the Option key.
 This lets you do pinch gestures. To track two fingers together (no pinch),
 e.g. for scrolling, use Shift-Option instead.
 
-* [ ] Review in multiple browsers (Safari, Chrome, Firefox, maybe Edge?)
+* [ ] Scroll through in multiple browsers (Safari, Chrome, Firefox?)
 * [ ] Pay particular attention to complex items like tables, poetry
 
 ## Ebook generation
@@ -504,10 +503,7 @@ e.g. for scrolling, use Shift-Option instead.
 * [ ] Optional: Add epub, epub3, renamed-kepub, converted-kepub to Dropbox for Kobo
 
 ### Ebook review
-<details>
-<summary>
 Don't necessarily have to do *all* of these, but these are what I have.
-</summary>
 
 * [ ] Review Ebook ToC in at least one e-reader, for structure & content
   * Can try using `title=` attr if a header title has footnote marker etc.
@@ -526,8 +522,6 @@ Don't necessarily have to do *all* of these, but these are what I have.
   * [ ] Kobo Libra Colour (renamed-kepub)
   * [ ] Kobo Libra Colour (converted-kepub)
   * [ ] Kindle Colorsoft
-
-</details>
 
 ## Smooth Reading
 
@@ -592,13 +586,6 @@ Submit for a decent length of time, up to the maximum. Check what's in `ebooks/`
 
 ## Project wrap-up
 * [ ] When posted, then update PG URL in README.md, and [personal website list](https://tangledhelix.com/about), and set homepage on GitHub project
-
-### Device / cloud cleanup
-* [ ] Remove from Dropbox
-* [ ] Remove from Kindle and Kindle library
-* [ ] Remove from Apple Books
-* [ ] Remove from Calibre
-* [ ] Remove from Kobo device
 
 ## Related Pages
 * [Beginner PP advice](https://www.pgdp.net/wiki/Beginner_PP_advice)
