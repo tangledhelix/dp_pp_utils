@@ -157,8 +157,8 @@
     },
     {
       "match": "\\b(Mgrs\\.)",
-      "replacement": ["<abbr title=\"Messieurs\" lang=\"fr\">\\1</abbr>"],
-      "hint": "Messieurs"
+      "replacement": ["<abbr title=\"Messeigneurs\" lang=\"fr\">\\1</abbr>"],
+      "hint": "Messeigneurs"
     },
     {
       "match": "\\b(1 Thess\\.)",
@@ -411,6 +411,96 @@
       "match": "(×)",
       "replacement": ["<abbr title=\"times\">\\1</abbr>"],
       "hint": "× as abbr for 'times'"
+    },
+    {
+      "match": "(acc['’]t)",
+      "replacement": ["<abbr title=\"account\">\\1</abbr>"],
+      "hint": "account"
+    },
+    {
+      "match": "\\b(([Aa])ss['’]?n\\.?)",
+      "replacement": ["<abbr title=\"\\2ssociation\">\\1</abbr>"],
+      "hint": "association"
+    },
+    {
+      "match": "\\b(Capt\\.)",
+      "replacement": ["<abbr title=\"Captain\">\\1</abbr>"],
+      "hint": "Captain"
+    },
+    {
+      "match": "\\b(Corp\\.?)(?![a-zA-Z])",
+      "replacement": ["<abbr title=\"Corporation\">\\1</abbr>"],
+      "hint": "Corporation"
+    },
+    {
+      "match": "\\b(Messrs\\.)",
+      "replacement": ["<abbr title=\"Misters\">\\1</abbr>"],
+      "hint": "Misters"
+    },
+    {
+      "match": "\\b(Jr\\.)",
+      "replacement": ["<abbr title=\"Junior\">\\1</abbr>"],
+      "hint": "Junior"
+    },
+    {
+      "match": "\\b(Lieut\\.)",
+      "replacement": ["<abbr title=\"Lieutenant\">\\1</abbr>"],
+      "hint": "Lieutenant"
+    },
+    {
+      "match": "\\b(([Nn])[or]\\.)",
+      "replacement": ["<abbr title=\"\\2umber\">\\1</abbr>"],
+      "hint": "Number"
+    },
+    {
+      "match": "\\b(([Nn])os\\.)",
+      "replacement": ["<abbr title=\"\\2umbers\">\\1</abbr>"],
+      "hint": "Numbers"
+    },
+    {
+      "match": "(([Rr])ec['’]d)",
+      "replacement": ["<abbr title=\"\\2eceived\">\\1</abbr>"],
+      "hint": "received"
+    },
+    {
+      "match": "\\b(Prof\\.)",
+      "replacement": ["<abbr title=\"Professor\">\\1</abbr>"],
+      "hint": "Professor"
+    },
+    {
+      "match": "\\b(Ave\\.)",
+      "replacement": ["<abbr title=\"Avenue\">\\1</abbr>"],
+      "hint": "Avenue"
+    },
+    {
+      "match": "\\b(Bros\\.)",
+      "replacement": ["<abbr title=\"Brothers\">\\1</abbr>"],
+      "hint": "Brothers"
+    },
+    {
+      "match": "\\b(Mich\\.)",
+      "replacement": ["<abbr title=\"Michigan\">\\1</abbr>"],
+      "hint": "Michigan"
+    },
+    {
+      "match": "\\b(La\\.)",
+      "replacement": ["<abbr title=\"Louisiana\">\\1</abbr>"],
+      "hint": "Louisiana"
+    },
+    {
+      "match": "\\b(Dept\\.)",
+      "replacement": ["<abbr title=\"Department\">\\1</abbr>"],
+      "hint": "Department"
+    },
+    {
+      "match": "\\b(Dela\\.)",
+      "replacement": ["<abbr title=\"Delaware\">\\1</abbr>"],
+      "hint": "Delaware"
+    },
+    {
+      "match": "\\b(Comdr\\.)",
+      "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
+      "hint": "Commander"
     }
   ]
 }
