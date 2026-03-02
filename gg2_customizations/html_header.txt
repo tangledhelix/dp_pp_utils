@@ -49,3 +49,20 @@ blockquote {
   text-indent: -2em;
 }
 
+/* drop caps */
+p.drop-cap { text-indent: 0em; }
+p.drop-cap:first-letter {
+  float: left;
+  margin: 0 0.1em 0 0;
+  font-size: 250%;
+  line-height:0.85em;
+}
+.uppercase { text-transform: uppercase; }
+
+/* disable drop caps for EPUB2 */
+.x-ebookmaker-2  p.drop-cap:first-letter {
+  float: none;
+  margin: 0;
+  font-size: 100%;
+}
+
