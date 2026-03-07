@@ -31,10 +31,6 @@ Check for:
   * Between chapter head and subhead: 1 blank line
   * Between head (or subhead) and chapter body: 2 blank lines
   * Pages should **not** start with a blank line unless starting a new chapter, section, or paragraph.
-* Proper markup of Greek and other transliterations
-* Languages other than the main book language can be noted for later
-  * In HTML they can be labeled with `<span lang="fr">..</span>`
-  * If they're in italic print, that's handled later during italic handling
 * Block material all marked in some fashion:
   * Poetry, misc. tabular in `/* */`
   * Block quotes in `/# #/`
@@ -43,11 +39,9 @@ Check for:
   * Check that caption text agrees with List of Illustrations (if any)
   * Consistent spelling, abbreviation, capitalization in captions
   * For captionless (`[Illustration: ]`), remove colon & whitespace
-* Make notes of things that will need attention in the HTML:
-  * Author cross-references like "`(p. 150)`" and "`see page 222`" that should become links.
-  * How the editor laid out special sections such as tables and sidebars.
 * Check that `[Blank Page]` are actually blank pages!
 * Note any illustrations in a list in `README.md` for later handling
+* Anything else that sticks out.
 
 ### Basic Fixup
 * [ ] If project has Greek charset enabled, regex search `\p{Greek}` to look for Greek characters where they shouldn't be.
@@ -166,16 +160,12 @@ Instructions for `/* */` and `/# #/` blocks:
 * [ ] If needed, validate quotes pairings by searching for `[“”‘’]`
 
 ### Fractions
-For consistency the superscript/subscript form of fractions might be best (e.g. the 3-character ¹⁄₂ vs. single-character ½). A few fractions have a single character form but most do not. And fractions like 5/16 have no 3-char form even, you need 4 ...
-
-Guiguts has fraction conversion tools: Tools → Convert Fractions
+* [ ] `Tools → Convert Fractions → Unicode Fractions or Super/Subscript`
 
 This regex: `([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])` may be of use to locate fractions once converted.
 
-* [ ] Handle any fractions
-
 ### Unicode EN dashes
-For now, process only EN dash. The EM dash and long dash (2x EM) are left for after the text/html split.
+For now, do not process EM dash. The EM dash and long dash (2x EM) are left for after the text/html split.
 * [ ] [En dash](https://www.pgdp.net/wiki/En-dash):
   * `Tools → Regex Library` and load the dashes.json file
   * Ignore the first regex (em-dash) and do these:
@@ -246,7 +236,7 @@ This file uses _underscores_ to indicate italic text.
 
 If bold is used, add also `and =equals= to indicate bold text`
 
-If there were small-caps, `Small capitals changed to all capitals`
+If there were small-caps, `Small capitals changed to all capitals.`
 
 An example entry might look like this. Use the book's page numbers, not PNG number
 
@@ -258,7 +248,7 @@ p. 123: changed “foo” to “fool” (the fool and his money)
 * [ ] Skim over text file to find any obvious issues
 
 ### Validation
-* [ ] Run [PWBB](https://www.pgdp.net/ppwb/index.php) pptext check
+* [ ] `Text → PPtxt`
 
 ## Prepare the HTML Version
 Finally, we create an HTML version of the book.
@@ -305,7 +295,7 @@ References: ([p1347865](https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p134
 * [ ] If `A.M.` `P.M.` or similar abbreviations were used and have spaces, insert `&nbsp;` to avoid undesirable mid-abbreviation line wraps.
 * [ ] If {super,sub}scripts were used, convert to `<sup>` or `<sub>` (NOTE: does Guiguts do this itself? Seems to for subs.)
 * [ ] Semantic fixup for italics
-  * Use the Regex Library tool and my **custom** `my_italic_semantic.json`.
+  * Use the Regex Library tool and `italic_semantic.json`.
   * Note: `lang="xx"` can be used on **any** HTML tag including `cite`, `em`, ...
   * [List of language codes](http://www.w3schools.com/tags/ref_language_codes.asp)
 * [ ] Using Regex Library and my `abbr.json` file, add `abbr` tags as appropriate. ([Reference](https://www.pgdp.net/wiki/Accessibility_Recipes/Abbreviations))
