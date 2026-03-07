@@ -501,6 +501,16 @@
       "match": "\\b(Comdr\\.)",
       "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
       "hint": "Commander"
+    },
+    {
+      "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉]))",
+      "replacement": ["<abbr title=\"\\2 and \">\\1</abbr>"],
+      "hint": "Mixed fractions"
+    },
+    {
+      "match": "(?<!\\d)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])",
+      "replacement": ["<abbr title=\"\">\\1</abbr>"],
+      "hint": "Standalone fractions"
     }
   ]
 }
