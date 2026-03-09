@@ -511,6 +511,16 @@
       "match": "(?<!\\d)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])",
       "replacement": ["<abbr title=\"\">\\1</abbr>"],
       "hint": "Standalone fractions"
+    },
+    {
+      "match": "\\b((\\d+)d\\.)",
+      "replacement": ["<abbr title=\"\\2 pence\">\\1</abbr>"],
+      "hint": "pence"
+    },
+    {
+      "match": "\\b((\\d+)s\\.)",
+      "replacement": ["<abbr title=\"\\2 shillings\">\\1</abbr>"],
+      "hint": "shilling(s)"
     }
   ]
 }
