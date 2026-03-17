@@ -35,23 +35,13 @@
       "hint": "Numeric counting"
     },
     {
-      "match": "\\b((etc|i\\.\\s*e|e\\.\\s*g)\\.)",
+      "match": "\\b((etc|[cC]f|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
     },
     {
-      "match": "\\b(viz\\.)",
-      "replacement": ["<abbr title=\"videlicet\" lang=\"la\">\\1</abbr>"],
-      "hint": "Latin viz."
-    },
-    {
-      "match": "\\b(([cC])f\\.)",
-      "replacement": ["<abbr title=\"\\2onfer\">\\1</abbr>"],
-      "hint": "Latin cf."
-    },
-    {
-      "match": "\\b(Fig\\.)(\\s+)(\\d+)",
-      "replacement": ["<abbr>\\1</abbr>\\2\\3"],
+      "match": "\\b(([Ff])ig\\.)(\\s+)(\\d+)",
+      "replacement": ["<abbr title=\"\\2igure\">\\1</abbr>\\2\\3"],
       "hint": "Labeled figures with numeric series"
     },
     {
@@ -438,8 +428,8 @@
       "hint": "Misters"
     },
     {
-      "match": "\\b(Jr\\.)",
-      "replacement": ["<abbr title=\"Junior\">\\1</abbr>"],
+      "match": "\\b((Jr|jun)\\.)",
+      "replacement": ["<abbr title=\"junior\">\\1</abbr>"],
       "hint": "Junior"
     },
     {
@@ -503,14 +493,14 @@
       "hint": "Commander"
     },
     {
-      "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉]))",
+      "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)",
       "replacement": ["<abbr title=\"\\2 and \">\\1</abbr>"],
-      "hint": "Mixed fractions"
+      "hint": "Mixed fractions using super/sub & fraction slash"
     },
     {
-      "match": "(?<!\\d)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])",
+      "match": "(?<!\\d)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)",
       "replacement": ["<abbr title=\"\">\\1</abbr>"],
-      "hint": "Standalone fractions"
+      "hint": "Standalone fractions using fraction slash"
     },
     {
       "match": "\\b((\\d+)d\\.)",
