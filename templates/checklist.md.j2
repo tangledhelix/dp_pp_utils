@@ -18,11 +18,13 @@ cd ~/dp/util
 * [ ] Read the [project comments](https://www.pgdp.net/c/project.php?id=projectID{{project_id}}#project-comments)
 * [ ] Subscribe to the [forum topic]({{forum_link}}) and read all posts
 * [ ] Open `{{project_name}}-utf8.txt` in Guiguts
+* [ ] Set document language (probably `en`)
 * [ ] `File → Project → Configure Page Labels...`. Check for roman numerals and unnumbered pages. Go to end of book to check page numbers line up.
 
 ### Sequential Inspection of Text
 * [ ] Turn on `Auto Img`
 * [ ] Check for chapter/section spacing (2,4). Regex: `(^$\n^$\n^$\n^$\n|^$\n^$\n)` and use "Highlight All".
+* [ ] If languages other than main language are noticed, add them to Lang setting (e.g. `en+fr`)
 
 Check for:
 
@@ -142,6 +144,7 @@ Instructions for `/* */` and `/# #/` blocks:
 * [ ] `Tools → Bookloupe`.
 
 ### Spelling and Distance Checks
+* [ ] If any languages known to be in the book aren't in the Lang: setting, add them (e.g. `en+fr`). Only tag languages we have a dictionary for. (More dictionaries are available; see [the wiki](https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_2_Manual/Tools_Menu#Spelling).)
 * [ ] Use `Tools → Spelling`. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
 * [ ] Use `Tools → Word Distance Check`.
 
