@@ -1,0 +1,4 @@
+Copyright: GNU General Public License (GPL).
+
+On Debian GNU/Linux systems the complete text of the GPL can be found
+in /usr/share/common-licenses/GPL
