@@ -246,6 +246,13 @@
       "hint": "sq., sqq."
     },
     {
+      "match": "\\b((et\\s+)(seq\\.))",
+      "replacement": [
+        "<span lang=\"la\">\\2<abbr>\\3</abbr></span>"
+      ],
+      "hint": "et seq."
+    },
+    {
       "match": "\\b(Co\\.)",
       "replacement": ["<abbr title=\"Company\">\\1</abbr>"],
       "hint": "Company"
@@ -321,13 +328,6 @@
       "hint": "Limited"
     },
     {
-      "match": "\\b((et\\s+)(seq\\.))",
-      "replacement": [
-        "<span lang=\"la\">\\2<abbr>\\3</abbr></span>"
-      ],
-      "hint": "et seq."
-    },
-    {
       "match": "\\b(N\\.\\s*J\\.)",
       "replacement": ["<abbr title=\"New Jersey\">\\1</abbr>"],
       "hint": "New Jersey"
@@ -341,6 +341,36 @@
       "match": "\\b((Penna?|Pa)\\.)",
       "replacement": ["<abbr title=\"Pennsylvania\">\\1</abbr>"],
       "hint": "Pennsylvania"
+    },
+    {
+      "match": "\\b(Ma(ss)?\\.)",
+      "replacement": ["<abbr title=\"Massachusetts\">\\1</abbr>"],
+      "hint": "Massachusetts"
+    },
+    {
+      "match": "\\b(Conn\\.)",
+      "replacement": ["<abbr title=\"Connecticut\">\\1</abbr>"],
+      "hint": "Connecticut"
+    },
+    {
+      "match": "\\b(Md\\.)",
+      "replacement": ["<abbr title=\"Maryland\">\\1</abbr>"],
+      "hint": "Maryland"
+    },
+    {
+      "match": "\\b(Dela\\.)",
+      "replacement": ["<abbr title=\"Delaware\">\\1</abbr>"],
+      "hint": "Delaware"
+    },
+    {
+      "match": "\\b(Mich\\.)",
+      "replacement": ["<abbr title=\"Michigan\">\\1</abbr>"],
+      "hint": "Michigan"
+    },
+    {
+      "match": "\\b(La\\.)",
+      "replacement": ["<abbr title=\"Louisiana\">\\1</abbr>"],
+      "hint": "Louisiana"
     },
     {
       "match": "(\\s)(([A-Z]\\.){2,})(\\s)",
@@ -379,6 +409,26 @@
       "match": "\\b(Jas\\.)",
       "replacement": ["<abbr title=\"James\">\\1</abbr>"],
       "hint": "Jas. for James"
+    },
+    {
+      "match": "\\b(Chas\\.)",
+      "replacement": ["<abbr title=\"Charles\">\\1</abbr>"],
+      "hint": "Chas. for Charles"
+    },
+    {
+      "match": "\\b(Geo\\.)",
+      "replacement": ["<abbr title=\"George\">\\1</abbr>"],
+      "hint": "Geo. for George"
+    },
+    {
+      "match": "\\b(Eliz\\.)",
+      "replacement": ["<abbr title=\"Elizabeth\">\\1</abbr>"],
+      "hint": "Eliz. for Elizabeth"
+    },
+    {
+      "match": "\\b(Jno\\.)",
+      "replacement": ["<abbr title=\"John\">\\1</abbr>"],
+      "hint": "Jno. for John"
     },
     {
       "match": "\\b(U\\.\\s*S\\.)(?!\\s*A\\.)",
@@ -421,14 +471,24 @@
       "hint": "Misters"
     },
     {
-      "match": "\\b((Jr|jun)\\.)",
-      "replacement": ["<abbr title=\"junior\">\\1</abbr>"],
+      "match": "\\b(([Jj])(r|un)\\.)",
+      "replacement": ["<abbr title=\"\\2unior\">\\1</abbr>"],
       "hint": "Junior"
     },
     {
       "match": "\\b(Lieut\\.)",
       "replacement": ["<abbr title=\"Lieutenant\">\\1</abbr>"],
       "hint": "Lieutenant"
+    },
+    {
+      "match": "\\b(Comdr\\.)",
+      "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
+      "hint": "Commander"
+    },
+    {
+      "match": "\\b(Prof\\.)",
+      "replacement": ["<abbr title=\"Professor\">\\1</abbr>"],
+      "hint": "Professor"
     },
     {
       "match": "\\b(([Nn])[or]\\.)",
@@ -446,11 +506,6 @@
       "hint": "received"
     },
     {
-      "match": "\\b(Prof\\.)",
-      "replacement": ["<abbr title=\"Professor\">\\1</abbr>"],
-      "hint": "Professor"
-    },
-    {
       "match": "\\b(Ave\\.)",
       "replacement": ["<abbr title=\"Avenue\">\\1</abbr>"],
       "hint": "Avenue"
@@ -461,29 +516,9 @@
       "hint": "Brothers"
     },
     {
-      "match": "\\b(Mich\\.)",
-      "replacement": ["<abbr title=\"Michigan\">\\1</abbr>"],
-      "hint": "Michigan"
-    },
-    {
-      "match": "\\b(La\\.)",
-      "replacement": ["<abbr title=\"Louisiana\">\\1</abbr>"],
-      "hint": "Louisiana"
-    },
-    {
       "match": "\\b(Dept\\.)",
       "replacement": ["<abbr title=\"Department\">\\1</abbr>"],
       "hint": "Department"
-    },
-    {
-      "match": "\\b(Dela\\.)",
-      "replacement": ["<abbr title=\"Delaware\">\\1</abbr>"],
-      "hint": "Delaware"
-    },
-    {
-      "match": "\\b(Comdr\\.)",
-      "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
-      "hint": "Commander"
     },
     {
       "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)",
