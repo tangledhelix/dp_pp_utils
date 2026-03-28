@@ -35,7 +35,7 @@
       "hint": "Numeric counting"
     },
     {
-      "match": "\\b((etc|et al|[cC]f|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
+      "match": "\\b((etc|[iI]bid|et al|[cC]f|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
     },
