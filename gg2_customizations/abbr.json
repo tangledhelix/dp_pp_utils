@@ -501,7 +501,7 @@
       "hint": "Numbers"
     },
     {
-      "match": "(([Rr])ec['’]d)",
+      "match": "\\b(([Rr])ec['’]d)",
       "replacement": ["<abbr title=\"\\2eceived\">\\1</abbr>"],
       "hint": "received"
     },
@@ -521,7 +521,7 @@
       "hint": "Department"
     },
     {
-      "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+)",
+      "match": "((\\d+)([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+))",
       "replacement": ["<abbr title=\"\\2 and ...\">\\1</abbr>"],
       "hint": "Mixed fractions using super/sub & fraction slash"
     },
@@ -531,12 +531,12 @@
       "hint": "Standalone fractions using fraction slash"
     },
     {
-      "match": "\\b(\\d+)(d\\.)",
+      "match": "\\b(\\d+|[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])(d\\.)",
       "replacement": ["\\1<abbr title=\"pence\">\\2</abbr>"],
       "hint": "pence"
     },
     {
-      "match": "\\b(\\d+)(s\\.)",
+      "match": "\\b(\\d+|[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])(s\\.)",
       "replacement": ["\\1<abbr title=\"shillings\">\\2</abbr>"],
       "hint": "shilling(s)"
     }
