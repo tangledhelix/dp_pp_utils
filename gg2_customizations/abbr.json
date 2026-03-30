@@ -206,7 +206,7 @@
       "hint": "chapter"
     },
     {
-      "match": "§",
+      "match": "(§)",
       "replacement": ["<abbr title=\"section\">\\1</abbr>"],
       "hint": "Section"
     },
