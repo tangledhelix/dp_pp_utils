@@ -108,6 +108,11 @@
       "hint": "versus"
     },
     {
+      "match": "\\b(n\\.)",
+      "replacement": ["<abbr title=\"note\">\\1</abbr>"],
+      "hint": "note reference"
+    },
+    {
       "match": "\\b(([eE])(d|dit)\\.)",
       "replacement": [
         "<abbr title=\"\\2dition\">\\1</abbr>",
