@@ -35,7 +35,7 @@
       "hint": "Numeric counting"
     },
     {
-      "match": "\\b((etc|[iI]b(id)?|et al|[cC]f|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
+      "match": "\\b((etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
     },
@@ -199,6 +199,11 @@
       "match": "\\b(([Mm])[Ss]\\.)",
       "replacement": ["<abbr title=\"\\2anuscript\">\\1</abbr>"],
       "hint": "Manuscript"
+    },
+    {
+      "match": "\\b(([Mm])[Ss][Ss]\\.)",
+      "replacement": ["<abbr title=\"\\2anuscripts\">\\1</abbr>"],
+      "hint": "Manuscripts"
     },
     {
       "match": "\\b((ch|c)\\.)",
