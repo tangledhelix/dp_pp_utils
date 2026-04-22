@@ -47,6 +47,8 @@ Check for:
 
 ### Basic Fixup
 * [ ] If project has Greek charset enabled, regex search `\p{Greek}` to look for Greek characters where they shouldn't be.
+* [ ] Look for missed diacritical markup. Use Regex Library file `diacritical_marks.json`.
+  * If anything was found, run `Tools → Unicode → Normalize Selected Characters`.
 * [ ] Use `Tools → Basic Fixup`.
 * [ ] Remove any remaining `[Blank Page]` lines
 
@@ -126,10 +128,6 @@ Instructions for `/* */` and `/# #/` blocks:
 æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
 œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
 <shift> for capital letter
-```
-* [ ] Look for missed ligature / diacritical transliterations. Regex:
-```
-\[([=:.`'^v)(~*][a-z]|[a-z][=:.`'^v)(~*,])\]
 ```
 
 ### Apply Scanno Checks
