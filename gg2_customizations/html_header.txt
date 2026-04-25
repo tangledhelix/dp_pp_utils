@@ -20,11 +20,9 @@ p.noindent { text-indent: 0; }
     page-break-before: always;
 }
 
-/* don't visibly style abbr */
+/* Don't visibly style abbr tags. Browsers usually underline them. */
 abbr {
-    border: none;
     text-decoration: none;
-    font-variant: normal;
 }
 /* abbrs that should be read letter-by-letter */
 abbr.spell { speak: spell-out; }
