@@ -486,15 +486,16 @@ e.g. for scrolling, use Shift-Option instead.
 
 #### General rendering
 * Sometimes page breaks show in weird places due to ebookmaker's chunking
-* Renaming epub3 to end in `.kepub.epub` improves rendering a lot
+* Renaming epub3 to end in `.kepub.epub` improves rendering a lot but it still has weird issues, so it's not really a good solution.
 * Also a utility `kepubify` (link below) that converts; it's unclear what this conversion does that's any better than just renaming the file. Changing the filename is enough to invoke a different / better rendering engine on Kobo devices.
+  * PG is looking at doing KEPUB files, but using Calibre, not kepubify.
 
 ### Build and upload Ebooks
 * [ ] HTML → Ebookmaker (online)
-* [ ] Optional: Convert epub3 with [kepubify](https://pgaskin.net/kepubify/try/)
-* [ ] Optional: Upload epub3 with [Send to Kindle](https://www.amazon.com/gp/sendtokindle)
+* [ ] Optional: Convert EPUB3 to KEPUB with Calibre
+* [ ] Optional: Upload EPUB3 with [Send to Kindle](https://www.amazon.com/gp/sendtokindle)
 * [ ] Add epub3 to Apple Books
-* [ ] Optional: Add epub3, kepub to Dropbox for Kobo
+* [ ] Optional: Add EPUB3, KEPUB to Dropbox for Kobo, Android, etc
 
 ### Ebook review
 Don't necessarily have to do *all* of these, but these are what I have.
