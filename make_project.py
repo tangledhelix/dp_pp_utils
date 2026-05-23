@@ -197,10 +197,10 @@ if __name__ == "__main__":
     project.make_github_repo()
 
     project.process_template("README.md.j2", "README.md")
-    project.process_template("checklist.md.j2", "checklist.md")
+    project.process_template("checklist.org.j2", "checklist.org")
     project.process_template("Makefile.j2", "Makefile")
     project.process_template("gitignore.j2", ".gitignore")
-    
+
     project.download_text()
     project.download_images()
     project.copy_text_file()

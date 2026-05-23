@@ -1,0 +1,538 @@
+#+title: Guiguts PP Process Checklist
+
+(Updated for [[https://github.com/DistributedProofreaders/guiguts-py][Guiguts 2]])
+
+"{{title}}" by {{author}}
+
+* Things to revisit
+* Transcriber Notes
+* Notes
+** General notes
+** Proofer notes
+** Smooth reader notes
+** Forum notes
+** Project comments
+#+begin_src markdown
+{{project_comments}}
+#+end_src
+* Checklist
+** Process the Pages
+Our first set of activities will combine all proofed and formatted pages, fixing any errors and inconsistencies.
+*** Initial Setup
+- Choose a short, simple project name, e.g. ~pascal~ for /The Provincial Letters of Blaise Pascal/
+- Run the [[https://github.com/tangledhelix/dp_pp_utils][setup script]] to fetch the project resources and create the [[https://github.com/tangledhelix?tab=repositories&q=DP_&type=&language=&sort=][Github]] project
+#+begin_src shell
+cd ~/dp/util
+. venv/bin/activate
+./make_project.py
+#+end_src
+- [ ] Read the [[https://www.pgdp.net/c/project.php?id=projectID{{project_id}}#project-comments][project comments]]
+- [ ] Subscribe to the [[{{forum_link}}][forum topic]] and read all posts
+- [ ] Open ~{{project_name}}-utf8.txt~ in Guiguts
+- [ ] Set document language (probably ~en~)
+- [ ] ~File → Project → Configure Page Labels...~. Check for roman numerals and unnumbered pages. Go to end of book to check page numbers line up.
+*** Sequential Inspection of Text
+- [ ] Turn on ~Auto Img~
+- [ ] Check for chapter/section spacing (2,4). Regex: ~(^$\n^$\n^$\n^$\n|^$\n^$\n)~ and use "Highlight All".
+- [ ] If languages other than main language are noticed, add them to Lang setting (e.g. ~en+fr~)
+Check for:
+- Proper spacing for chapters and paragraphs
+  - Before chapter start: 4 blank lines
+  - Between chapter head and subhead: 1 blank line
+  - Between head (or subhead) and chapter body: 2 blank lines
+  - Pages should **not** start with a blank line unless starting a new chapter, section, or paragraph.
+- Block material all marked in some fashion:
+  - Poetry, misc. tabular in ~/* */~
+  - Block quotes in ~/# #/~
+  - Each overall block should have blank lines before & after
+- Figures properly in ~[Illustration: caption]~
+  - Check that caption text agrees with List of Illustrations (if any)
+  - Consistent spelling, abbreviation, capitalization in captions
+  - For captionless (~[Illustration: ]~), remove colon & whitespace
+- Check that ~[Blank Page]~ are actually blank pages!
+- Note any illustrations in a list in ~README.md~ for later handling
+- Anything else that sticks out.
+*** Basic Fixup
+- [ ] If project has Greek charset enabled, regex search ~\p{Greek}~ to look for Greek characters where they shouldn't be.
+- [ ] Look for missed diacritical markup. Use Regex Library file ~diacritical_marks.json~.
+  - If anything was found, run ~Tools → Unicode → Normalize Selected Characters~.
+- [ ] Use ~Tools → Basic Fixup~.
+- [ ] Remove any remaining ~[Blank Page]~ lines
+*** Errata
+- [ ] If original book had errata, apply it and note in TN
+*** Fix Block Markups and Proofer Notes
+Instructions for ~/* */~ and ~/# #/~ blocks:
+- Check for a blank line before and after markup
+- If specific [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers][rewrap markers]] should be used, don't change them now, but add a note to your list for later handling, after page separators are removed.
+- For blocks that span a page boundary: if the next-page opening marker is on the second line with one blank before it, but it's still part of the same block from the previous page, move the wrap marker to the first line of the page, next to the page separator. This will make it easier to remove them during the removal of page separators.
+- [ ] Use the ~Search~ menu to step through all ~/* */~ blocks.
+  - Regex: ~^(/\*|\*/)~
+  - Apply specific [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Table_Indent][indent value]] if desired
+  - Make sure poetry line numbers are at least two spaces to the right of the line.
+- [ ] Use the ~Search~ menu to step through all ~/#..#/~ blocks.
+  - Regex: ~^(/#|#/)~
+  - Check consistent indentation of block text
+  - Apply specific [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Block_Quote_Indent_and_Margins][margin values]] if desired
+- [ ] Find and fix any single-asterisk Proofer Comments: Search regex ~\[\*[^*]~
+- [ ] ~Search → Find Proofer Comments~. Resolve all proofer's notes.
+- [ ] ~Tools → Unmatched → Block Markup~
+- [ ] ~Tools → Unmatched → DP Markup~
+- [ ] Search ~(</i>)([!?;:])~ & replace ~\2\1~ to find punct that should move inside quotes
+- [ ] Use ~Tools → Unmatched → Brackets~ to check each type of bracket and markup.
+  - Do not omit the lowly parenthesis, often mis-scanned as curly-brace.
+- [ ] Look for malformed thought-breaks (5 stars). Regex: ~\*\s*\*\s*\*\s*\*\s*\*~
+*** Transliterations
+- [ ] Check for non-Latin script tags, handle as appropriate. ~\[(Greek|Hebrew|Arabic|Cyrillic)~
+*** Fix Footnotes
+- [ ] Use ~Tools → Footnote Fixup~. This will help you validate and move any footnotes.
+  - ~Next / Prev FN~ to navigate
+  - Look for ~*~ and use ~Join Selected FN to Previous~ to join them
+  - THERE SHOULD BE NO SUSPECTS AT TOP OF WINDOW
+    - Exception: sometimes a footnote is really long
+    - Exception: multiple anchors per footnote can confuse it?
+- [ ] Move footnotes between paragraphs
+  - ~Footnote Fixup~, ~Re-run~
+  - ~All to Number~, ~Reindex~
+  - ~Re-run~, ~Move FNs to Paragraphs~
+- [ ] Search for blocks: regex (no case match) ~^/[#*$PCRFLXI]~ and move footnotes outside of blocks as appropriate
+- [ ] Depending on book, move footnotes to end of chapters, or end of book (use Footnote Fixup)
+*** Fixup Illustration locations
+- [ ] Use ~Tools → Illustration Fixup~ to move illos between paragraphs.
+  - Note the "Preserve Illo's Page Number" checkbox - using this will optimize for the page number of the illo and may dislocate the page numbering of text. Probably better to not use it for midparagraph images?
+  - Choose an illo from the list and use the Move Up/Down buttons to relocate it.
+*** Remove Visible Page Breaks
+- [ ] Run ~Tools → Page Separator Fixup~ to remove visible page separators
+*** Format Front Matter
+- [ ] Format the title page, preserving as much of the original material as possible. Protect in ~/X...X/~ (no rewrap, no indent) or ~/F...F/~ (the same, except that it will be centered in the html version).
+- [ ] Edit the TOC. Find each matching chapter head; make sure heads are 1:1 with TOC. Protect TOC with ~/X...X/~. Note that your TOC will probably need to be indented to prevent rewrapping, particularly if you use multiple spaces to align page numbers.
+- [ ] If book has illustrations, edit or create /List of Illustrations/ (*Note:* this is not a requirement). Make sure it is 1:1 with ~[Illustration]~ captions. Protect with ~/X...X/~.
+*** Add Noted Rewrap Markers
+- [ ] If the to-do list has any notes about adding [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers][rewrap markers]] (such as indexes or poetry), make those changes.
+*** Apply Word-Frequency Checks
+- [ ] Open ~Tools → Word Frequency~. Click on an entry to jump to it.
+- [ ] Choose ~Freq~ and ~All Words~. List is now sorted by word frequency; scroll to the end and skim up the list of words that only appear 1 time looking for oddities and obvious misspellings.
+- [ ] Click ~Character Cnts~.
+  - Note characters that appear only once, check usage.
+  - Check for equal counts of left & right parens and brackets.
+- [ ] Click ~Emdashes~. This shows words with emdashes in them as well as similar words without emdashes (aka: suspects) marked with ~****~. Check suspects against the text and page images. Preserve author's intent even when inconsistent.
+- [ ] Click ~Hyphens~. Same as Emdashes above but for Hyphens.
+- [ ] Click ~Alpha/num~. Scan list for ~one/ell~ and ~oh/zero~ errors.
+- [ ] Click ~ALL CAPITALS~. Scan list looking for oddities.
+- [ ] Click ~MiXeD CasE~. Scan list looking for letters such as o that sometimes OCR wrongly as uppercase. ~Oh/zero~ errors can show up here, too.
+- [ ] Click ~Diacritics/æ/œ~. Scan list looking for mistakes, inconsistent usages.
+- [ ] Click ~Ital/Bold/SC~. Scan list for incorrect or inconsistent use of italics, bold face, and small caps.
+- [ ] Click ~Ligatures~. Scan list for [[https://www.pgdp.net/wiki/Æ_and_œ_ligatures][incorrect or inconsistent use]] of ~ae~ and ~oe~ ligatures.
+#+begin_src text
+æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
+œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
+<shift> for capital letter
+#+end_src
+*** Apply Scanno Checks
+- [ ] Use ~Tools → Stealth Scannos~
+  - [ ] Search based on ~en-common.json~. Work through the list.
+  - [ ] Search based on ~misspelled.json~. Work through the list.
+  - [ ] Search based on ~regex.json~. Work through the list.
+- [ ] ~Tools → Jeebies~. Examine its report of possible ~he/be~ errors.
+- [ ] ~Tools → Regex Library~. Run my custom ~misc_checks.json~.
+*** Apply Bookloupe
+- [ ] ~Tools → Bookloupe~.
+*** Spelling and Distance Checks
+- [ ] If any languages known to be in the book aren't in the Lang: setting, add them (e.g. ~en+fr~). Only tag languages we have a dictionary for. (More dictionaries are available; see [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_2_Manual/Tools_Menu#Spelling][the wiki]].)
+- [ ] Use ~Tools → Spelling~. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
+- [ ] Use ~Tools → Word Distance Check~.
+*** Fix Sidenotes
+- [ ] Read the [[https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes][discussion]]. Step through sidenotes with: Search & Replace of ~[S~, not regex, not whole word, ignore case. Click ~Search~ to find each Sidenote.
+  - Compare to page image. Move note above paragraph if feasible.
+  - Otherwise, position it above the sentence to which it applies, with blank lines to prevent rewrapping if you decide that is best.
+*** Fix Poetry Line Numbers
+- [ ] If the book has poetry that uses line numbers, read [[https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Poetry_Line_Numbers][this page]] and align the line numbers consistently.
+*** Curly quotes
+- [ ] Curly quotes are [[https://www.pgdp.net/phpBB3/viewtopic.php?f=3&t=73290][recommended]] in both the text and HTML versions. Now is the time to put them in, before the split.
+  - ~Tools → Convert to Curly Quotes~
+  - Various fixup tools included on this panel
+- [ ] If needed, validate quotes pairings by searching for ~[“”‘’]~
+*** Fractions
+- [ ] ~Tools → Convert Fractions → Unicode Fractions or Super/Subscript~
+- This regex: ~([¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])~ may be of use to locate fractions once converted.
+*** Unicode EN dashes
+For now, do not process EM dash. The EM dash and long dash (2x EM) are left for after the text/html split.
+- [ ] [[https://www.pgdp.net/wiki/En-dash][En dash]]:
+  - ~Tools → Regex Library~ and load the ~dashes.json~ file
+  - Ignore the first regex (em-dash) and do these:
+    - Range of numbers ~12–15~ (uses EN DASH)
+    - Negative numbers ~–14º~ (uses MINUS SIGN)
+- Any single dashes not covered above are treated as hyphens.
+*** Last pre-split check
+- [ ] Look at the revisit list for anything to handle before text/html split
+- [ ] Check for unexpected ~*~: ~Search → Find Asterisks w/o Slash~
+*** Save Edited Markup
+- [ ] Save any unsaved changes
+- [ ] Use ~File → Save a Copy As` to make `{{project_name}}.html~
+  - This will be the starting file for the HTML version. You can also use it  as fallback in case you mess up and need to start the following steps over.
+** Prepare the Plain Text Version
+We now proceed to create a Plain Text Version of the book.
+- [ ] Re-open ~{{project_name}}-utf8.txt~ (if not still open).
+*** Convert ~<tb>~, Italic, Bold, and Smallcap
+- [ ] ~Text → Convert Markup~:
+  - [ ] Convert [[https://www.pgdp.net/wiki/DP_Official_Documentation:Formatting/Formatting_Guidelines#Formatting_at_the_Character_Level:][inline formatting]].
+  - [ ] Convert [[https://www.pgdp.net/wiki/DP_Official_Documentation:Formatting/Formatting_Guidelines#Thought_Breaks_.28Extra_Spacing.2FDecoration_Between_Paragraphs.29][thought breaks]].
+  - [ ] Convert [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Guide_to_smallcaps][smallcaps]].
+*** Fix ASCII Tables
+- [ ] Search for ~/[xX*]~ and step through any tables
+  - Compare to page image; reformat to best convey author intent.
+  - DO NOT REMOVE REWRAP MARKERS.
+  - To indent entire table during rewrap, change opening rewrap marker to e.g. ~/*[4]~ for 4-space indent.
+    - Note that ~/X~ will not honor an indent modifier; ~/X~ never indents.
+  - For complex tables, try using ~Txt → ASCII Table Effects~ to reformat?
+- [ ] Try this regex to validate that all border characters were replace with box drawing ~[=+|-]~
+*** Rewrap and Clear Rewrap Markers
+- [ ] Search for ~^/[*$pcrflxi]~ (regex, no match-case) and make any desired [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers][rewrap marker]] changes before wrapping
+- [ ] Save the file if any unsaved changes.
+- [ ] ~Tools → Rewrap All~.
+- [ ] Page through entire text, looking for improper indentation. If found, re-open, clicking NO when asked if you want to save the edits. Find and fix broken rewrap markups. Repeat ~Tools → Rewrap All~.
+- [ ] Search ~[Footnote~ (no regex; add 2 leading spaces) to find footnotes in blockquotes; move them out of the blockquote.
+- [ ] Under ~Tools → Footnote Fixup~, use ~Tidy Footnotes~.
+  - NOTE: tidy footnotes will rewrap footnote text not protected by wrap markers; so they are not removed until the next step.
+- [ ] ~Tools → Clean Up Rewrap Markers~.
+- [ ] Rerun Bookloupe or pptext. Resolve any new issues.
+*** Final checks
+- [ ] Search for ~<~ and ~>~ to locate any tag markup not yet removed.
+- [ ] Search ~[^A-Z][A-Z]\.\n[A-Z]\.~ to look for initials across a line-break and rewrap as appropriate. (/optional/)
+*** Check revisit list
+- [ ] Check "things to revisit" list for anything lingering in the text version
+*** Add TN
+- [ ] Add transcriber's notes, example follows. Use 4+2 blank lines as in new chapter.
+- [ ] Rewrap this section of text when finished.
+#+begin_src text
+Transcriber’s Note
+
+
+Some inconsistencies in spelling, hyphenation, and punctuation have been
+retained.
+
+This file uses _underscores_ to indicate italic text.
+#+end_src
+
+If bold is used, add also ~and =equals= to indicate bold text~
+
+If there were small-caps, ~Small capitals changed to all capitals.~
+
+An example entry might look like this. Use the book's page numbers, not PNG number.
+
+#+begin_src text
+p. 123: changed “foo” to “fool” (the fool and his money)
+#+end_src
+*** Final review
+- [ ] Skim over text file to find any obvious issues
+*** Validation
+- [ ] ~Text → PPtxt~
+** Prepare the HTML Version
+Finally, we create an HTML version of the book.
+- [ ] Open ~{{project_name}}.html~ that was saved previously.
+*** Convert EM and LONG dashes to UTF8
+Earlier, EN dashes were converted. That's done before the split for both versions. The EM and LONG dash conversions are left for HTML only, because the EM dash character displays as a fixed width for most readers of the text file. There have been differences of opinion about this matter, but I'm sticking to ~--~, ~----~ in the text unless PG stops accepting it.
+
+There exists a “long dash” Unicode character (TWO-EM DASH, U+2E3A). However, display support for it is not broad, so it’s better to use two consecutive EM DASH, which is widely supported.
+
+There exists another dash (HORIZONTAL BAR, U+2015) which one PM/PP prefers to EM DASH (using two bars for one EM DASH), based on appearance in text version. I opted not to use this in favor of using the EM DASH character in HTML and two hyphens in text.
+
+References: ([[https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p1347865][p1347865]]), ([[https://www.pgdp.net/phpBB3/viewtopic.php?p=1179008#p1179008][p1179008]])
+- [ ] [[https://www.pgdp.net/wiki/Em-dash][Em dash]]:
+  - ~Tools → Regex Library~ and load the ~dashes.json~ file
+  - Use only the first regex (em-dash) and ignore the others, which were done already.
+  - Since we treat a long dash as two em-dashes, this takes care of both.
+*** Generate the HTML
+- [ ] It is preferable for the source line-breaks to match the book; however HTML poetry markup won't work unless ~/P..P/~ sections have been rewrapped. If the book has much poetry, rewrap it all; else select and rewrap poetry sections individually.
+  - Don't remove the rewrap markers. These are needed for generation of proper HTML.
+- [ ] Search for ~^/[*$pcrflxi]~ (regex, no match-case) and make any desired [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers][rewrap marker]] changes before HTML generation
+- [ ] TODO: Figure out how to do ~chap_fn~ for Footnotes, i.e. ~1_1, 1_2, ... 2_1, 2_2, ...~ rather than a single numbered list?
+- [ ] TODO: Footnotes need to move to landing zones before HTML generation?
+- [ ] Open ~HTML → HTML Generator~.
+  - Correct the Title if not auto-detected properly.
+  - Set options as desired.
+  - Use the ~Auto-generate HTML~ button.
+- [ ] Save the file and open it in a browser.
+- [ ] Scroll through looking for systematic errors. (Title pages, tables, etc. will look terrible; no matter). If automatic conversion messed up, start this step over with a reset file.
+- [ ] Page through the book looking for text that was not handled well by automatic HTML generation, in particular:
+  - [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Title_Pages][Title pages]].
+  - [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Tables][Tables and Tables of Contents]]. The ~Auto Table~ button can help format tables.
+    - A book with wide tables that don't render well may benefit from the page numbers moving to the left margin. This is easy to do, just change ~left~ under the ~.pagenum~ class to something like ~2%~ or ~1.5%~. I used ~1.5%~ for ~presidents~.
+  - [[https://www.pgdp.net/wiki/Indexes][Indexes]] - can use Guiguts ~/i ... i/~ feature
+    - [ ] Sanity-check index for links, improper line breaks, etc.
+    - [ ] Review index for "see X" entries and link any of those manually
+  - Illustrations.
+- [ ] Use ~HTML → HTML Markup~ to make improvements. Use regex replacements to make systematic changes.
+  - Where you see a problem, make a correction in Guiguts, save the file, and click the "reload" button in the web browser.
+- [ ] Hyperlink page references in text, TOC, and index (discussed [[https://www.pgdp.net/wiki/PPTools/Guiguts/HTML#Hyperlinking_Page_Numbers][here]] and [[https://www.pgdp.net/wiki/Indexes][here]]).
+- [ ] Remove the [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC][Generated TOC]] if it is not needed.
+- [ ] If ~A.M.~ ~P.M.~ or similar abbreviations were used and have spaces, insert ~&nbsp;~ to avoid undesirable mid-abbreviation line wraps.
+- [ ] If {super,sub}scripts were used, convert to ~<sup>~ or ~<sub>~ (NOTE: does Guiguts do this itself? Seems to for subs.)
+- [ ] Semantic fixup for italics
+  - Use the Regex Library tool and ~italic_semantic.json~.
+  - Note: ~lang="xx"~ can be used on *any* HTML tag including ~cite~, ~em~, ...
+  - [[http://www.w3schools.com/tags/ref_language_codes.asp][List of language codes]]
+- [ ] Using Regex Library and my ~abbr.json~ file, add ~abbr~ tags as appropriate. ([[https://www.pgdp.net/wiki/Accessibility_Recipes/Abbreviations][Reference]])
+*** Table notes
+**** Wide tables and scrolling
+Surround your table in a div using ~overflow-x~ and it will become scrollable in the browser. (YMMV in e-readers.)
+#+begin_src html
+<div style="overflow-x:auto;">
+<table>...</table>
+</div>
+#+end_src
+I used this technique in ~catholichistory~.
+**** Large brackets or braces grouping table cells
+Tables using wide-span braces or brackets are a pain. An image adjusted for size in CSS probably works the best. See ~eugenics~ for examples. That project used both horizontal and vertical curly braces in tables, using images:
+- [[https://raw.githubusercontent.com/tangledhelix/DP_eugenics/refs/heads/main/images/bottom-brace.png][images/bottom-brace.png]]
+- [[https://raw.githubusercontent.com/tangledhelix/DP_eugenics/refs/heads/main/images/left-brace.png][images/left-brace.png]]
+- [[https://raw.githubusercontent.com/tangledhelix/DP_eugenics/refs/heads/main/images/right-brace.png][images/right-brace.png]]
+- [[https://raw.githubusercontent.com/tangledhelix/DP_eugenics/refs/heads/main/images/top-brace.png][images/top-brace.png]]
+
+The CSS will need tweaking for each specific project's needs.
+
+#+begin_src css
+/* left/right braces */
+.lr-brace { height: 2.25em; max-height: 2.25em; }
+/* top/bottom braces */
+.tb-brace { width: 3em; max-width: 3em; }
+
+.c014 { vertical-align: middle; text-align: right; padding-left: .5em;
+        padding-right: .5em; }
+.c015 { vertical-align: middle; text-align: center; padding-left: .5em;
+        padding-right: .5em; }
+
+#+end_src
+
+#+begin_src html
+<!-- left brace spanning 2 rows -->
+<td class="c014" rowspan="2"> <img class="lr-brace" alt="left curly bracket" src="images/left-brace.png"></td>
+
+<!-- top brace spanning 2 columns -->
+<td class="c015" colspan="2"><img class="tb-brace" alt="top curly bracket" src="images/top-brace.png"></td>
+#+end_src
+*** Drop caps
+Drop-cap CSS is in my custom header; markup looks like:
+#+begin_src html
+<p class="drop-cap"><span class="smcap uppercase">The</span>
+#+end_src
+- [ ] Handle any drop-caps ([[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Easy_Epub/Dropcaps][wiki]])
+*** Process Hi-resolution Images
+If the project manager provided high-resolution scans of the images in the text, use an image processing program such as GIMP or Adobe Photoshop Elements to optimize them—see [[https://www.pgdp.net/wiki/Guide_to_Image_Processing][Guide to Image Processing]]. You can do this before, during, or after HTML conversion.
+
+Unless purely decorative, add an ~alt~ tag for each image unless it has a caption. For decoration, use ~alt="" data-role="presentation"~ (empty string to satisfy the validator).
+
+Taken from a [[https://www.pgdp.net/phpBB3/viewtopic.php?p=1354798&sid=db2ca383a2ce4e9d70bc598253bb0936#p1354798][forum post]]:
+#+begin_quote
+DO
+- use an empty string for purely decorative images.
+- when an image is meant to convey an action, try to use a single word: download" or "email".
+- be concise.
+- remember that the purpose of a cover image is to intrigue a reader.
+- use the language of the text for the alt-text
+- think about what an image is meant to convey
+
+DON'T
+- use text like "image" or "figure 22" in alt-text. That's just taunting a blind reader.
+- use the file name for alt text.
+- repeat what is already in a caption.
+- describe details that are irrelevant to the narrative.
+- describe logos. Just identify them.
+- make up shit.
+#+end_quote
+
+Image [[https://www.pgdp.net/phpBB3/viewtopic.php?f=3&t=70286][sizes]]:
+- Inline: up to 256K, 5000x5000 pixels
+- Linked: up to 1MB, 5000x5000 pixels. Should only need linked images for large or complex things, e.g. maps.
+- Covers: see [[https://www.pgdp.net/wiki/PP_guide_to_cover_pages][cover documentation]]. Recommend 1600x2560, aspect ratio ~1:1.6. Not over 5000x5000px. Minimum 650x1000. **No specific file size limit**, but use judgement and don't make it larger than necessary.
+
+For each image:
+- [ ] Load image from the ~pngs/~ folder.
+- [ ] Straighten it (almost all scanned images are off-perpendicular; some are trapezoidal owing to the page not being flat on the scan window). Perspective tool.
+- [ ] Crop it to remove all redundant white space and borders (provide margins and borders with CSS styling of the ~<img>~ markup).
+- [ ] Correct the contrast
+- [ ] Use the [[https://www.pgdp.net/wiki/Guide_to_Image_Processing#Linear_Light_in_The_GIMP][dodge/burn layer technique]] to clean up, at least for line drawings
+- [ ] Resize if needed.
+- [ ] Sharpen.
+- [ ] Correct any major scratches, freckles, dirt, etc.
+- [ ] Save in the subfolder ~images/~ using appropriate type:
+  - Line drawings in ~.png~ at 8 bits per pixel (not the default 24-bit RGB format).
+  - Photographs as ~.jpg~ with an appropriate compression level such as (Photoshop) level 6.
+- [ ] Use ~HTML → Auto-Illustrations~. This will help add the images to the book.
+- [ ] Page through entire HTML book making sure that each image is being loaded correctly. Test each thumbnail if used.
+- [ ] If any images were modified substantially (including removing a library sticker or stamp), add a TN. Place the new image in the public domain in the TN. This is a PG requirement.
+- [ ] If fabricating your own cover, add the TN as noted in [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Easy_Epub/Cover][Easy_Epub/Cover]].
+*** Check "things to revisit"
+- [ ] Check revisit list for anything left for the HTML version
+*** Add TN
+- [ ] Add transcriber's notes, example follows.
+#+begin_src html
+<div class="transnote">
+<h2 class="nobreak">Transcriber’s Note</h2>
+
+<p>
+Some inconsistencies in spelling, hyphenation, and punctuation have been
+retained.
+</p>
+</div>
+#+end_src
+
+An example entry might look like this. Use the book's page numbers, not PNG number.
+
+*NOTE:* Use ~<span id=~, not ~<a id=~, for the target of the below links.
+
+#+begin_src html
+<ul>
+<li>
+<abbr title="page">p.</abbr> 123: changed “foo” to “fool”
+(<a href="#TN1">the fool and his money</a>)
+</li>
+</ul>
+#+end_src
+
+- [ ] Make sure the TN has no straight-quotes ~'"~ and instead uses curly quotes ~“”‘’~
+*** Validate HTML and CSS
+Perform these validation steps before submitting your book. Validation is also helpful while customizing the HTML and CSS above.
+- [ ] Use ~HTML → HTML5 Validator~. Fix any reported problems.
+- [ ] Remove unused CSS. ~HTML → PPhtml~ can help with this. Alternatively, check manually or use a tool such as the Firefox addons Firebug (with CSS Usage extension) or Dust-Me Selectors.
+- [ ] Use ~HTML → CSS Validator~. Fix any reported problems.
+  - Validate as CSS 2.1
+  - CSS3 is acceptable if current status is ~REC~ on [[https://www.w3.org/Style/CSS/current-work][this page]]
+    - Look up the CSS on MDN to figure out which module it comes from; then check that module's status
+    - +e.g. CSS3 drop-caps+ CSS3 drop-caps are no longer an issue, no need to leave a note for WW
+    - or use of ~display: flex~ with ~justify-content: center~ for centering a div (poetry)
+      - ~display: flex~ is acceptable but ~flex:~ is not permitted!
+      - ~justify-content~ may only be ~center~ and no other value
+    - ~speak-as: spell-out~ if a screen reader should spell out an acronym rather than read as a word
+    - [ ] if uploading CSS3, leave a note for WWer about it.
+- [ ] Use ~HTML → HTML Link Checker~. Fix any reported problems.
+*** Compare text and HTML
+- [ ] ~Tools → PPcomp...~ and compare the text and html files.
+  - Suppress word join (NoBreak) because GG2 uses them for footnotes
+*** Review HTML
+The iPhone/iPad simulator can't read from the Mac's filesystem, so you need a
+web server for them to talk to. Go to the book's directory and run
+~python3 -m http.server~. Then navigate to ~localhost:8000~.
+
+To use multi-touch gestures on iPhone/iPad Simulator, hold the Option key.
+This lets you do pinch gestures. To track two fingers together (no pinch),
+e.g. for scrolling, use Shift-Option instead.
+- [ ] Scroll through in multiple browsers (Safari, Chrome, Firefox, etc.)
+- [ ] Pay particular attention to complex items like tables, poetry
+** Ebook generation
+*** Notes on rendering
+**** CSS
+- Don't use ~!important~, ADE has a parsing issue with it (probably others do too)
+- Kindle doesn't seem to honor ~width~ on divs? Set all of ~min-width~, ~width~, ~max-width~ to fix. Kindle may set ~min-width~ 100% and need an override?
+  - Other advice: Kindle ignores max-width. If you want your narrow text to be centered (column-centered with smooth margins), add ~margin: auto;~ to the "narrow" definition. Otherwise, it'll be left-positioned along the body's main left margin.
+- Kindle doesn't always honor ~page-break-*~ CSS
+- Moon+ mis-handles drop-cap images; it should ignore them but doesn't. A DP user reported this bug so it may be fixed in the future.
+    - Moon+ has many other rendering issues too -- I no longer do previews in it for that reason.
+**** Tables
+- E-readers are bad at wide tables and non-trivial tables
+- Nook is particularly bad at table rendering
+- Apple Books isn't reliably able to show PNGs in table cells??
+**** Images
+- Kindle on Mac renderes PNG transparent backgrounds as black
+- If no cover was included, the first illustration is used instead.
+- Kindle sometimes can show SVG, sometimes not??
+**** General rendering
+- Sometimes page breaks show in weird places due to ebookmaker's chunking
+- Renaming epub3 to end in ~.kepub.epub~ improves rendering a lot but it still has weird issues, so it's not really a good solution.
+- Also a utility ~kepubify~ (link below) that converts; it's unclear what this conversion does that's any better than just renaming the file. Changing the filename is enough to invoke a different / better rendering engine on Kobo devices.
+  - PG is looking at doing KEPUB files, but using Calibre, not kepubify.
+*** Build Ebook, initial cursory review
+- [ ] HTML → Ebookmaker (online) - build EPUB2 and EPUB3
+- [ ] Review in Apple Books; focus on page breaks and major issues
+** Build and upload ebooks
+- [ ] If any changes were made from previous step, rebuild EPUB3
+- [ ] Optional: Convert EPUB3 to KEPUB with Calibre
+- [ ] Optional: Upload EPUB3 with [[https://www.amazon.com/gp/sendtokindle][Send to Kindle]]
+- [ ] Add epub3 to Apple Books
+- [ ] Optional: Add EPUB3, KEPUB to Dropbox for Kobo, Android, etc
+*** Ebook review
+Don't necessarily have to do *all* of these, but these are what I have.
+- [ ] Review Ebook ToC in at least one e-reader, for structure & content
+  - Can try using ~title=~ attr if a header title has footnote marker etc.
+- [ ] Mac
+  - [ ] Adobe Digital Editions (epub2)
+  - [ ] Apple Books
+  - [ ] Kindle Previewer (epub3)
+  - [ ] Calibre (epub3)
+- [ ] Phone
+  - [ ] Apple Books (iPhone)
+  - [ ] Kindle (iPhone)
+- [ ] Tablet
+  - [ ] Kindle (Android)
+  - [ ] Google Play Books - Android (Dropbox)
+- [ ] E-ink
+  - [ ] Kobo Libra Colour (kepub)
+  - [ ] Kindle Colorsoft
+** Smooth Reading
+*** Submit to SR pool
+Submit for a decent length of time, up to the maximum. Check what's in ~ebooks/~ folder, it'll all be uploaded.
+- [ ] Make sure git is clean, committed, pushed
+- [ ] If not already done, run online Ebookmaker and get books into ~ebooks/~
+- [ ] ~make sr~
+- [ ] Write or find a summary/blurb about the book for the SR submission. This can help to interest a potential reader.
+- [ ] Go to [[https://www.pgdp.net/c/project.php?id=projectID{{project_id}}][project page]], select SR time period, upload ~{{project_name}}-sr.zip~
+- [ ] Subscribe to “user uploads a SR report” item
+- [ ] Update my Trello project board with due date, set card to SR status
+- [ ] If time permits, smooth read it myself as well
+*** Process SR feedback
+- [ ] After SR is finished, processed SR feedback into project.
+- [ ] Add *anonymized* files to git, e.g. ~{{project_name}}-smoothread01.txt~
+- [ ] Thank your smooth readers with a PM!
+- [ ] If there were changes from the SR round, re-do final checks from above (validators etc)
+** Upload the Finished Project
+Ref: [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Guide_to_Direct_Uploading_%28DU%29_and_Posting_to_PG][Guide to DU and Posting to PG]]
+- [ ] ~make zip~
+- [ ] Run through [[https://ebookmaker.pglaf.org/][ebookmaker]], check output.txt
+  - No errors!
+  - Warnings are OK
+  - Copy link to the output.txt file (will persist about 3 days)
+- [ ] Go to the [[https://upload.pglaf.org/][PGLAF upload site]]
+- [ ] Enter copyright clearance (get from DP [[https://www.pgdp.net/c/project.php?id=projectID{{project_id}}][project page]])
+- [ ] Choose zip file to upload
+- [ ] Add ~dp-post@pgdp.net~ as a Cc on Posted announcement
+- [ ] Carefully check submission details against title page from book
+  - If anything won't fit in the form add it to the Notes field
+  - If you make any changes mention them in Notes field
+  - Use sentence case for title. Proper nouns such as names should be capitalized.
+    - The story of the little red hen
+    - What the wind did
+    - The writing of fiction
+    - Travels in Africa, Egypt, and Syria from the year 1792 to 1798
+    - The Squire's young folk : A Christmas story
+- [ ] Credits line
+  - Paste in from DP [[https://www.pgdp.net/c/project.php?id=projectID{{project_id}}][project page]]
+  - Add myself to credits line
+  - DO NOT alter any other names, DO NOT turn a DP username into real name!
+  - Assume ~Produced by~ will be added as a prefix to whatever you enter
+  - Should be only ASCII, no Unicode
+  - Example: ~Joe Schmo, Jane Doe, and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive/American Libraries.)~
+- [ ] Anything else important, add to Notes field
+  - Any CSS3 should be noted, e.g. drop-cap or other stuff.
+  - If project contains Hebrew, let WWer know that
+- [ ] Preview the submission
+  - *After preview you have to select the upload file again!*
+  - [ ] If the preview looks good and indicates no problem, then submit
+- If you notice an error post-upload, contact pgww at lists.pglaf.org ASAP
+- If you notice an error in your own recently posted project, contact pgww at lists.pglaf.org ASAP
+- For projects over a month old, use the [[https://www.gutenberg.org/help/errata.html][errata process]]
+- If not posted within a week, contact WWers pgww at lists.pglaf.org
+** Project wrap-up
+- [ ] When posted, then update PG URL in README.md, and [[https://tangledhelix.com/about][personal website list]], and set homepage on GitHub project
+*** Device / cloud cleanup
+- [ ] Remove from Dropbox
+- [ ] Remove from Kindle and Kindle library
+- [ ] Remove from Apple Books
+- [ ] Remove from Calibre
+- [ ] Remove from Kobo device
+** Related Pages
+- [[https://www.pgdp.net/wiki/Beginner_PP_advice][Beginner PP advice]]
+- [[https://www.pgdp.net/c/faq/post_proof.php][Post-Processing FAQ]]
+- [[https://www.pgdp.net/wiki/Post-Processing_Advice][Post-Processing Advice]]
+- [[https://www.pgdp.net/wiki/Guiguts_Tutorial][Guiguts Tutorial]]
+- [[https://www.pgdp.net/wiki/PPTools/Guiguts][Guiguts Manual]]
+- [[https://www.pgdp.net/wiki/Getting_your_PP_Project_Ready_for_PPV][Getting your PP Project Ready for PPV]]
+- [[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/DP_HTML_Best_Practices/Case_Studies/Poetry][Poetry Case Study]]
