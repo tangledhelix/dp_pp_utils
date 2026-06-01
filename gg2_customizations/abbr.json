@@ -21,6 +21,11 @@
       "hint": "Esquire"
     },
     {
+      "match": "\\b(Gov\\.)",
+      "replacement": ["<abbr title=\"Governor\">\\1</abbr>"],
+      "hint": "Esquire"
+    },
+    {
       "match": "\\b(Hon\\.)",
       "replacement": [
         "<abbr title=\"Honorable\">\\1</abbr>",
@@ -104,7 +109,7 @@
     },
     {
       "match": "\\b(([vV])s?\\.)",
-      "replacement": ["<abbr title=\"\\3ersus\" lang=\"la\">\\1</abbr>"],
+      "replacement": ["<abbr title=\"\\2ersus\" lang=\"la\">\\1</abbr>"],
       "hint": "versus"
     },
     {
@@ -156,23 +161,138 @@
       "hint": "Messeigneurs"
     },
     {
-      "match": "\\b(1 Thess\\.)",
+      "match": "\\b(Gen\\.)",
+      "replacement": ["<abbr title=\"Genesis\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Ex\\.)",
+      "replacement": ["<abbr title=\"Exodus\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Lev\\.)",
+      "replacement": ["<abbr title=\"Leviticus\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Num\\.)",
+      "replacement": ["<abbr title=\"Numbers\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Deut\\.)",
+      "replacement": ["<abbr title=\"Deuteronomy\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+Sam\\.)",
+      "replacement": ["<abbr title=\"First Samuel\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+Sam\\.)",
+      "replacement": ["<abbr title=\"Second Samuel\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+Kings\\.)",
+      "replacement": ["<abbr title=\"First Kings\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+Kings\\.)",
+      "replacement": ["<abbr title=\"Second Kings\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+Chron\\.)",
+      "replacement": ["<abbr title=\"First Chronicles\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+Chron\\.)",
+      "replacement": ["<abbr title=\"Second Chronicles\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Ps\\.)",
+      "replacement": ["<abbr title=\"Psalms\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Prov\\.)",
+      "replacement": ["<abbr title=\"Proverbs\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Eccles\\.)",
+      "replacement": ["<abbr title=\"Ecclesiastes\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Isa\\.)",
+      "replacement": ["<abbr title=\"Isaiah\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Jer\\.)",
+      "replacement": ["<abbr title=\"Jeremiah\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Zech\\.)",
+      "replacement": ["<abbr title=\"Zecheriah\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Matt\\.)",
+      "replacement": ["<abbr title=\"Matthew\">\\1</abbr>"],
+      "hint": "Bible citation (or name)"
+    },
+    {
+      "match": "\\b(Rom\\.)",
+      "replacement": ["<abbr title=\"Romans\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+Cor\\.)",
+      "replacement": ["<abbr title=\"First Corinthians\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+Cor\\.)",
+      "replacement": ["<abbr title=\"Second Corinthians\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Eph\\.)",
+      "replacement": ["<abbr title=\"Ephesians\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(Col\\.)",
+      "replacement": ["<abbr title=\"Colossians\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+Thess\\.)",
       "replacement": ["<abbr title=\"First Thessalonians\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(2 Thess\\.)",
+      "match": "\\b(2\\s+Thess\\.)",
       "replacement": ["<abbr title=\"Second Thessalonians\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(1 Peter\\.)",
-      "replacement": ["<abbr title=\"First Peter\">\\1</abbr>"],
+      "match": "\\b(1\\s+Tim\\.)",
+      "replacement": ["<abbr title=\"First Timothy\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(2 Peter\\.)",
-      "replacement": ["<abbr title=\"Second Peter\">\\1</abbr>"],
+      "match": "\\b(2\\s+Tim\\.)",
+      "replacement": ["<abbr title=\"Second Timothy\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
@@ -181,8 +301,28 @@
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(Rom\\.)",
-      "replacement": ["<abbr title=\"Romans\">\\1</abbr>"],
+      "match": "\\b(1\\s+Peter\\.)",
+      "replacement": ["<abbr title=\"First Peter\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+Peter\\.)",
+      "replacement": ["<abbr title=\"Second Peter\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(1\\s+John\\.)",
+      "replacement": ["<abbr title=\"First John\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(2\\s+John\\.)",
+      "replacement": ["<abbr title=\"Second John\">\\1</abbr>"],
+      "hint": "Bible citation"
+    },
+    {
+      "match": "\\b(3\\s+John\\.)",
+      "replacement": ["<abbr title=\"Third John\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
@@ -193,11 +333,6 @@
     {
       "match": "\\b(Rev\\.)",
       "replacement": ["<abbr title=\"Revelation\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(Deut\\.)",
-      "replacement": ["<abbr title=\"Deuteronomy\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
@@ -486,14 +621,19 @@
       "hint": "Junior"
     },
     {
-      "match": "\\b(Lieut\\.)",
+      "match": "\\b(L(ieu)?t\\.)",
       "replacement": ["<abbr title=\"Lieutenant\">\\1</abbr>"],
       "hint": "Lieutenant"
     },
     {
-      "match": "\\b(Comdr\\.)",
+      "match": "\\b(Co?mdr\\.)",
       "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
       "hint": "Commander"
+    },
+    {
+      "match": "\\b(Col\\.)",
+      "replacement": ["<abbr title=\"Colonel\">\\1</abbr>"],
+      "hint": "Colonel"
     },
     {
       "match": "\\b(Prof\\.)",
