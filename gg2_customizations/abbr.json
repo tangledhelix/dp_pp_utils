@@ -242,7 +242,7 @@
     },
     {
       "match": "\\b(Zech\\.)",
-      "replacement": ["<abbr title=\"Zecheriah\">\\1</abbr>"],
+      "replacement": ["<abbr title=\"Zechariah\">\\1</abbr>"],
       "hint": "Bible citation"
     },
     {
