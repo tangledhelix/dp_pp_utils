@@ -28,12 +28,12 @@ abbr, abbr[title] {
 abbr.spell { speak: spell-out; }
 
 /* "gray bar" blockquotes */
-blockquote {
+/*blockquote {
     border-left: .15em solid #c8c8c8;
     padding-left: .7em;
     margin-left: 4%;
     margin-right: 8%;
-}
+}*/
 
 /* don't wrap; better than invisible word joiner char? */
 .nowrap { white-space: nowrap; }
