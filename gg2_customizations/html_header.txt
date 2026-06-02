@@ -21,7 +21,7 @@ p.noindent { text-indent: 0; }
 }
 
 /* Don't visibly style abbr tags. Browsers usually underline them. */
-abbr {
+abbr, abbr[title] {
     text-decoration: none;
 }
 /* abbrs that should be read letter-by-letter */
