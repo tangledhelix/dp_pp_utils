@@ -1,6 +1,6 @@
 
-/* indent paragraphs */
-p { text-indent: 1em; }
+/* indent paragraphs, reset justification */
+p { text-indent: 1em; text-align: start; }
 p.noindent { text-indent: 0; }
 
 /* de-emphasize page numbers */
