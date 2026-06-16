@@ -23,7 +23,7 @@
     {
       "match": "\\b(Gov\\.)",
       "replacement": ["<abbr title=\"Governor\">\\1</abbr>"],
-      "hint": "Esquire"
+      "hint": "Governor"
     },
     {
       "match": "\\b(Hon\\.)",
