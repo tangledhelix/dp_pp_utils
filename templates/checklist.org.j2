@@ -96,6 +96,8 @@ Instructions for ~/* */~ and ~/# #/~ blocks:
   - ~Re-run~, ~Move FNs to Paragraphs~
 - [ ] Search for blocks: regex (no case match) ~^/[#*$PCRFLXI]~ and move footnotes outside of blocks as appropriate
 - [ ] Depending on book, move footnotes to end of chapters, or end of book (use Footnote Fixup)
+*** Sidenote fixup
+- [ ] Use the Sidenote tool to rejoin and reposition sidenotes.
 *** Fixup Illustration locations
 - [ ] Use ~Tools → Illustration Fixup~ to move illos between paragraphs.
   - Note the "Preserve Illo's Page Number" checkbox - using this will optimize for the page number of the illo and may dislocate the page numbering of text. Probably better to not use it for midparagraph images?
@@ -140,10 +142,6 @@ Instructions for ~/* */~ and ~/# #/~ blocks:
 - [ ] If any languages known to be in the book aren't in the Lang: setting, add them (e.g. ~en+fr~). Only tag languages we have a dictionary for. (More dictionaries are available; see [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_2_Manual/Tools_Menu#Spelling][the wiki]].)
 - [ ] Use ~Tools → Spelling~. Proceed through the document, correcting words or adding them to the project dictionary as appropriate.
 - [ ] Use ~Tools → Word Distance Check~.
-*** Fix Sidenotes
-- [ ] Read the [[https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Sidenotes][discussion]]. Step through sidenotes with: Search & Replace of ~[S~, not regex, not whole word, ignore case. Click ~Search~ to find each Sidenote.
-  - Compare to page image. Move note above paragraph if feasible.
-  - Otherwise, position it above the sentence to which it applies, with blank lines to prevent rewrapping if you decide that is best.
 *** Fix Poetry Line Numbers
 - [ ] If the book has poetry that uses line numbers, read [[https://www.pgdp.net/wiki/PPTools/Guiguts/Fixup#Poetry_Line_Numbers][this page]] and align the line numbers consistently.
 *** Curly quotes
@@ -185,6 +183,9 @@ We now proceed to create a Plain Text Version of the book.
     - Note that ~/X~ will not honor an indent modifier; ~/X~ never indents.
   - For complex tables, try using ~Txt → ASCII Table Effects~ to reformat?
 - [ ] Try this regex to validate that all border characters were replace with box drawing ~[=+|-]~
+*** Process sidenotes
+- [ ] For paragraphs with just one sidenote, position it before the paragraph.
+- [ ] For paragraphs with multiple sidenotes, will need to decide how to handle them. See the [[https://www.pgdp.net/wiki/Sidenotes][wiki article]], which talks about using Unicode diamond characters, among other ideas.
 *** Rewrap and Clear Rewrap Markers
 - [ ] Search for ~^/[*$pcrflxi]~ (regex, no match-case) and make any desired [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/Tools_Menu#Rewrap_Markers][rewrap marker]] changes before wrapping
 - [ ] Save the file if any unsaved changes.
@@ -310,6 +311,9 @@ The CSS will need tweaking for each specific project's needs.
 <!-- top brace spanning 2 columns -->
 <td class="c015" colspan="2"><img class="tb-brace" alt="top curly bracket" src="images/top-brace.png"></td>
 #+end_src
+*** Process sidenotes
+- [ ] Does Guiguts auto-process these somehow from ~[Sidenote: ]~ markup?
+- [ ] Decide how to handle these; see the [[https://www.pgdp.net/wiki/Sidenotes][wiki page]].
 *** Drop caps
 Drop-cap CSS is in my custom header; markup looks like:
 #+begin_src html
