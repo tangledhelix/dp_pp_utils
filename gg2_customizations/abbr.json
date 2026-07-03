@@ -83,7 +83,7 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "\\b([IVXLCDM]+|[ivxlcdm]+)(\\.)",
+      "match": "(?<=[\\s>-])([IVXLCDM]+|[ivxlcdm]+)(?![A-Za-z])(\\.)?(?=[,\\s<-])",
       "replacement": ["<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>"],
       "hint": "Roman numerals"
     },
