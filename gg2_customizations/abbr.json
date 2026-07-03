@@ -641,7 +641,7 @@
       "hint": "Professor"
     },
     {
-      "match": "\\b(([Nn])[or]\\.)",
+      "match": "\\b(([Nn])[oOr]\\.)",
       "replacement": ["<abbr title=\"\\2umber\">\\1</abbr>"],
       "hint": "Number"
     },
