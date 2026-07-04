@@ -261,11 +261,14 @@ References: ([[https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p1347865][p13
   - [[https://www.pgdp.net/wiki/Indexes][Indexes]] - can use Guiguts ~/i ... i/~ feature
     - [ ] Sanity-check index for links, improper line breaks, etc.
     - [ ] Review index for "see X" entries and link any of those manually
+    - [ ] Add ~<nav data-epub-type="index"> .. </nav>~ around the Index (if there is one)
   - Illustrations.
 - [ ] Use ~HTML → HTML Markup~ to make improvements. Use regex replacements to make systematic changes.
   - Where you see a problem, make a correction in Guiguts, save the file, and click the "reload" button in the web browser.
 - [ ] Hyperlink page references in text, TOC, and index (discussed [[https://www.pgdp.net/wiki/PPTools/Guiguts/HTML#Hyperlinking_Page_Numbers][here]] and [[https://www.pgdp.net/wiki/Indexes][here]]).
+- [ ] Add ~<nav data-epub-type="toc"> .. </nav>~ around the Table of Contents
 - [ ] Remove the [[https://www.pgdp.net/wiki/PPTools/Guiguts/Guiguts_Manual/HTML_Menu#Generated_TOC][Generated TOC]] if it is not needed.
+- [ ] Add ~<nav data-epub-type="loi"> .. </nav>~ around the List of Illustrations (if there is one).
 - [ ] If ~A.M.~ ~P.M.~ or similar abbreviations were used and have spaces, insert ~&nbsp;~ to avoid undesirable mid-abbreviation line wraps.
 - [ ] If {super,sub}scripts were used, convert to ~<sup>~ or ~<sub>~ (NOTE: does Guiguts do this itself? Seems to for subs.)
 - [ ] Semantic fixup for italics
