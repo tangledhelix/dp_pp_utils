@@ -689,6 +689,11 @@
       "match": "\\b(\\d+|[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])(s\\.)",
       "replacement": ["\\1<abbr title=\"shillings\">\\2</abbr>"],
       "hint": "shilling(s)"
+    },
+    {
+      "match": "\\b(\\d+|[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁄[₁₂₃₄₅₆₇₈₉₀]+|[¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒↉])(l\\.)",
+      "replacement": ["\\1<abbr title=\"pounds\">\\2</abbr>"],
+      "hint": "pound(s) [as in sterling]"
     }
   ]
 }
