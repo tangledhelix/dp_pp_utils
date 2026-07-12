@@ -364,6 +364,11 @@
       "hint": "session"
     },
     {
+      "match": "(\\b([Dd])o\\.)",
+      "replacement": ["<abbr title=\"\\2itto\">\\1</abbr>"],
+      "hint": "Ditto"
+    },
+    {
       "match": "(\\bst(at)?\\.)",
       "replacement": ["<abbr title=\"statute\">\\1</abbr>"],
       "hint": "statute"
