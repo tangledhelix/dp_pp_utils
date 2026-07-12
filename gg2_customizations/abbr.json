@@ -346,14 +346,19 @@
       "hint": "Manuscripts"
     },
     {
-      "match": "\\b((ch|c)\\.)",
+      "match": "\\b((ch|c|cap)\\.)",
       "replacement": ["<abbr title=\"chapter\">\\1</abbr>"],
       "hint": "chapter"
     },
     {
-      "match": "(§)",
+      "match": "(§|\\bsect\\.)",
       "replacement": ["<abbr title=\"section\">\\1</abbr>"],
       "hint": "Section"
+    },
+    {
+      "match": "(\\bsess\\.)",
+      "replacement": ["<abbr title=\"session\">\\1</abbr>"],
+      "hint": "session"
     },
     {
       "match": "\\b(8vo\\.)",
