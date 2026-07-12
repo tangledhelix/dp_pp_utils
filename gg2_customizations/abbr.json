@@ -559,19 +559,19 @@
       "hint": "A. for Answer"
     },
     {
-      "match": "\\b(Wm\\.)",
+      "match": "\\b(W(m|ill)\\.)",
       "replacement": ["<abbr title=\"William\">\\1</abbr>"],
-      "hint": "Wm. for William"
+      "hint": "Wm. or Will. for William"
     },
     {
-      "match": "\\b(Jas\\.)",
+      "match": "\\b(Ja[sc]\\.)",
       "replacement": ["<abbr title=\"James\">\\1</abbr>"],
-      "hint": "Jas. for James"
+      "hint": "Jas. or Jac. for James"
     },
     {
-      "match": "\\b(Chas\\.)",
+      "match": "\\b(C(has|ar)\\.)",
       "replacement": ["<abbr title=\"Charles\">\\1</abbr>"],
-      "hint": "Chas. for Charles"
+      "hint": "Chas. or Car. for Charles"
     },
     {
       "match": "\\b(Geo\\.)",
@@ -579,9 +579,29 @@
       "hint": "Geo. for George"
     },
     {
+      "match": "\\b(Edw\\.)",
+      "replacement": ["<abbr title=\"Edward\">\\1</abbr>"],
+      "hint": "Edw. for Edward"
+    },
+    {
+      "match": "\\b(Rich\\.)",
+      "replacement": ["<abbr title=\"Richard\">\\1</abbr>"],
+      "hint": "Rich. for Richard"
+    },
+    {
+      "match": "\\b(Hen\\.)",
+      "replacement": ["<abbr title=\"Henry\">\\1</abbr>"],
+      "hint": "Hen. for Henry"
+    },
+    {
       "match": "\\b(Eliz\\.)",
       "replacement": ["<abbr title=\"Elizabeth\">\\1</abbr>"],
       "hint": "Eliz. for Elizabeth"
+    },
+    {
+      "match": "\\b(Vict\\.)",
+      "replacement": ["<abbr title=\"Victoria\">\\1</abbr>"],
+      "hint": "Vict. for Victoria"
     },
     {
       "match": "\\b(Jno\\.)",
