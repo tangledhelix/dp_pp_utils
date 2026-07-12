@@ -40,7 +40,7 @@
       "hint": "Numeric counting"
     },
     {
-      "match": "\\b((etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g)\\.)",
+      "match": "\\b((etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g|id)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
     },
