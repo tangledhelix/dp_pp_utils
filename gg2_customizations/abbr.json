@@ -83,9 +83,12 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "(?<=[\\s>-])([IVXLCDM]+|[ivxlcdm]+)(?![A-Za-z])(\\.)?(?=[,\\s<-])",
-      "replacement": ["<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>"],
-      "hint": "Roman numerals"
+      "match": "(?<=[\\s>-])(?!(?:x-ebookmaker|ill|civil|did|mild))([IVXLCDM]+|[ivxlcdm]+)(?![A-Za-z])(\\.)?(?=[,\\s<-])",
+      "replacement": [
+        "<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>",
+        "<abbr title=\"\\M\\1\\E\">\\1\\2</abbr>"
+      ],
+      "hint": "Roman numerals (use \\M replace for regnal numbers)"
     },
     {
       "match": "\\b(([pP])\\.)",
