@@ -83,7 +83,7 @@
       "hint": "Archaic etc."
     },
     {
-      "match": "(?<=[\\s>“‘'\"-])(?!(?:x-ebookmaker|ill|civil|did|mild))([IVXLCDM]+|[ivxlcdm]+)(?![A-Za-z])(\\.)?(?=[,\\s<-])",
+      "match": "(?<=[\\s>“‘'\"-])(?!(?:x-ebookmaker|ill|civil|did|mild))([IVXLCDM]+|[ivxlcdm]+)(?![A-Za-z])(\\.)?(?=[,\\s<;-])",
       "replacement": [
         "<abbr title=\"\\N\\1\\E\">\\1\\2</abbr>",
         "<abbr title=\"\\M\\1\\E\">\\1\\2</abbr>"
