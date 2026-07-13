@@ -614,6 +614,16 @@
       "hint": "Hen. for Henry"
     },
     {
+      "match": "\\b(Phil\\.)",
+      "replacement": ["<abbr title=\"Philip\">\\1</abbr>"],
+      "hint": "Phil. for Philip"
+    },
+    {
+      "match": "\\b(Mar\\.)",
+      "replacement": ["<abbr title=\"Mary\">\\1</abbr>"],
+      "hint": "Mar. for Mary"
+    },
+    {
       "match": "\\b(Eliz\\.)",
       "replacement": ["<abbr title=\"Elizabeth\">\\1</abbr>"],
       "hint": "Eliz. for Elizabeth"
