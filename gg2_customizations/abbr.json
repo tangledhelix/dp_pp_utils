@@ -101,6 +101,11 @@
       "hint": "Pages"
     },
     {
+      "match": "\\b(fol?\\.)",
+      "replacement": ["<abbr title=\"folio\">\\1</abbr>"],
+      "hint": "folio"
+    },
+    {
       "match": "\\b((([vV])(ol)?)\\.)",
       "replacement": ["<abbr title=\"\\3olume\">\\1</abbr>"],
       "hint": "Volume"
@@ -357,6 +362,16 @@
       "match": "(§|\\bsect?\\.)",
       "replacement": ["<abbr title=\"section\">\\1</abbr>"],
       "hint": "Section"
+    },
+    {
+      "match": "(\\bpt\\.)",
+      "replacement": ["<abbr title=\"part\">\\1</abbr>"],
+      "hint": "Part"
+    },
+    {
+      "match": "(\\bApp\\.)",
+      "replacement": ["<abbr title=\"Appendix\">\\1</abbr>"],
+      "hint": "Appendix"
     },
     {
       "match": "(\\bsess\\.)",
