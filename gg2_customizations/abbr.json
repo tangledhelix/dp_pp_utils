@@ -1,4 +1,4 @@
-{
+
   "regexes": [
     {
       "match": "\\b((Mr|Mrs|Dr)\\.)",
@@ -359,13 +359,6 @@
       "match": "\\b(sqq?\\.)",
       "replacement": ["<abbr title=\"and following\">\\1</abbr>"],
       "hint": "sq., sqq."
-    },
-    {
-      "match": "\\b((et\\s+)(seq\\.))",
-      "replacement": [
-        "<span lang=\"la\">\\2<abbr>\\3</abbr></span>"
-      ],
-      "hint": "et seq."
     },
     {
       "match": "\\b(Co\\.)",
