@@ -1,4 +1,4 @@
-#+title: Guiguts PP Process Checklist
+#+TITLE: Guiguts PP Process Checklist
 
 (Updated for [[https://github.com/DistributedProofreaders/guiguts-py][Guiguts 2]])
 
@@ -12,20 +12,20 @@
 ** Smooth reader notes
 ** Forum notes
 ** Project comments
-#+begin_src markdown
+#+BEGIN_SRC markdown
 {{project_comments}}
-#+end_src
+#+END_SRC
 * Checklist
 ** Process the Pages
 Our first set of activities will combine all proofed and formatted pages, fixing any errors and inconsistencies.
 *** Initial Setup
 - Choose a short, simple project name, e.g. ~pascal~ for /The Provincial Letters of Blaise Pascal/
 - Run the [[https://github.com/tangledhelix/dp_pp_utils][setup script]] to fetch the project resources and create the [[https://github.com/tangledhelix?tab=repositories&q=DP_&type=&language=&sort=][Github]] project
-#+begin_src shell
+#+BEGIN_SRC shell
 cd ~/dp/util
 . venv/bin/activate
 ./make_project.py
-#+end_src
+#+END_SRC
 - [ ] Read the [[https://www.pgdp.net/c/project.php?id=projectID{{project_id}}#project-comments][project comments]]
 - [ ] Subscribe to the [[{{forum_link}}][forum topic]] and read all posts
 - [ ] Open ~{{project_name}}-utf8.txt~ in Guiguts
@@ -123,11 +123,11 @@ Instructions for ~/* */~ and ~/# #/~ blocks:
 - [ ] Click ~Diacritics/æ/œ~. Scan list looking for mistakes, inconsistent usages.
 - [ ] Click ~Ital/Bold/SC~. Scan list for incorrect or inconsistent use of italics, bold face, and small caps.
 - [ ] Click ~Ligatures~. Scan list for [[https://www.pgdp.net/wiki/Æ_and_œ_ligatures][incorrect or inconsistent use]] of ~ae~ and ~oe~ ligatures.
-#+begin_src text
+#+BEGIN_SRC text
 æ Æ    <Opt> '    /ai/ to rhyme with “eye”.
 œ Œ    <Opt> q    /ɔɪ/ to rhyme with “oi” in “foil”
 <shift> for capital letter
-#+end_src
+#+END_SRC
 *** Apply Scanno Checks
 - [ ] Use ~Tools → Stealth Scannos~
   - [ ] Search based on ~en-common.json~. Work through the list.
@@ -205,7 +205,7 @@ We now proceed to create a Plain Text Version of the book.
 *** Add TN
 - [ ] Add transcriber's notes, example follows. Use 4+2 blank lines as in new chapter.
 - [ ] Rewrap this section of text when finished.
-#+begin_src text
+#+BEGIN_SRC text
 Transcriber’s Note
 
 
@@ -213,7 +213,7 @@ Some inconsistencies in spelling, hyphenation, and punctuation have been
 retained.
 
 This file uses _underscores_ to indicate italic text.
-#+end_src
+#+END_SRC
 
 If bold is used, add also ~and =equals= to indicate bold text~
 
@@ -221,9 +221,9 @@ If there were small-caps, ~Small capitals changed to all capitals.~
 
 An example entry might look like this. Use the book's page numbers, not PNG number.
 
-#+begin_src text
+#+BEGIN_SRC text
 p. 123: changed “foo” to “fool” (the fool and his money)
-#+end_src
+#+END_SRC
 *** Final review
 - [ ] Skim over text file to find any obvious issues
 *** Validation
@@ -278,11 +278,11 @@ References: ([[https://www.pgdp.net/phpBB3/viewtopic.php?p=1347865#p1347865][p13
 *** Table notes
 **** Wide tables and scrolling
 Surround your table in a div using ~overflow-x~ and it will become scrollable in the browser. (YMMV in e-readers.)
-#+begin_src html
+#+BEGIN_SRC html
 <div style="overflow-x:auto;">
 <table>...</table>
 </div>
-#+end_src
+#+END_SRC
 I used this technique in ~catholichistory~.
 **** Large brackets or braces grouping table cells
 Tables using wide-span braces or brackets are a pain. An image adjusted for size in CSS probably works the best. See ~eugenics~ for examples. That project used both horizontal and vertical curly braces in tables, using images:
@@ -293,7 +293,7 @@ Tables using wide-span braces or brackets are a pain. An image adjusted for size
 
 The CSS will need tweaking for each specific project's needs.
 
-#+begin_src css
+#+BEGIN_SRC css
 /* left/right braces */
 .lr-brace { height: 2.25em; max-height: 2.25em; }
 /* top/bottom braces */
@@ -304,23 +304,23 @@ The CSS will need tweaking for each specific project's needs.
 .c015 { vertical-align: middle; text-align: center; padding-left: .5em;
         padding-right: .5em; }
 
-#+end_src
+#+END_SRC
 
-#+begin_src html
+#+BEGIN_SRC html
 <!-- left brace spanning 2 rows -->
 <td class="c014" rowspan="2"> <img class="lr-brace" alt="left curly bracket" src="images/left-brace.png"></td>
 
 <!-- top brace spanning 2 columns -->
 <td class="c015" colspan="2"><img class="tb-brace" alt="top curly bracket" src="images/top-brace.png"></td>
-#+end_src
+#+END_SRC
 *** Process sidenotes
 - [ ] Does Guiguts auto-process these somehow from ~[Sidenote: ]~ markup?
 - [ ] Decide how to handle these; see the [[https://www.pgdp.net/wiki/Sidenotes][wiki page]].
 *** Drop caps
 Drop-cap CSS is in my custom header; markup looks like:
-#+begin_src html
+#+BEGIN_SRC html
 <p class="drop-cap"><span class="smcap uppercase">The</span>
-#+end_src
+#+END_SRC
 - [ ] Handle any drop-caps ([[https://www.pgdp.net/wiki/DP_Official_Documentation:PP_and_PPV/Easy_Epub/Dropcaps][wiki]])
 *** Process Hi-resolution Images
 If the project manager provided high-resolution scans of the images in the text, use an image processing program such as GIMP or Adobe Photoshop Elements to optimize them—see [[https://www.pgdp.net/wiki/Guide_to_Image_Processing][Guide to Image Processing]]. You can do this before, during, or after HTML conversion.
@@ -328,7 +328,7 @@ If the project manager provided high-resolution scans of the images in the text,
 Unless purely decorative, add an ~alt~ tag for each image unless it has a caption. For decoration, use ~alt="" data-role="presentation"~ (empty string to satisfy the validator).
 
 Taken from a [[https://www.pgdp.net/phpBB3/viewtopic.php?p=1354798&sid=db2ca383a2ce4e9d70bc598253bb0936#p1354798][forum post]]:
-#+begin_quote
+#+BEGIN_QUOTE
 DO
 - use an empty string for purely decorative images.
 - when an image is meant to convey an action, try to use a single word: download" or "email".
@@ -344,7 +344,7 @@ DON'T
 - describe details that are irrelevant to the narrative.
 - describe logos. Just identify them.
 - make up shit.
-#+end_quote
+#+END_QUOTE
 
 Image [[https://www.pgdp.net/phpBB3/viewtopic.php?f=3&t=70286][sizes]]:
 - Inline: up to 256K, 5000x5000 pixels
@@ -371,7 +371,7 @@ For each image:
 - [ ] Check revisit list for anything left for the HTML version
 *** Add TN
 - [ ] Add transcriber's notes, example follows.
-#+begin_src html
+#+BEGIN_SRC html
 <div class="transnote">
 <h2 class="nobreak">Transcriber’s Note</h2>
 
@@ -380,20 +380,20 @@ Some inconsistencies in spelling, hyphenation, and punctuation have been
 retained.
 </p>
 </div>
-#+end_src
+#+END_SRC
 
 An example entry might look like this. Use the book's page numbers, not PNG number.
 
 *NOTE:* Use ~<span id=~, not ~<a id=~, for the target of the below links.
 
-#+begin_src html
+#+BEGIN_SRC html
 <ul>
 <li>
 <abbr title="page">p.</abbr> 123: changed “foo” to “fool”
 (<a href="#TN1">the fool and his money</a>)
 </li>
 </ul>
-#+end_src
+#+END_SRC
 
 - [ ] Make sure the TN has no straight-quotes ~'"~ and instead uses curly quotes ~“”‘’~
 *** Validate HTML and CSS
