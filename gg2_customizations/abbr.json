@@ -566,11 +566,6 @@
       "hint": "Jno. for John"
     },
     {
-      "match": "(×)",
-      "replacement": ["<abbr title=\"times\">\\1</abbr>"],
-      "hint": "× as abbr for 'times'"
-    },
-    {
       "match": "(acc['’]t)",
       "replacement": ["<abbr title=\"account\">\\1</abbr>"],
       "hint": "account"
