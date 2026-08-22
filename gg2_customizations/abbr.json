@@ -351,31 +351,6 @@
       "hint": "statute"
     },
     {
-      "match": "\\b(8vo\\.)",
-      "replacement": ["<abbr title=\"octavo\">\\1</abbr>"],
-      "hint": "Page sizes"
-    },
-    {
-      "match": "\\b(4to\\.)",
-      "replacement": ["<abbr title=\"quarto\">\\1</abbr>"],
-      "hint": "Page sizes"
-    },
-    {
-      "match": "\\b(6mo\\.)",
-      "replacement": ["<abbr title=\"sexto\">\\1</abbr>"],
-      "hint": "Page sizes"
-    },
-    {
-      "match": "\\b(12mo\\.)",
-      "replacement": ["<abbr title=\"duodecimo\">\\1</abbr>"],
-      "hint": "Page sizes"
-    },
-    {
-      "match": "\\b(16mo\\.)",
-      "replacement": ["<abbr title=\"sextodecimo\">\\1</abbr>"],
-      "hint": "Page sizes"
-    },
-    {
       "match": "\\b((\\d*\\s*)(ff\\.))",
       "replacement": ["\\2<abbr title=\"and following\">\\3</abbr>"],
       "hint": "ff.: following"
