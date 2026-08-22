@@ -35,11 +35,6 @@
       "hint": "'Hon.' titles"
     },
     {
-      "match": "\\b((\\d*(1st|2nd|3rd)|\\d+th)\\.?)",
-      "replacement": ["<abbr>\\1</abbr>"],
-      "hint": "Numeric counting"
-    },
-    {
       "match": "\\b((etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g|id)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
       "hint": "Common Latin not needing 'title' attribute"
