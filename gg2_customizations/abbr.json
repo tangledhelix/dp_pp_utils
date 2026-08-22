@@ -53,16 +53,6 @@
       "hint": "Saint or Street?"
     },
     {
-      "match": "\\b(\\d*2d)\\b",
-      "replacement": ["<abbr title=\"second\">\\1</abbr>"],
-      "hint": "Archaic second"
-    },
-    {
-      "match": "\\b(\\d*3d)\\b",
-      "replacement": ["<abbr title=\"third\">\\1</abbr>"],
-      "hint": "Archaic third"
-    },
-    {
       "match": "(&(amp;)?[cC]\\.)",
       "replacement": ["<abbr title=\"etc.\">\\1</abbr>"],
       "hint": "Archaic etc."
