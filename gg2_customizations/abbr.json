@@ -53,11 +53,6 @@
       "hint": "Saint or Street?"
     },
     {
-      "match": "(&(amp;)?[cC]\\.)",
-      "replacement": ["<abbr title=\"etc.\">\\1</abbr>"],
-      "hint": "Archaic etc."
-    },
-    {
       "match": "\\b(([pP])\\.)",
       "replacement": ["<abbr title=\"\\2age\">\\1</abbr>"],
       "hint": "Page"
