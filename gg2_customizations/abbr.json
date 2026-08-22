@@ -506,16 +506,6 @@
       "hint": "Fahrenheit"
     },
     {
-      "match": "\\b(Q\\.)",
-      "replacement": ["<abbr title=\"Question\">\\1</abbr>"],
-      "hint": "Q. for Question"
-    },
-    {
-      "match": "\\b(A\\.)",
-      "replacement": ["<abbr title=\"Answer\">\\1</abbr>"],
-      "hint": "A. for Answer"
-    },
-    {
       "match": "\\b(W(m|ill)\\.)",
       "replacement": ["<abbr title=\"William\">\\1</abbr>"],
       "hint": "Wm. or Will. for William"
