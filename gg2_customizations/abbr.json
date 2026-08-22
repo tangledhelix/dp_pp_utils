@@ -1,33 +1,55 @@
-
+{
   "regexes": [
     {
-      "match": "\\b((Mr|Mrs|Dr|[vV]s?)\\.)",
-      "replacement": ["<abbr>\\1</abbr>"],
+      "match": "\\b((Mr|Mrs|Dr|[vV]s?|etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g|id|sqq?)\\.)",
+      "replacement": [
+        "<abbr>\\1</abbr>"
+      ],
       "hint": "Common abbreviations, 'title' attribute not needed"
     },
     {
+      "match": "\\b((\\d*\\s*)(ff\\.))",
+      "replacement": [
+        "\\2<abbr>\\3</abbr>"
+      ],
+      "hint": "ff.: following"
+    },
+    {
       "match": "\\b(M\\.)",
-      "replacement": ["<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Monsieur\" lang=\"fr\">\\1</abbr>"
+      ],
       "hint": "Monsieur"
     },
     {
       "match": "\\b(Rev\\.)",
-      "replacement": ["<abbr title=\"Reverend\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Reverend\">\\1</abbr>"
+      ],
       "hint": "Reverend"
     },
     {
       "match": "\\b(Esq\\.)",
-      "replacement": ["<abbr title=\"Esquire\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Esquire\">\\1</abbr>"
+      ],
       "hint": "Esquire"
     },
     {
       "match": "\\b(Gov\\.)",
-      "replacement": ["<abbr title=\"Governor\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Governor\">\\1</abbr>"
+      ],
       "hint": "Governor"
     },
     {
       "match": "\\b(Hon\\.)",
       "replacement": [
+        "<abbr>\\1</abbr>",
         "<abbr title=\"Honorable\">\\1</abbr>",
         "<abbr title=\"Honourable\">\\1</abbr>",
         "<abbr title=\"Honorary\">\\1</abbr>"
@@ -35,18 +57,17 @@
       "hint": "'Hon.' titles"
     },
     {
-      "match": "\\b((etc|[iI]b(id)?|et al|[cC][fp]|viz|i\\.\\s*e|e\\.\\s*g|id)\\.)",
-      "replacement": ["<abbr>\\1</abbr>"],
-      "hint": "Common Latin not needing 'title' attribute"
-    },
-    {
       "match": "\\b(([Ff])ig\\.)(\\s+)(\\d+)",
-      "replacement": ["<abbr title=\"\\2igure\">\\1</abbr>\\2\\3"],
+      "replacement": [
+        "<abbr>\\1</abbr>\\3\\4",
+        "<abbr title=\"\\2igure\">\\1</abbr>\\3\\4"
+      ],
       "hint": "Labeled figures with numeric series"
     },
     {
       "match": "\\b(St\\.)",
       "replacement": [
+        "<abbr>\\1</abbr>",
         "<abbr title=\"Saint\">\\1</abbr>",
         "<abbr title=\"Street\">\\1</abbr>"
       ],
@@ -54,37 +75,56 @@
     },
     {
       "match": "\\b(([pP])\\.)",
-      "replacement": ["<abbr title=\"\\2age\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2age\">\\1</abbr>"
+      ],
       "hint": "Page"
     },
     {
       "match": "\\b(([pP])p\\.)",
-      "replacement": ["<abbr title=\"\\2ages\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2ages\">\\1</abbr>"
+      ],
       "hint": "Pages"
     },
     {
       "match": "\\b(fol?\\.)",
-      "replacement": ["<abbr title=\"folio\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"folio\">\\1</abbr>"
+      ],
       "hint": "folio"
     },
     {
       "match": "\\b((([vV])(ol)?)\\.)",
-      "replacement": ["<abbr title=\"\\3olume\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\3olume\">\\1</abbr>"
+      ],
       "hint": "Volume"
     },
     {
       "match": "\\b(([vV])ols\\.)",
-      "replacement": ["<abbr title=\"\\2olumes\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2olumes\">\\1</abbr>"
+      ],
       "hint": "Volumes"
     },
     {
       "match": "\\b(n\\.)",
-      "replacement": ["<abbr title=\"note\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"note\">\\1</abbr>"
+      ],
       "hint": "note reference"
     },
     {
       "match": "\\b(([eE])(d|dit)\\.)",
       "replacement": [
+        "<abbr>\\1</abbr>",
         "<abbr title=\"\\2dition\">\\1</abbr>",
         "<abbr title=\"\\2dited by\">\\1</abbr>",
         "<abbr title=\"\\2ditor\">\\1</abbr>"
@@ -94,6 +134,7 @@
     {
       "match": "\\b(([tT])(ransl?|r)\\.)",
       "replacement": [
+        "<abbr>\\1</abbr>",
         "<abbr title=\"\\2ranslated by\">\\1</abbr>",
         "<abbr title=\"\\2ranslation\">\\1</abbr>",
         "<abbr title=\"\\2ranslator\">\\1</abbr>"
@@ -102,382 +143,496 @@
     },
     {
       "match": "\\b(Card\\.)",
-      "replacement": ["<abbr title=\"Cardinal\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Cardinal\">\\1</abbr>"
+      ],
       "hint": "Cardinal"
     },
     {
       "match": "\\b(Fr\\.)",
-      "replacement": ["<abbr title=\"Father\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Father\">\\1</abbr>"
+      ],
       "hint": "Father"
     },
     {
       "match": "\\b(Bp\\.)",
-      "replacement": ["<abbr title=\"Bishop\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Bishop\">\\1</abbr>"
+      ],
       "hint": "Bishop"
     },
     {
       "match": "\\b(Mgr\\.)",
-      "replacement": ["<abbr title=\"Monseigneur\" lang=\"fr\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Monseigneur\" lang=\"fr\">\\1</abbr>"
+      ],
       "hint": "Monseigneur"
     },
     {
       "match": "\\b(Mgrs\\.)",
-      "replacement": ["<abbr title=\"Messeigneurs\" lang=\"fr\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Messeigneurs\" lang=\"fr\">\\1</abbr>"
+      ],
       "hint": "Messeigneurs"
     },
     {
       "match": "\\b(Gen\\.)",
-      "replacement": ["<abbr title=\"Genesis\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Genesis\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Ex\\.)",
-      "replacement": ["<abbr title=\"Exodus\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Exodus\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Lev\\.)",
-      "replacement": ["<abbr title=\"Leviticus\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Leviticus\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Num\\.)",
-      "replacement": ["<abbr title=\"Numbers\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Numbers\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Deut\\.)",
-      "replacement": ["<abbr title=\"Deuteronomy\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Deuteronomy\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(1\\s+Sam\\.)",
-      "replacement": ["<abbr title=\"First Samuel\">\\1</abbr>"],
+      "match": "\\b([12]\\s+)(Sam\\.)",
+      "replacement": [
+        "\\1<abbr>\\2</abbr>",
+        "\\1<abbr title=\"Samuel\">\\2</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(2\\s+Sam\\.)",
-      "replacement": ["<abbr title=\"Second Samuel\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(1\\s+Kings\\.)",
-      "replacement": ["<abbr title=\"First Kings\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+Kings\\.)",
-      "replacement": ["<abbr title=\"Second Kings\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(1\\s+Chron\\.)",
-      "replacement": ["<abbr title=\"First Chronicles\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+Chron\\.)",
-      "replacement": ["<abbr title=\"Second Chronicles\">\\1</abbr>"],
+      "match": "\\b([12]\\s+)(Chron\\.)",
+      "replacement": [
+        "\\1<abbr>\\2</abbr>",
+        "\\1<abbr title=\"Chronicles\">\\2</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Ps\\.)",
-      "replacement": ["<abbr title=\"Psalms\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Psalms\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Prov\\.)",
-      "replacement": ["<abbr title=\"Proverbs\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Proverbs\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Eccles\\.)",
-      "replacement": ["<abbr title=\"Ecclesiastes\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Ecclesiastes\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Isa\\.)",
-      "replacement": ["<abbr title=\"Isaiah\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Isaiah\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Jer\\.)",
-      "replacement": ["<abbr title=\"Jeremiah\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Jeremiah\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Zech\\.)",
-      "replacement": ["<abbr title=\"Zechariah\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Zechariah\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Matt\\.)",
-      "replacement": ["<abbr title=\"Matthew\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Matthew\">\\1</abbr>"
+      ],
       "hint": "Bible citation (or name)"
     },
     {
       "match": "\\b(Rom\\.)",
-      "replacement": ["<abbr title=\"Romans\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Romans\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(1\\s+Cor\\.)",
-      "replacement": ["<abbr title=\"First Corinthians\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+Cor\\.)",
-      "replacement": ["<abbr title=\"Second Corinthians\">\\1</abbr>"],
+      "match": "\\b([12]\\s+)(Cor\\.)",
+      "replacement": [
+        "\\1<abbr>\\2</abbr>",
+        "\\1<abbr title=\"Corinthians\">\\2</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Eph\\.)",
-      "replacement": ["<abbr title=\"Ephesians\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Ephesians\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Col\\.)",
-      "replacement": ["<abbr title=\"Colossians\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Colossians\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(1\\s+Thess\\.)",
-      "replacement": ["<abbr title=\"First Thessalonians\">\\1</abbr>"],
+      "match": "\\b([12]\\s+)(Thess\\.)",
+      "replacement": [
+        "\\1<abbr>\\2</abbr>",
+        "\\1<abbr title=\"Thessalonians\">\\2</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
-      "match": "\\b(2\\s+Thess\\.)",
-      "replacement": ["<abbr title=\"Second Thessalonians\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(1\\s+Tim\\.)",
-      "replacement": ["<abbr title=\"First Timothy\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+Tim\\.)",
-      "replacement": ["<abbr title=\"Second Timothy\">\\1</abbr>"],
+      "match": "\\b([12]\\s+)(Tim\\.)",
+      "replacement": [
+        "\\1<abbr>\\2</abbr>",
+        "\\1<abbr title=\"Timothy\">\\2</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Heb\\.)",
-      "replacement": ["<abbr title=\"Hebrews\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(1\\s+Peter\\.)",
-      "replacement": ["<abbr title=\"First Peter\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+Peter\\.)",
-      "replacement": ["<abbr title=\"Second Peter\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(1\\s+John\\.)",
-      "replacement": ["<abbr title=\"First John\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(2\\s+John\\.)",
-      "replacement": ["<abbr title=\"Second John\">\\1</abbr>"],
-      "hint": "Bible citation"
-    },
-    {
-      "match": "\\b(3\\s+John\\.)",
-      "replacement": ["<abbr title=\"Third John\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Hebrews\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Apoc\\.)",
-      "replacement": ["<abbr title=\"Apocalypse\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Apocalypse\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(Rev\\.)",
-      "replacement": ["<abbr title=\"Revelation\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Revelation\">\\1</abbr>"
+      ],
       "hint": "Bible citation"
     },
     {
       "match": "\\b(([Mm])[Ss]\\.)",
-      "replacement": ["<abbr title=\"\\2anuscript\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2anuscript\">\\1</abbr>"
+      ],
       "hint": "Manuscript"
     },
     {
       "match": "\\b(([Mm])[Ss][Ss]\\.)",
-      "replacement": ["<abbr title=\"\\2anuscripts\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2anuscripts\">\\1</abbr>"
+      ],
       "hint": "Manuscripts"
     },
     {
       "match": "\\b((ch|c|cap)\\.)",
-      "replacement": ["<abbr title=\"chapter\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"chapter\">\\1</abbr>"
+      ],
       "hint": "chapter"
     },
     {
       "match": "\\bsect?\\.",
-      "replacement": ["<abbr title=\"section\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"section\">\\1</abbr>"
+      ],
       "hint": "Section"
     },
     {
       "match": "(\\bpt\\.)",
-      "replacement": ["<abbr title=\"part\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"part\">\\1</abbr>"
+      ],
       "hint": "Part"
     },
     {
       "match": "(\\bApp\\.)",
-      "replacement": ["<abbr title=\"Appendix\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Appendix\">\\1</abbr>"
+      ],
       "hint": "Appendix"
     },
     {
       "match": "(\\bsess\\.)",
-      "replacement": ["<abbr title=\"session\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"session\">\\1</abbr>"
+      ],
       "hint": "session"
     },
     {
       "match": "(\\b([Dd])o\\.)",
-      "replacement": ["<abbr title=\"\\2itto\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2itto\">\\1</abbr>"
+      ],
       "hint": "Ditto"
     },
     {
       "match": "(\\bst(at)?\\.)",
-      "replacement": ["<abbr title=\"statute\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"statute\">\\1</abbr>"
+      ],
       "hint": "statute"
     },
     {
-      "match": "\\b((\\d*\\s*)(ff\\.))",
-      "replacement": ["\\2<abbr title=\"and following\">\\3</abbr>"],
-      "hint": "ff.: following"
-    },
-    {
-      "match": "\\b(sqq?\\.)",
-      "replacement": ["<abbr title=\"and following\">\\1</abbr>"],
-      "hint": "sq., sqq."
-    },
-    {
       "match": "\\b(Co\\.)",
-      "replacement": ["<abbr title=\"Company\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Company\">\\1</abbr>"
+      ],
       "hint": "Company"
     },
     {
       "match": "\\b(Jan\\.)",
-      "replacement": ["<abbr title=\"January\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"January\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Feb\\.)",
-      "replacement": ["<abbr title=\"February\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"February\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Mar\\.)",
-      "replacement": ["<abbr title=\"March\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"March\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Apr\\.)",
-      "replacement": ["<abbr title=\"April\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"April\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Jun\\.)",
-      "replacement": ["<abbr title=\"June\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"June\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Jul\\.)",
-      "replacement": ["<abbr title=\"July\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"July\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Aug\\.)",
-      "replacement": ["<abbr title=\"August\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"August\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Sep\\.)",
-      "replacement": ["<abbr title=\"September\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"September\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Oct\\.)",
-      "replacement": ["<abbr title=\"October\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"October\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Nov\\.)",
-      "replacement": ["<abbr title=\"November\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"November\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Dec\\.)",
-      "replacement": ["<abbr title=\"December\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"December\">\\1</abbr>"
+      ],
       "hint": "Months"
     },
     {
       "match": "\\b(Inc\\.)",
-      "replacement": ["<abbr title=\"Incorporated\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Incorporated\">\\1</abbr>"
+      ],
       "hint": "Incorporated"
     },
     {
       "match": "\\b(Ass['’]?n\\.)",
-      "replacement": ["<abbr title=\"Association\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Association\">\\1</abbr>"
+      ],
       "hint": "Association"
     },
     {
       "match": "\\b(Ltd\\.)",
-      "replacement": ["<abbr title=\"Limited\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Limited\">\\1</abbr>"
+      ],
       "hint": "Limited"
     },
     {
       "match": "\\b(N\\.\\s*J\\.)",
-      "replacement": ["<abbr title=\"New Jersey\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"New Jersey\">\\1</abbr>"
+      ],
       "hint": "New Jersey"
     },
     {
       "match": "\\b(N\\.\\s*Y\\.)",
-      "replacement": ["<abbr title=\"New York\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"New York\">\\1</abbr>"
+      ],
       "hint": "New York"
     },
     {
       "match": "\\b((Penna?|Pa)\\.)",
-      "replacement": ["<abbr title=\"Pennsylvania\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Pennsylvania\">\\1</abbr>"
+      ],
       "hint": "Pennsylvania"
     },
     {
       "match": "\\b(Ma(ss)?\\.)",
-      "replacement": ["<abbr title=\"Massachusetts\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Massachusetts\">\\1</abbr>"
+      ],
       "hint": "Massachusetts"
     },
     {
       "match": "\\b(Conn\\.)",
-      "replacement": ["<abbr title=\"Connecticut\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Connecticut\">\\1</abbr>"
+      ],
       "hint": "Connecticut"
     },
     {
       "match": "\\b(Md\\.)",
-      "replacement": ["<abbr title=\"Maryland\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Maryland\">\\1</abbr>"
+      ],
       "hint": "Maryland"
     },
     {
       "match": "\\b(Dela\\.)",
-      "replacement": ["<abbr title=\"Delaware\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Delaware\">\\1</abbr>"
+      ],
       "hint": "Delaware"
     },
     {
       "match": "\\b(Mich\\.)",
-      "replacement": ["<abbr title=\"Michigan\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Michigan\">\\1</abbr>"
+      ],
       "hint": "Michigan"
     },
     {
       "match": "\\b(La\\.)",
-      "replacement": ["<abbr title=\"Louisiana\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Louisiana\">\\1</abbr>"
+      ],
       "hint": "Louisiana"
     },
     {
       "match": "\\b(deg\\.)",
       "replacement": [
+        "<abbr>\\1</abbr>",
         "<abbr title=\"degrees\">\\1</abbr>",
         "<abbr title=\"degree\">\\1</abbr>"
       ],
@@ -485,147 +640,234 @@
     },
     {
       "match": "\\b(([Ff])ahr\\.)",
-      "replacement": ["<abbr title=\"\\2ahrenheit\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2ahrenheit\">\\1</abbr>"
+      ],
       "hint": "Fahrenheit"
     },
     {
       "match": "\\b(W(m|ill)\\.)",
-      "replacement": ["<abbr title=\"William\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"William\">\\1</abbr>"
+      ],
       "hint": "Wm. or Will. for William"
     },
     {
       "match": "\\b(Ja[sc]\\.)",
-      "replacement": ["<abbr title=\"James\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"James\">\\1</abbr>"
+      ],
       "hint": "Jas. or Jac. for James"
     },
     {
       "match": "\\b(C(has|ar)\\.)",
-      "replacement": ["<abbr title=\"Charles\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Charles\">\\1</abbr>"
+      ],
       "hint": "Chas. or Car. for Charles"
     },
     {
       "match": "\\b(Geo\\.)",
-      "replacement": ["<abbr title=\"George\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"George\">\\1</abbr>"
+      ],
       "hint": "Geo. for George"
     },
     {
       "match": "\\b(Edw\\.)",
-      "replacement": ["<abbr title=\"Edward\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Edward\">\\1</abbr>"
+      ],
       "hint": "Edw. for Edward"
     },
     {
       "match": "\\b(Rich\\.)",
-      "replacement": ["<abbr title=\"Richard\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Richard\">\\1</abbr>"
+      ],
       "hint": "Rich. for Richard"
     },
     {
       "match": "\\b(Hen\\.)",
-      "replacement": ["<abbr title=\"Henry\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Henry\">\\1</abbr>"
+      ],
       "hint": "Hen. for Henry"
     },
     {
       "match": "\\b(Phil\\.)",
-      "replacement": ["<abbr title=\"Philip\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Philip\">\\1</abbr>"
+      ],
       "hint": "Phil. for Philip"
     },
     {
       "match": "\\b(Mar\\.)",
-      "replacement": ["<abbr title=\"Mary\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Mary\">\\1</abbr>"
+      ],
       "hint": "Mar. for Mary"
     },
     {
       "match": "\\b(Eliz\\.)",
-      "replacement": ["<abbr title=\"Elizabeth\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Elizabeth\">\\1</abbr>"
+      ],
       "hint": "Eliz. for Elizabeth"
     },
     {
       "match": "\\b(Vict\\.)",
-      "replacement": ["<abbr title=\"Victoria\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Victoria\">\\1</abbr>"
+      ],
       "hint": "Vict. for Victoria"
     },
     {
       "match": "\\b(Jno\\.)",
-      "replacement": ["<abbr title=\"John\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"John\">\\1</abbr>"
+      ],
       "hint": "Jno. for John"
     },
     {
       "match": "(acc['’]t)",
-      "replacement": ["<abbr title=\"account\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"account\">\\1</abbr>"
+      ],
       "hint": "account"
     },
     {
       "match": "\\b(([Aa])ss['’]?n\\.?)",
-      "replacement": ["<abbr title=\"\\2ssociation\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2ssociation\">\\1</abbr>"
+      ],
       "hint": "association"
     },
     {
       "match": "\\b(Capt\\.)",
-      "replacement": ["<abbr title=\"Captain\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Captain\">\\1</abbr>"
+      ],
       "hint": "Captain"
     },
     {
       "match": "\\b(Corp\\.?)(?![a-zA-Z])",
-      "replacement": ["<abbr title=\"Corporation\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Corporation\">\\1</abbr>"
+      ],
       "hint": "Corporation"
     },
     {
       "match": "\\b(Messrs\\.)",
-      "replacement": ["<abbr title=\"Misters\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Misters\">\\1</abbr>"
+      ],
       "hint": "Misters"
     },
     {
       "match": "\\b(([Jj])(r|un)\\.)",
-      "replacement": ["<abbr title=\"\\2unior\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2unior\">\\1</abbr>"
+      ],
       "hint": "Junior"
     },
     {
       "match": "\\b(L(ieu)?t\\.)",
-      "replacement": ["<abbr title=\"Lieutenant\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Lieutenant\">\\1</abbr>"
+      ],
       "hint": "Lieutenant"
     },
     {
       "match": "\\b(Co?mdr\\.)",
-      "replacement": ["<abbr title=\"Commander\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Commander\">\\1</abbr>"
+      ],
       "hint": "Commander"
     },
     {
       "match": "\\b(Col\\.)",
-      "replacement": ["<abbr title=\"Colonel\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Colonel\">\\1</abbr>"
+      ],
       "hint": "Colonel"
     },
     {
       "match": "\\b(Prof\\.)",
-      "replacement": ["<abbr title=\"Professor\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Professor\">\\1</abbr>"
+      ],
       "hint": "Professor"
     },
     {
       "match": "\\b(([Nn])[oOr]\\.)",
-      "replacement": ["<abbr title=\"\\2umber\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2umber\">\\1</abbr>"
+      ],
       "hint": "Number"
     },
     {
       "match": "\\b(([Nn])os\\.)",
-      "replacement": ["<abbr title=\"\\2umbers\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2umbers\">\\1</abbr>"
+      ],
       "hint": "Numbers"
     },
     {
       "match": "\\b(([Rr])ec['’]d)",
-      "replacement": ["<abbr title=\"\\2eceived\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"\\2eceived\">\\1</abbr>"
+      ],
       "hint": "received"
     },
     {
       "match": "\\b(Ave\\.)",
-      "replacement": ["<abbr title=\"Avenue\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Avenue\">\\1</abbr>"
+      ],
       "hint": "Avenue"
     },
     {
       "match": "\\b(Bros\\.)",
-      "replacement": ["<abbr title=\"Brothers\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Brothers\">\\1</abbr>"
+      ],
       "hint": "Brothers"
     },
     {
       "match": "\\b(Dept\\.)",
-      "replacement": ["<abbr title=\"Department\">\\1</abbr>"],
+      "replacement": [
+        "<abbr>\\1</abbr>",
+        "<abbr title=\"Department\">\\1</abbr>"
+      ],
       "hint": "Department"
     }
   ]
