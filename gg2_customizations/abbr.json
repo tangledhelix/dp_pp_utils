@@ -1,9 +1,9 @@
 
   "regexes": [
     {
-      "match": "\\b((Mr|Mrs|Dr)\\.)",
+      "match": "\\b((Mr|Mrs|Dr|[vV]s?)\\.)",
       "replacement": ["<abbr>\\1</abbr>"],
-      "hint": "Common titles not needing 'title' attribute"
+      "hint": "Common abbreviations, 'title' attribute not needed"
     },
     {
       "match": "\\b(M\\.)",
@@ -76,11 +76,6 @@
       "match": "\\b(([vV])ols\\.)",
       "replacement": ["<abbr title=\"\\2olumes\">\\1</abbr>"],
       "hint": "Volumes"
-    },
-    {
-      "match": "\\b(([vV])s?\\.)",
-      "replacement": ["<abbr title=\"\\2ersus\" lang=\"la\">\\1</abbr>"],
-      "hint": "versus"
     },
     {
       "match": "\\b(n\\.)",
