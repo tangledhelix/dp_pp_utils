@@ -321,7 +321,7 @@
       "hint": "chapter"
     },
     {
-      "match": "(§|\\bsect?\\.)",
+      "match": "\\bsect?\\.",
       "replacement": ["<abbr title=\"section\">\\1</abbr>"],
       "hint": "Section"
     },
