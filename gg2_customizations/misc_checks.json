@@ -46,8 +46,8 @@
       "hint": "Look at thought breaks for improper use"
     },
     {
-      "match": "(\\.\\.\\.)",
-      "replacement": ["\\1."],
+      "match": "([^.])(\\.\\.\\.)([^.])",
+      "replacement": ["\\1\\2.\\3"],
       "hint": "Check ellipses for missing 4th period"
     },
     {
