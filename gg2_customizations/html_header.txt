@@ -1,6 +1,8 @@
 
 /* can use sections not divs for chapters & pagebreaks */
 section.chapter { page-break-before: always; }
+/* or put one anywhere */
+.page-break { page-break-before: always; }
 
 /* indent paragraphs, reset justification */
 p { text-indent: 1em; text-align: left; }
